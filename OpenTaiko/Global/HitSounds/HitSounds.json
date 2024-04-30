@@ -1,8 +1,8 @@
 [
 	{
-		"name": "Taiko",
+		"name": "太鼓",
 		"path": "Taiko\\",
-		"format": "OGG",
+		"format": "WAV",
 	},
 	{
 		"name": "Electro",
