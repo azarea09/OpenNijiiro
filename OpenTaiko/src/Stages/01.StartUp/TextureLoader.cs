@@ -528,10 +528,10 @@ namespace TJAPlayer3
             Taiko_Base[0] = TxC(GAME + TAIKO + @$"Base.png");
             Taiko_Base[1] = TxC(GAME + TAIKO + @$"Base_Konga.png");
 
-            Taiko_Don_Left = TxC(GAME + TAIKO + @$"Don.png");
-            Taiko_Don_Right = TxC(GAME + TAIKO + @$"Don.png");
-            Taiko_Ka_Left = TxC(GAME + TAIKO + @$"Ka.png");
-            Taiko_Ka_Right = TxC(GAME + TAIKO + @$"Ka.png");
+            Taiko_Don_Left = TxC(GAME + TAIKO + @$"Don_Left.png");
+            Taiko_Don_Right = TxC(GAME + TAIKO + @$"Don_Right.png");
+            Taiko_Ka_Left = TxC(GAME + TAIKO + @$"Ka_Left.png");
+            Taiko_Ka_Right = TxC(GAME + TAIKO + @$"Ka_Right.png");
 
             Taiko_Konga_Don = TxC(GAME + TAIKO + @$"Don_Konga.png");
             Taiko_Konga_Ka = TxC(GAME + TAIKO + @$"Ka_Konga.png");
@@ -557,6 +557,9 @@ namespace TJAPlayer3
             Taiko_Score[3] = TxC(GAME + TAIKO + @$"Score_3P.png");
             Taiko_Score[4] = TxC(GAME + TAIKO + @$"Score_4P.png");
             Taiko_Score[5] = TxC(GAME + TAIKO + @$"Score_5P.png");
+
+            Taiko_ScoreBack = TxC(GAME + TAIKO + @$"ScoreBack.png");
+
             Taiko_Combo = new CTexture[4];
             Taiko_Combo[0] = TxC(GAME + TAIKO + @$"Combo.png");
             Taiko_Combo[1] = TxC(GAME + TAIKO + @$"Combo_Big.png");
@@ -2767,6 +2770,7 @@ namespace TJAPlayer3
             Taiko_LevelUp,
             Taiko_LevelDown,
             Taiko_Combo_Effect,
+            Taiko_ScoreBack,
             Taiko_Combo_Text;
         public CTexture[] Couse_Symbol, // コースシンボル
             Couse_Symbol_Back,
