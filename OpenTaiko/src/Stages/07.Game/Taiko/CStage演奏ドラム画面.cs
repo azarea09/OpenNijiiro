@@ -2588,7 +2588,7 @@ namespace TJAPlayer3
                     else
                     {
                         //this.tx小節線.t2D描画( CDTXMania.app.Device, x - 3, y, new Rectangle( 0, 0, 3, 130 ) );
-                        TJAPlayer3.Tx.Bar?.t2D描画( x + ((TJAPlayer3.Skin.Game_Notes_Size[0] - TJAPlayer3.Tx.Bar.szTextureSize.Width) / 2), y, new Rectangle( 0, 0, TJAPlayer3.Tx.Bar.szTextureSize.Width, TJAPlayer3.Skin.Game_Notes_Size[1]) );
+                        TJAPlayer3.Tx.Bar?.t2D描画( x + ((TJAPlayer3.Skin.Game_Notes_Size[0] - TJAPlayer3.Tx.Bar.szTextureSize.Width) / 2), y - 2);
                     }
                 }
 			}
