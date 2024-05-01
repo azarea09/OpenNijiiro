@@ -260,10 +260,10 @@ namespace TJAPlayer3
                         TJAPlayer3.Tx.Taiko_Don_Left.Opacity = getMTaikoOpacity(this.stパッド状態[2 + playerShift].n明るさ);
                         TJAPlayer3.Tx.Taiko_Don_Right.Opacity = getMTaikoOpacity(this.stパッド状態[3 + playerShift].n明るさ);
 
-                        TJAPlayer3.Tx.Taiko_Ka_Left.t2D描画(taiko_x, taiko_y, new Rectangle(0, 0, TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Height));
-                        TJAPlayer3.Tx.Taiko_Ka_Right.t2D描画(taiko_x + TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, taiko_y, new Rectangle(TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, 0, TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Height));
-                        TJAPlayer3.Tx.Taiko_Don_Left.t2D描画(taiko_x, taiko_y, new Rectangle(0, 0, TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Height));
-                        TJAPlayer3.Tx.Taiko_Don_Right.t2D描画(taiko_x + TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, taiko_y, new Rectangle(TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, 0, TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Height));
+                        TJAPlayer3.Tx.Taiko_Ka_Left.t2D描画(taiko_x, taiko_y);
+                        TJAPlayer3.Tx.Taiko_Ka_Right.t2D描画(taiko_x, taiko_y);
+                        TJAPlayer3.Tx.Taiko_Don_Left.t2D描画(taiko_x, taiko_y);
+                        TJAPlayer3.Tx.Taiko_Don_Right.t2D描画(taiko_x, taiko_y);
                     }
                 }
                 else if (_gt == EGameType.KONGA)

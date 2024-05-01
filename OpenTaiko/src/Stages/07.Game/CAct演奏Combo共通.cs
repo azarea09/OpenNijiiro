@@ -342,30 +342,66 @@ namespace TJAPlayer3
 
 		private void showComboEffect(int cat, int i, int rightX, int y, int nPlayer)
         {
-			if (TJAPlayer3.Tx.Taiko_Combo_Effect != null)
+			if (TJAPlayer3.Tx.Taiko_Combo_Effect_Center != null)
 			{
 				int a = rightX - TJAPlayer3.Skin.Game_Taiko_Combo_Padding[cat] * i;
 				float b = (TJAPlayer3.Skin.Game_Taiko_Combo_Size_Ex[0] / 4) * TJAPlayer3.Skin.Game_Taiko_Combo_Scale[cat];
 				float c = (TJAPlayer3.Skin.Game_Taiko_Combo_Size_Ex[1] / 4) * TJAPlayer3.Skin.Game_Taiko_Combo_Scale[cat];
 				float d = y;
 
-				if (ctコンボラメ.CurrentValue < 13) // First
-				{
-					// まんなか
-					TJAPlayer3.Tx.Taiko_Combo_Effect.t2D拡大率考慮下中心基準描画(a, d - c - (int)(1.05 * this.ctコンボラメ.CurrentValue) - 13);
-				}
-				if (ctコンボラメ.CurrentValue >= 8 && ctコンボラメ.CurrentValue < 23)
-				{
-					// みぎ
-					TJAPlayer3.Tx.Taiko_Combo_Effect.t2D拡大率考慮下中心基準描画(a + b, d - c - (int)(1.05 * (this.ctコンボラメ.CurrentValue - 10)) - 3);
+                // コンボラメの座標とフェードイン・アウトをニジイロ風に
+                if (ctコンボラメ.CurrentValue < 13) // First
+                {
+                    // まんなか
+                    if (ctコンボラメ.CurrentValue >= 8)
+					{
+                        // フェードアウト
+                        float fadeAmount = (ctコンボラメ.CurrentValue - 8) / (float)7;
+                        float opacity = Math.Max(0, 255f - fadeAmount * 255f);
+                        TJAPlayer3.Tx.Taiko_Combo_Effect_Center.Opacity = (int)opacity;
+                    }
+					else
+					{
+                        TJAPlayer3.Tx.Taiko_Combo_Effect_Center.Opacity = 255;
+                    }
 
-				}
-				if (this.ctコンボラメ.CurrentValue >= 17 && this.ctコンボラメ.CurrentValue < 32)
-				{
-					// ひだり
-					TJAPlayer3.Tx.Taiko_Combo_Effect.t2D拡大率考慮下中心基準描画(a - b, d - c - (int)(1.05 * this.ctコンボラメ.CurrentValue - 20) - 8);
-				}
-			}
+                    TJAPlayer3.Tx.Taiko_Combo_Effect_Center.t2D拡大率考慮下中心基準描画(a, d - c - (int)(1.25 * this.ctコンボラメ.CurrentValue) - 25);
+                }
+                if (ctコンボラメ.CurrentValue >= 6 && ctコンボラメ.CurrentValue < 21)
+                {
+                    // みぎ
+                    if (ctコンボラメ.CurrentValue >= 14)
+                    {
+                        // フェードアウト
+                        float fadeAmount = (ctコンボラメ.CurrentValue - 14) / (float)7;
+                        float opacity = Math.Max(0, 255f - fadeAmount * 255f);
+                        TJAPlayer3.Tx.Taiko_Combo_Effect_Left.Opacity = (int)opacity;
+                    }
+                    else
+                    {
+                        TJAPlayer3.Tx.Taiko_Combo_Effect_Left.Opacity = 255;
+                    }
+
+                    TJAPlayer3.Tx.Taiko_Combo_Effect_Left.t2D拡大率考慮下中心基準描画(a + b + 1, d - c - (int)(1.3 * (this.ctコンボラメ.CurrentValue - 10)) - 12);
+
+                }
+                if (this.ctコンボラメ.CurrentValue >= 16 && this.ctコンボラメ.CurrentValue < 30)
+                {
+                    // ひだり
+                    if (ctコンボラメ.CurrentValue >= 23)
+                    {
+                        // フェードアウト
+                        float fadeAmount = (ctコンボラメ.CurrentValue - 23) / (float)7;
+                        float opacity = Math.Max(0, 255f - fadeAmount * 255f);
+                        TJAPlayer3.Tx.Taiko_Combo_Effect_Right.Opacity = (int)opacity;
+                    }
+                    else
+                    {
+                        TJAPlayer3.Tx.Taiko_Combo_Effect_Right.Opacity = 255;
+                    }
+                    TJAPlayer3.Tx.Taiko_Combo_Effect_Right.t2D拡大率考慮下中心基準描画(a - b + 3, d - c - (int)(1.25 * this.ctコンボラメ.CurrentValue - 20) - 16);
+                }
+            }
 		}
 
 		protected virtual void tコンボ表示_太鼓(int nCombo値, int nジャンプインデックス, int nPlayer)
@@ -610,7 +646,7 @@ namespace TJAPlayer3
 						TJAPlayer3.Tx.Taiko_Combo[1].t2D拡大率考慮下中心基準描画(rightX - TJAPlayer3.Skin.Game_Taiko_Combo_Padding[2] * i, combo_ex_y + yJumping, new Rectangle(n位の数[i] * TJAPlayer3.Skin.Game_Taiko_Combo_Size_Ex[0], 0, TJAPlayer3.Skin.Game_Taiko_Combo_Size_Ex[0], TJAPlayer3.Skin.Game_Taiko_Combo_Size_Ex[1]));
 					}
 
-                    if (!TJAPlayer3.ConfigIni.SimpleMode) showComboEffect(2, i, rightX, combo_ex_y, nPlayer);
+                    if (!TJAPlayer3.ConfigIni.SimpleMode) showComboEffect(2, i, rightX - 4, combo_ex_y - 3, nPlayer);
 
 				}
 			}
@@ -658,7 +694,7 @@ namespace TJAPlayer3
 				this.status[i].nコンボが切れた時刻 = -1;
 				this.ctコンボ加算[i] = new CCounter(0, 12, 12, TJAPlayer3.Timer);
 			}
-			this.ctコンボラメ = new CCounter(0, 35, 16, TJAPlayer3.Timer);
+			this.ctコンボラメ = new CCounter(0, 32, 16, TJAPlayer3.Timer);
 			base.Activate();
 		}
 		public override void DeActivate()

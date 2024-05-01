@@ -565,7 +565,9 @@ namespace TJAPlayer3
             Taiko_Combo[1] = TxC(GAME + TAIKO + @$"Combo_Big.png");
             Taiko_Combo[2] = TxC(GAME + TAIKO + @$"Combo_Midium.png");
             Taiko_Combo[3] = TxC(GAME + TAIKO + @$"Combo_Huge.png");
-            Taiko_Combo_Effect = TxC(GAME + TAIKO + @$"Combo_Effect.png");
+            Taiko_Combo_Effect_Center = TxC(GAME + TAIKO + @$"Combo_Effect.png");
+            Taiko_Combo_Effect_Left = TxC(GAME + TAIKO + @$"Combo_Effect.png");
+            Taiko_Combo_Effect_Right = TxC(GAME + TAIKO + @$"Combo_Effect.png");
             Taiko_Combo_Text = TxC(GAME + TAIKO + @$"Combo_Text.png");
 
             Taiko_Combo_Guide = new CTexture[3];
@@ -2769,7 +2771,9 @@ namespace TJAPlayer3
             Taiko_Konga_Clap,
             Taiko_LevelUp,
             Taiko_LevelDown,
-            Taiko_Combo_Effect,
+            Taiko_Combo_Effect_Center,
+            Taiko_Combo_Effect_Left,
+            Taiko_Combo_Effect_Right,
             Taiko_ScoreBack,
             Taiko_Combo_Text;
         public CTexture[] Couse_Symbol, // コースシンボル
