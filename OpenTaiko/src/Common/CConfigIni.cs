@@ -2178,7 +2178,7 @@ namespace TJAPlayer3
 			ASyncTextureLoad = true;
 			PreAssetsLoading = true;
 			SimpleMode = false;
-            MusicPreTimeMs = 1000; // 一秒
+            MusicPreTimeMs = 0; // ニジイロ風にする場合0秒にする
             SendDiscordPlayingInformation = true;
             #region[ Ver.K追加 ]
             this.eLaneType = Eレーンタイプ.TypeA;

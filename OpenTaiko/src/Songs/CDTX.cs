@@ -3495,6 +3495,11 @@ namespace TJAPlayer3
             {
                 //#STARTと同時に鳴らすのはどうかと思うけどしゃーなしだな。
                 AddMusicPreTimeMs(); // 音源を鳴らす前に遅延。
+
+                //再生前の空白時間をニジイロ風に調整
+                this.dbNowTime -= 1245;
+                this.dbNowBMScollTime -= 1245 * this.dbNowBPM / 15000;
+
                 var chip = new CChip();
 
                 chip.nチャンネル番号 = 0x01;
