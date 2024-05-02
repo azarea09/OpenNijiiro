@@ -9723,7 +9723,7 @@ namespace TJAPlayer3
 
         #region SongSelect
         //public int SongSelect_Overall_Y = 123;
-        public string[] SongSelect_GenreName = { "ポップス", "アニメ", "ゲームバラエティ", "ナムコオリジナル", "クラシック", "バラエティ", "キッズ", "ボーカロイド", "最近遊んだ曲" };
+        public string[] SongSelect_GenreName = { "ポップス", "アニメ", "ゲームミュージック", "ナムコオリジナル", "クラシック", "バラエティ", "キッズ", "ボーカロイド", "最近遊んだ曲" };
 
         public int SongSelect_Bar_Count = 9;
 

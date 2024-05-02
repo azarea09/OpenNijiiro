@@ -279,6 +279,7 @@ namespace TJAPlayer3
             SongSelect_Movie = TxC(SONGSELECT + @$"Movie.png");
             SongSelect_Song_Number = TxC(SONGSELECT + @$"Song_Number.png");
             SongSelect_Bar_Genre_Overlay = TxC(SONGSELECT + @$"Bar_Genre_Overlay.png");
+            SongSelect_Bar_Genre_Blur = TxC(SONGSELECT + @$"Bar_Genre_Blur.png");
             SongSelect_Crown = TxC(SONGSELECT + @$"SongSelect_Crown.png");
             SongSelect_ScoreRank = TxC(SONGSELECT + @$"ScoreRank.png");
             SongSelect_BoardNumber = TxC(SONGSELECT + @$"BoardNumber.png");
@@ -2629,6 +2630,7 @@ namespace TJAPlayer3
             SongSelect_Floor_Number,
             SongSelect_Bar_Select,
             SongSelect_Bar_Genre_Overlay,
+            SongSelect_Bar_Genre_Blur,
             SongSelect_Credit,
             SongSelect_Timer,
             SongSelect_Explicit,
