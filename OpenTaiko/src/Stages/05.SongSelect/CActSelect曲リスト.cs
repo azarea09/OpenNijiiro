@@ -331,6 +331,14 @@ namespace TJAPlayer3
 					nSelectSongIndex = 0;
 					tChangeSong(this.rCurrentlySelectedSong.rParentNode.Openindex);
 				}
+				else if(this.rCurrentlySelectedSong.list子リスト[this.rCurrentlySelectedSong.Openindex].eノード種別 == CSongListNode.ENodeType.BACKBOX)
+				{
+					// もどるだった場合次の曲を選択する
+                    this.rCurrentlySelectedSong.bIsOpenFolder = true;
+                    int n回数 = this.rCurrentlySelectedSong.Openindex + 1;
+
+                    tChangeSong(n回数);
+                }
 				else
 				{
 					//実際には親フォルダを消さないように変更
@@ -338,11 +346,12 @@ namespace TJAPlayer3
 					this.rCurrentlySelectedSong.bIsOpenFolder = true;
 
 					// Previous index 
-					int n回数 = this.rCurrentlySelectedSong.Openindex;
-					if (this.rCurrentlySelectedSong.Openindex >= this.rCurrentlySelectedSong.list子リスト.Count())
-						n回数 = 0;
 
-					tChangeSong(n回数);
+					int n回数 = this.rCurrentlySelectedSong.Openindex;
+                    if (this.rCurrentlySelectedSong.Openindex >= this.rCurrentlySelectedSong.list子リスト.Count())
+						n回数 = this.rCurrentlySelectedSong.list子リスト.Count();
+
+                    tChangeSong(n回数);
 				}
 
 				this.t現在選択中の曲を元に曲バーを再構成する();
@@ -1253,7 +1262,6 @@ namespace TJAPlayer3
 
 				// (B) スクロール中の選択曲バー、またはその他のバーの描画。
 
-				float Box = 0;
 				float Box_X = 0;
 				float Box_Y = 0;
                 int _center = (TJAPlayer3.Skin.SongSelect_Bar_Count - 1) / 2;
@@ -1267,8 +1275,8 @@ namespace TJAPlayer3
 				int _maxfs = _center - 1;
 				int _gap = Math.Max(1, TJAPlayer3.Skin.SongSelect_Bar_Count - 3);
 
-                #region [ BoxOpenAnime ]
-
+                #region [ old ]
+                /*
                 if (i != _center && i != 0 && i < TJAPlayer3.Skin.SongSelect_Bar_Count - 1)
 				{
                     if (ctBoxOpen.CurrentValue >= 1000 && ctBoxOpen.CurrentValue <= 1560)
@@ -1293,123 +1301,212 @@ namespace TJAPlayer3
                     }
 
                 }
-
-				#region [old]
-
-				/*
-                if (ctBoxOpen.n現在の値 <= 560 + 1000)
-				{
-					if (i == 1)
-					{
-						if (ctBoxOpen.n現在の値 >= 1000 && ctBoxOpen.n現在の値 <= 360 + 1000)
-							Box = 400.0f - (float)Math.Sin(((ctBoxOpen.n現在の値 - 1000) / 4 + 90) * (Math.PI / 180)) * 400.0f;
-						if (ctBoxOpen.n現在の値 >= 360 + 1000)
-							Box = 400.0f;
-					}
-					if (i == 2)
-					{
-						if (ctBoxOpen.n現在の値 >= 75 + 1000 && ctBoxOpen.n現在の値 <= 435 + 1000)
-							Box = 500.0f - (float)Math.Sin(((ctBoxOpen.n現在の値 - 1075) / 4 + 90) * (Math.PI / 180)) * 500.0f;
-						if (ctBoxOpen.n現在の値 >= 435 + 1000)
-							Box = 500.0f;
-					}
-					if (i == 3)
-					{
-						if (ctBoxOpen.n現在の値 >= 150 + 1000 && ctBoxOpen.n現在の値 <= 510 + 1000)
-							Box = 600.0f - (float)Math.Sin(((ctBoxOpen.n現在の値 - 1150) / 4 + 90) * (Math.PI / 180)) * 600.0f;
-						if (ctBoxOpen.n現在の値 >= 510 + 1000)
-							Box = 600.0f;
-					}
-					if (i == 5)
-					{
-						if (ctBoxOpen.n現在の値 >= 150 + 1000 && ctBoxOpen.n現在の値 <= 510 + 1000)
-							Box = -600.0f + (float)Math.Sin(((ctBoxOpen.n現在の値 - 1150) / 4 + 90) * (Math.PI / 180)) * 600.0f;
-						if (ctBoxOpen.n現在の値 >= 510 + 1000)
-							Box = 600.0f;
-					}
-					if (i == 6)
-					{
-						if (ctBoxOpen.n現在の値 >= 75 + 1000 && ctBoxOpen.n現在の値 <= 435 + 1000)
-							Box = -500.0f + (float)Math.Sin(((ctBoxOpen.n現在の値 - 1075) / 4 + 90) * (Math.PI / 180)) * 500.0f;
-						if (ctBoxOpen.n現在の値 >= 435 + 1000)
-							Box = 500.0f;
-					}
-					if (i == 7)
-					{
-						if (ctBoxOpen.n現在の値 >= 1000 && ctBoxOpen.n現在の値 <= 360 + 1000)
-							Box = -400.0f + (float)Math.Sin(((ctBoxOpen.n現在の値 - 1000) / 4 + 90) * (Math.PI / 180)) * 400.0f;
-						if (ctBoxOpen.n現在の値 >= 360 + 1000)
-							Box = 400.0f;
-					}
-				}
-
-				if (ctBoxOpen.n現在の値 > 1300 && ctBoxOpen.n現在の値 < 1940)
-				{
-					ctBoxOpen.t間隔値変更(0.65);
-					if (i == 1)
-						Box = 600.0f;
-					if (i == 2)
-						Box = 600.0f;
-					if (i == 3)
-						Box = 600.0f;
-					if (i == 5)
-						Box = -600.0f;
-					if (i == 6)
-						Box = -600.0f;
-					if (i == 7)
-						Box = -600.0f;
-				}
-
-				if (ctBoxOpen.n現在の値 >= 1840 && ctBoxOpen.n現在の値 <= 560 + 1840)
-				{
-					ctBoxOpen.t間隔値変更(1.3);
-					if (i == 1)
-					{
-						if (ctBoxOpen.n現在の値 >= 100 + 1840 && ctBoxOpen.n現在の値 <= 460 + 1840)
-							Box = 600.0f - (float)Math.Sin(((ctBoxOpen.n現在の値 - 1940) / 4) * (Math.PI / 180)) * 600.0f;
-						if (ctBoxOpen.n現在の値 < 100 + 1840)
-							Box = 600.0f;
-					}
-					if (i == 2)
-					{
-						if (ctBoxOpen.n現在の値 >= 50 + 1840 && ctBoxOpen.n現在の値 <= 410 + 1840)
-							Box = 500.0f - (float)Math.Sin(((ctBoxOpen.n現在の値 - 1890) / 4) * (Math.PI / 180)) * 500.0f;
-						if (ctBoxOpen.n現在の値 < 50 + 1840)
-							Box = 600.0f;
-					}
-					if (i == 3)
-					{
-						if (ctBoxOpen.n現在の値 >= 1840 && ctBoxOpen.n現在の値 <= 360 + 1840)
-							Box = 400.0f - (float)Math.Sin(((ctBoxOpen.n現在の値 - 1840) / 4) * (Math.PI / 180)) * 400.0f;
-						if (ctBoxOpen.n現在の値 < 1840)
-							Box = 600.0f;
-					}
-					if (i == 5)
-					{
-						if (ctBoxOpen.n現在の値 >= 1840 && ctBoxOpen.n現在の値 <= 360 + 1840)
-							Box = -400.0f + (float)Math.Sin(((ctBoxOpen.n現在の値 - 1840) / 4) * (Math.PI / 180)) * 400.0f;
-						if (ctBoxOpen.n現在の値 < 1840)
-							Box = -600.0f;
-					}
-					if (i == 6)
-					{
-						if (ctBoxOpen.n現在の値 >= 50 + 1840 && ctBoxOpen.n現在の値 <= 410 + 1840)
-							Box = -500.0f + (float)Math.Sin(((ctBoxOpen.n現在の値 - 1890) / 4) * (Math.PI / 180)) * 500.0f;
-						if (ctBoxOpen.n現在の値 < 50 + 1840)
-							Box = -600.0f;
-					}
-					if (i == 7)
-					{
-						if (ctBoxOpen.n現在の値 >= 100 + 1840 && ctBoxOpen.n現在の値 <= 460 + 1840)
-							Box = -600.0f + (float)Math.Sin(((ctBoxOpen.n現在の値 - 1940) / 4) * (Math.PI / 180)) * 600.0f;
-						if (ctBoxOpen.n現在の値 < 100 + 1840)
-							Box = -600.0f;
-					}
-				}
 				*/
+                #endregion
 
-				#endregion
+                #region [BoxOpenAnime]
 
+
+                if (ctBoxOpen.CurrentValue <= 560 + 1000)
+				{
+					if (i == 1)
+					{
+						if (ctBoxOpen.CurrentValue >= 1000 && ctBoxOpen.CurrentValue <= 360 + 1000)
+                        {
+                            Box_X = 80.0f - (float)Math.Sin(((ctBoxOpen.CurrentValue - 1000) / 2.5 + 90) * (Math.PI / 180)) * 80.0f;
+                            Box_Y = 530.0f - (float)Math.Sin(((ctBoxOpen.CurrentValue - 1000) / 2.5 + 90) * (Math.PI / 180)) * 530.0f;
+                        }
+                        if (ctBoxOpen.CurrentValue >= 360 + 1000)
+						{
+                            Box_X = 80.0f;
+                            Box_Y = 530.0f;
+                        }
+					}
+					if (i == 2)
+					{
+						if (ctBoxOpen.CurrentValue >= 60 + 1000 && ctBoxOpen.CurrentValue <= 420 + 1000)
+						{
+                            Box_X = 120.0f - (float)Math.Sin(((ctBoxOpen.CurrentValue - 1060) / 2.5 + 90) * (Math.PI / 180)) * 120.0f;
+                            Box_Y = 662.5f - (float)Math.Sin(((ctBoxOpen.CurrentValue - 1060) / 2.5 + 90) * (Math.PI / 180)) * 662.5f;
+                        }
+                        if (ctBoxOpen.CurrentValue >= 420 + 1000)
+						{
+                            Box_X = 120.0f;
+                            Box_Y = 662.5f;
+                        }
+                    }
+					if (i == 3)
+					{
+						if (ctBoxOpen.CurrentValue >= 120 + 1000 && ctBoxOpen.CurrentValue <= 480 + 1000)
+						{
+                            Box_X = 160.0f - (float)Math.Sin(((ctBoxOpen.CurrentValue - 1120) / 2.5 + 90) * (Math.PI / 180)) * 160.0f;
+                            Box_Y = 795.0f - (float)Math.Sin(((ctBoxOpen.CurrentValue - 1120) / 2.5 + 90) * (Math.PI / 180)) * 795.0f;
+                        }
+                        if (ctBoxOpen.CurrentValue >= 480 + 1000)
+						{
+                            Box_X = 160.0f;
+                            Box_Y = 795.0f;
+                        }
+                    }
+					if (i == 5)
+					{
+						if (ctBoxOpen.CurrentValue >= 120 + 1000 && ctBoxOpen.CurrentValue <= 480 + 1000)
+						{
+                            Box_X = -160.0f + (float)Math.Sin(((ctBoxOpen.CurrentValue - 1120) / 2.5 + 90) * (Math.PI / 180)) * 160.0f;
+                            Box_Y = -795.0f + (float)Math.Sin(((ctBoxOpen.CurrentValue - 1120) / 2.5 + 90) * (Math.PI / 180)) * 795.0f;
+                        }
+                        if (ctBoxOpen.CurrentValue >= 480 + 1000)
+						{
+                            Box_X = 160.0f;
+                            Box_Y = 795.0f;
+                        }
+                    }
+					if (i == 6)
+					{
+						if (ctBoxOpen.CurrentValue >= 60 + 1000 && ctBoxOpen.CurrentValue <= 420 + 1000)
+						{
+                            Box_X = -120.0f + (float)Math.Sin(((ctBoxOpen.CurrentValue - 1060) / 2.5 + 90) * (Math.PI / 180)) * 120.0f;
+                            Box_Y = -662.5f + (float)Math.Sin(((ctBoxOpen.CurrentValue - 1060) / 2.5 + 90) * (Math.PI / 180)) * 662.5f;
+                        }
+                        if (ctBoxOpen.CurrentValue >= 420 + 1000)
+						{
+                            Box_X = 120.0f;
+                            Box_Y = 662.5f;
+                        }
+                    }
+					if (i == 7)
+					{
+						if (ctBoxOpen.CurrentValue >= 1000 && ctBoxOpen.CurrentValue <= 360 + 1000)
+						{
+                            Box_X = -80.0f + (float)Math.Sin(((ctBoxOpen.CurrentValue - 1000) / 2.5 + 90) * (Math.PI / 180)) * 80.0f;
+                            Box_Y = -530.0f + (float)Math.Sin(((ctBoxOpen.CurrentValue - 1000) / 2.5 + 90) * (Math.PI / 180)) * 530.0f;
+                        }
+                        if (ctBoxOpen.CurrentValue >= 360 + 1000)
+						{
+                            Box_X = 80.0f;
+                            Box_Y = 530.0f;
+                        }
+                    }
+				}
+
+				if (ctBoxOpen.CurrentValue > 1300 && ctBoxOpen.CurrentValue < 1790)
+				{
+					ctBoxOpen.ChangeInterval(0.79);
+					if (i == 1)
+					{
+                        Box_X = 600.0f;
+                        Box_Y = 600.0f;
+                    }
+                    if (i == 2)
+					{
+                        Box_X = 600.0f;
+                        Box_Y = 600.0f;
+                    }
+                    if (i == 3)
+                    {
+                        Box_X = 600.0f;
+                        Box_Y = 600.0f;
+                    }
+                    if (i == 5)
+                    {
+                        Box_X = -600.0f;
+                        Box_Y = -600.0f;
+                    }
+                    if (i == 6)
+                    {
+                        Box_X = -600.0f;
+                        Box_Y = -600.0f;
+                    }
+                    if (i == 7)
+                    {
+                        Box_X = -600.0f;
+                        Box_Y = -600.0f;
+                    }
+                }
+
+				if (ctBoxOpen.CurrentValue >= 1690 && ctBoxOpen.CurrentValue <= 560 + 1690)
+				{
+					ctBoxOpen.ChangeInterval(1.2);
+					if (i == 1)
+					{
+						if (ctBoxOpen.CurrentValue >= 100 + 1690 && ctBoxOpen.CurrentValue <= 460 + 1690)
+						{
+                            Box_X = 80.0f - (float)Math.Sin(((ctBoxOpen.CurrentValue - 1790) / 4) * (Math.PI / 180)) * 80.0f;
+                            Box_Y = 1060.0f - (float)Math.Sin(((ctBoxOpen.CurrentValue - 1790) / 4) * (Math.PI / 180)) * 1060.0f;
+                        }
+                        if (ctBoxOpen.CurrentValue < 100 + 1690)
+						{
+                            Box_X = 600.0f;
+                            Box_Y = 600.0f;
+                        }
+                    }
+					if (i == 2)
+					{
+						if (ctBoxOpen.CurrentValue >= 50 + 1690 && ctBoxOpen.CurrentValue <= 410 + 1690)
+						{
+                            Box_X = 120.0f - (float)Math.Sin(((ctBoxOpen.CurrentValue - 1740) / 4) * (Math.PI / 180)) * 120.0f;
+                            Box_Y = 927.5f - (float)Math.Sin(((ctBoxOpen.CurrentValue - 1740) / 4) * (Math.PI / 180)) * 927.5f;
+                        }
+                        if (ctBoxOpen.CurrentValue < 50 + 1690)
+						{
+                            Box_X = 600.0f;
+                            Box_Y = 600.0f;
+                        }
+                    }
+					if (i == 3)
+					{
+						if (ctBoxOpen.CurrentValue >= 1690 && ctBoxOpen.CurrentValue <= 360 + 1690)
+						{
+                            Box_X = 160.0f - (float)Math.Sin(((ctBoxOpen.CurrentValue - 1690) / 4) * (Math.PI / 180)) * 160.0f;
+                            Box_Y = 795.0f - (float)Math.Sin(((ctBoxOpen.CurrentValue - 1690) / 4) * (Math.PI / 180)) * 795.0f;
+                        }
+                        if (ctBoxOpen.CurrentValue < 1690)
+						{
+                            Box_X = 600.0f;
+                            Box_Y = 600.0f;
+                        }
+                    }
+					if (i == 5)
+					{
+						if (ctBoxOpen.CurrentValue >= 1690 && ctBoxOpen.CurrentValue <= 360 + 1690)
+						{
+                            Box_X = -160.0f + (float)Math.Sin(((ctBoxOpen.CurrentValue - 1690) / 4) * (Math.PI / 180)) * 160.0f;
+                            Box_Y = -795.0f + (float)Math.Sin(((ctBoxOpen.CurrentValue - 1690) / 4) * (Math.PI / 180)) * 795.0f;
+                        }
+                        if (ctBoxOpen.CurrentValue < 1690)
+						{
+                            Box_X = -600.0f;
+                            Box_Y = -600.0f;
+                        }
+                    }
+					if (i == 6)
+					{
+						if (ctBoxOpen.CurrentValue >= 50 + 1690 && ctBoxOpen.CurrentValue <= 410 + 1690)
+						{
+                            Box_X = -120.0f + (float)Math.Sin(((ctBoxOpen.CurrentValue - 1740) / 4) * (Math.PI / 180)) * 120.0f;
+                            Box_Y = -927.5f + (float)Math.Sin(((ctBoxOpen.CurrentValue - 1740) / 4) * (Math.PI / 180)) * 927.5f;
+                        }
+                        if (ctBoxOpen.CurrentValue < 50 + 1690)
+						{
+                            Box_X = -600.0f;
+                            Box_Y = -600.0f;
+                        }
+                    }
+					if (i == 7)
+					{
+						if (ctBoxOpen.CurrentValue >= 100 + 1690 && ctBoxOpen.CurrentValue <= 460 + 1690)
+						{
+                            Box_X = -80.0f + (float)Math.Sin(((ctBoxOpen.CurrentValue - 1790) / 4) * (Math.PI / 180)) * 80.0f;
+                            Box_Y = -1060.0f + (float)Math.Sin(((ctBoxOpen.CurrentValue - 1790) / 4) * (Math.PI / 180)) * 1060.0f;
+                        }
+                        if (ctBoxOpen.CurrentValue < 100 + 1690)
+						{
+                            Box_X = -600.0f;
+                            Box_Y = -600.0f;
+                        }
+                    }
+				}
+				
 				#endregion
 
 
@@ -1750,8 +1847,14 @@ namespace TJAPlayer3
                                                 difSelectOpacity = 255;
                                             }
 
-
-                                            if (!TJAPlayer3.stageSongSelect.actDifficultySelectionScreen.bIsDifficltSelect || ctDifficultyIn.CurrentValue < 1000)
+                                            if (!ctBoxOpen.IsEnded)
+                                            {
+                                                TJAPlayer3.Tx.SongSelect_Frame_Score[0].Opacity = (int)(ctBoxOpen.CurrentValue >= 1100 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1100) * 2.55f :
+                                                ctBoxOpen.CurrentValue >= 1900 ? (ctBoxOpen.CurrentValue - 1900) * 2.3f : ctBoxOpen.CurrentValue <= 1100 ? 255 : 0);
+                                                TJAPlayer3.Tx.SongSelect_Level_Number.Opacity = (int)(ctBoxOpen.CurrentValue >= 1100 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1100) * 2.55f :
+                                                ctBoxOpen.CurrentValue >= 1900 ? (ctBoxOpen.CurrentValue - 1900) * 2.3f : ctBoxOpen.CurrentValue <= 1100 ? 255 : 0);
+                                            }
+                                            else if (!TJAPlayer3.stageSongSelect.actDifficultySelectionScreen.bIsDifficltSelect || ctDifficultyIn.CurrentValue < 1000)
                                             {
 												TJAPlayer3.Tx.SongSelect_Frame_Score[0].Opacity = difSelectOpacity;
 												TJAPlayer3.Tx.SongSelect_Level_Number.Opacity = difSelectOpacity;
@@ -1770,11 +1873,11 @@ namespace TJAPlayer3
                                                 if (TJAPlayer3.Tx.SongSelect_Level != null) TJAPlayer3.Tx.SongSelect_Level.Opacity = difInOpacity;
 											}
 
-											#endregion
+                                            #endregion
 
-											#region [Displayables]
+                                            #region [Displayables]
 
-											int displayingDiff = Math.Min(i, (int)Difficulty.Oni);
+                                            int displayingDiff = Math.Min(i, (int)Difficulty.Oni);
 											int positionalOffset = displayingDiff * 122;
 
 											int width = TJAPlayer3.Tx.SongSelect_Frame_Score[0].sz画像サイズ.Width / 5;
@@ -1854,7 +1957,14 @@ namespace TJAPlayer3
 									if (TJAPlayer3.Skin.SongSelect_Shorten_Frame_Fade)
 										difSelectOpacity = 255;
 
-									if (!TJAPlayer3.stageSongSelect.actDifficultySelectionScreen.bIsDifficltSelect || ctDifficultyIn.CurrentValue < 1000)
+                                    if (!ctBoxOpen.IsEnded)
+									{
+                                        TJAPlayer3.Tx.SongSelect_Frame_Score[1].Opacity = (int)(ctBoxOpen.CurrentValue >= 1100 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1100) * 2.55f :
+										ctBoxOpen.CurrentValue >= 1900 ? (ctBoxOpen.CurrentValue - 1900) * 2.3f : ctBoxOpen.CurrentValue <= 1100 ? 255 : 0);
+                                        TJAPlayer3.Tx.SongSelect_Level_Number.Opacity = (int)(ctBoxOpen.CurrentValue >= 1100 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1100) * 2.55f :
+                                        ctBoxOpen.CurrentValue >= 1900 ? (ctBoxOpen.CurrentValue - 1900) * 2.3f : ctBoxOpen.CurrentValue <= 1100 ? 255 : 0);
+                                    }
+                                    else if (!TJAPlayer3.stageSongSelect.actDifficultySelectionScreen.bIsDifficltSelect || ctDifficultyIn.CurrentValue < 1000)
 									{
 										TJAPlayer3.Tx.SongSelect_Frame_Score[1].Opacity = difSelectOpacity;
 										TJAPlayer3.Tx.SongSelect_Level_Number.Opacity = difSelectOpacity;
@@ -1872,12 +1982,12 @@ namespace TJAPlayer3
                                         TJAPlayer3.Tx.SongSelect_Level_Number_Colored?.tUpdateOpacity(difInOpacity);
                                         if (TJAPlayer3.Tx.SongSelect_Level != null) TJAPlayer3.Tx.SongSelect_Level.Opacity = difInOpacity;
 									}
+                                    
+                                    #endregion
 
-									#endregion
+                                    #region [Displayables]
 
-									#region [Displayables]
-
-									int displayingDiff = diff == 5 ? 0 : 2;
+                                    int displayingDiff = diff == 5 ? 0 : 2;
 									int width = TJAPlayer3.Tx.SongSelect_Frame_Score[0].sz画像サイズ.Width / 5;
 									int height = TJAPlayer3.Tx.SongSelect_Frame_Score[0].sz画像サイズ.Height;
 
@@ -1940,8 +2050,8 @@ namespace TJAPlayer3
 								if (!ctBoxOpen.IsEnded && ctBoxOpen.CurrentValue != 0)
 								{
 									if (txBoxText[j] != null)
-										this.txBoxText[j].Opacity = (int)(ctBoxOpen.CurrentValue >= 1200 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1200) * 2.55f :
-										ctBoxOpen.CurrentValue >= 2000 ? (ctBoxOpen.CurrentValue - 2000) * 2.55f : ctBoxOpen.CurrentValue <= 1200 ? 255 : 0);
+										this.txBoxText[j].Opacity = (int)(ctBoxOpen.CurrentValue >= 1100 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1100) * 2.55f :
+										ctBoxOpen.CurrentValue >= 1900 ? (ctBoxOpen.CurrentValue - 1900) * 2.3f : ctBoxOpen.CurrentValue <= 1100 ? 255 : 0);
 								}
 								else
 									if (txBoxText[j] != null)
@@ -1960,8 +2070,8 @@ namespace TJAPlayer3
 							// If BoxChara < 0, don't display any character
                             {
 								if (!ctBoxOpen.IsEnded)
-									box_chara.Opacity = (int)(ctBoxOpen.CurrentValue >= 1200 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1200) * 2.55f :
-									ctBoxOpen.CurrentValue >= 2000 ? (ctBoxOpen.CurrentValue - 2000) * 2.55f : ctBoxOpen.CurrentValue <= 1200 ? 255 : 0);
+									box_chara.Opacity = (int)(ctBoxOpen.CurrentValue >= 1100 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1100) * 2.55f :
+									ctBoxOpen.CurrentValue >= 1900 ? (ctBoxOpen.CurrentValue - 1900) * 2.3f : ctBoxOpen.CurrentValue <= 1100 ? 255 : 0);
 								else
 								{
 									if (!TJAPlayer3.stageSongSelect.actDifficultySelectionScreen.bIsDifficltSelect)
@@ -1998,7 +2108,7 @@ namespace TJAPlayer3
 				*/
 			}
 
-			if (ctBoxOpen.CurrentValue >= 1620)
+			if (ctBoxOpen.CurrentValue >= 1570)
 			{
 				if (bBoxOpen)
 				{
@@ -2055,23 +2165,19 @@ namespace TJAPlayer3
 					if (rCurrentlySelectedSong.strタイトル != "" && this.ttk選択している曲の曲名 == null)
 						this.ttk選択している曲の曲名 = this.ttk曲名テクスチャを生成する(rCurrentlySelectedSong.strタイトル, rCurrentlySelectedSong.ForeColor, rCurrentlySelectedSong.BackColor, rCurrentlySelectedSong.eノード種別 == CSongListNode.ENodeType.BOX ? this.pfBoxName : this.pfMusicName);
 					if (rCurrentlySelectedSong.strサブタイトル != "" && this.ttk選択している曲のサブタイトル == null)
-						this.ttk選択している曲のサブタイトル = this.ttkサブタイトルテクスチャを生成する(rCurrentlySelectedSong.strサブタイトル, rCurrentlySelectedSong.ForeColor, rCurrentlySelectedSong.BackColor);
+                        tx選択している曲のサブタイトル = this.txサブタイトルテクスチャを生成する(rCurrentlySelectedSong.strサブタイトル, rCurrentlySelectedSong.ForeColor, rCurrentlySelectedSong.BackColor);
 					if (rCurrentlySelectedSong.strMaker != "" && this.ttkSelectedSongMaker == null)
 						this.ttkSelectedSongMaker = this.ttkGenerateMakerTexture(rCurrentlySelectedSong.strMaker, rCurrentlySelectedSong.ForeColor, rCurrentlySelectedSong.BackColor);
 					if (this.ttkSelectedSongBPM == null)
 						this.ttkSelectedSongBPM = this.ttkGenerateBPMTexture(rCurrentlySelectedSong, rCurrentlySelectedSong.ForeColor, rCurrentlySelectedSong.BackColor); ;
-
-
-					if (this.ttk選択している曲のサブタイトル != null)
-						tx選択している曲のサブタイトル = ResolveTitleTexture(ttk選択している曲のサブタイトル, TJAPlayer3.Skin.SongSelect_VerticalText);
 
 					//サブタイトルがあったら700
 
 					if (ttk選択している曲の曲名 != null)
 					{
 						if (!ctBoxOpen.IsEnded)
-							ResolveTitleTexture(this.ttk選択している曲の曲名, TJAPlayer3.Skin.SongSelect_VerticalText).Opacity = (int)(ctBoxOpen.CurrentValue >= 1200 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1200) * 2.55f :
-							ctBoxOpen.CurrentValue >= 2000 ? (ctBoxOpen.CurrentValue - 2000) * 2.55f : ctBoxOpen.CurrentValue <= 1200 ? 255 : 0);
+							ResolveTitleTexture(this.ttk選択している曲の曲名, TJAPlayer3.Skin.SongSelect_VerticalText).Opacity = (int)(ctBoxOpen.CurrentValue >= 1100 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1100) * 2.55f :
+							ctBoxOpen.CurrentValue >= 1900 ? (ctBoxOpen.CurrentValue - 1900) * 2.3f : ctBoxOpen.CurrentValue <= 1100 ? 255 : 0);
 						else
 						{
 							if (!TJAPlayer3.stageSongSelect.actDifficultySelectionScreen.bIsDifficltSelect)
@@ -2081,11 +2187,11 @@ namespace TJAPlayer3
 						}
 					}
 
-					if (this.ttk選択している曲のサブタイトル != null)
+					if (tx選択している曲のサブタイトル != null)
 					{
 						if (!ctBoxOpen.IsEnded)
-							tx選択している曲のサブタイトル.Opacity = (int)(ctBoxOpen.CurrentValue >= 1200 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1200) * 2.55f :
-							ctBoxOpen.CurrentValue >= 2000 ? (ctBoxOpen.CurrentValue - 2000) * 2.55f : ctBoxOpen.CurrentValue <= 1200 ? 255 : 0);
+							tx選択している曲のサブタイトル.Opacity = (int)(ctBoxOpen.CurrentValue >= 1100 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1100) * 2.55f :
+							ctBoxOpen.CurrentValue >= 1900 ? (ctBoxOpen.CurrentValue - 1900) * 2.3f : ctBoxOpen.CurrentValue <= 1100 ? 255 : 0);
                         else
 						{
 							if (!TJAPlayer3.stageSongSelect.actDifficultySelectionScreen.bIsDifficltSelect)
@@ -2105,7 +2211,7 @@ namespace TJAPlayer3
 								(rCurrentlySelectedSong.eノード種別 != CSongListNode.ENodeType.BACKBOX ? (rCurrentlySelectedSong.eノード種別 == CSongListNode.ENodeType.BOX ? centerMoveX : centerMoveX / 1.1f) : 0),
 
 								y + GetTitleOffsetY(rCurrentlySelectedSong.eノード種別) - 
-								(rCurrentlySelectedSong.eノード種別 != CSongListNode.ENodeType.BACKBOX ? (rCurrentlySelectedSong.eノード種別 == CSongListNode.ENodeType.BOX ? centerMove : centerMove / 1.1f) : 0));
+								(rCurrentlySelectedSong.eノード種別 != CSongListNode.ENodeType.BACKBOX ? (rCurrentlySelectedSong.eノード種別 == CSongListNode.ENodeType.BOX ? centerMove : centerMove / 1.35f) : 0));
 						}
 					}
 					else
@@ -2117,7 +2223,7 @@ namespace TJAPlayer3
 								(rCurrentlySelectedSong.eノード種別 != CSongListNode.ENodeType.BACKBOX ? (rCurrentlySelectedSong.eノード種別 == CSongListNode.ENodeType.BOX ? centerMoveX : centerMoveX / 1.1f) : 0), 
 
 								y + GetTitleOffsetY(this.stバー情報[nパネル番号].eバー種別) - 
-								(rCurrentlySelectedSong.eノード種別 != CSongListNode.ENodeType.BACKBOX ? (rCurrentlySelectedSong.eノード種別 == CSongListNode.ENodeType.BOX ? centerMove : centerMove / 1.1f) : 0));
+								(rCurrentlySelectedSong.eノード種別 != CSongListNode.ENodeType.BACKBOX ? (rCurrentlySelectedSong.eノード種別 == CSongListNode.ENodeType.BOX ? centerMove : centerMove / 1.35f) : 0));
 						}
 					}
 					//-----------------
@@ -2576,9 +2682,9 @@ namespace TJAPlayer3
 
             float openAnime = 1;
 
-            if (ctBoxOpen.CurrentValue >= 1300 && ctBoxOpen.CurrentValue <= 1940)
+            if (ctBoxOpen.CurrentValue >= 1300 && ctBoxOpen.CurrentValue <= 1890)
             {
-                openAnime -= (float)Math.Sin(((ctBoxOpen.CurrentValue - 1300) * 0.28125f) * (Math.PI / 180)) * 1.0f;
+                openAnime -= (float)Math.Sin(((ctBoxOpen.CurrentValue - 1250) * 0.28125f) * (Math.PI / 180)) * 1.0f;
             }
 
             float overlay_xoffset = ((overlay.szTextureSize.Width / 3) * (1.0f - openAnime));
@@ -3140,9 +3246,13 @@ namespace TJAPlayer3
             return new TitleTextureKey(str文字, pf, forecolor, backcolor, TJAPlayer3.Skin.SongSelect_Title_MaxSize);
         }
 
-	    private TitleTextureKey ttkサブタイトルテクスチャを生成する( string str文字, Color forecolor, Color backcolor)
+	    private CTexture txサブタイトルテクスチャを生成する( string str文字, Color forecolor, Color backcolor)
         {
-            return new TitleTextureKey(str文字, pfSubtitle, forecolor, backcolor, TJAPlayer3.Skin.SongSelect_SubTitle_MaxSize);
+
+			var texture = pfSubtitle.DrawText(str文字, forecolor, backcolor, null, 26);
+            CTexture Tex = TJAPlayer3.tテクスチャの生成(texture);
+
+            return Tex;
 		}
 
 		private TitleTextureKey ttkGenerateMakerTexture(string str文字, Color forecolor, Color backcolor)
