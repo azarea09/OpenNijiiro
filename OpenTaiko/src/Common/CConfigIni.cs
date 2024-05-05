@@ -1366,7 +1366,8 @@ namespace TJAPlayer3
 		public string strDTXManiaのバージョン;
 		public string str曲データ検索パス;
 		public string FontName;
-		public string BoxFontName;
+        public string SubTitleFontName;
+        public string BoxFontName;
 		public bool bBranchGuide;
 		public int nScoreMode;
 		public int nDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度
@@ -2001,6 +2002,7 @@ namespace TJAPlayer3
 			this.bAIBattleMode = false;
 
 			this.FontName = CFontRenderer.DefaultFontName;
+            this.SubTitleFontName = CFontRenderer.DefaultFontName;
             this.BoxFontName = CFontRenderer.DefaultFontName;
 		    this.ApplyLoudnessMetadata = true;
 			this.bEnableCountdownTimer = true;
@@ -2368,6 +2370,10 @@ namespace TJAPlayer3
             sw.WriteLine("; フォントレンダリングに使用するフォント名");
             sw.WriteLine("; Font name used for font rendering.");
             sw.WriteLine("FontName={0}", this.FontName);
+            sw.WriteLine();
+            sw.WriteLine("; サブタイトルのフォントレンダリングに使用するフォント名");
+            sw.WriteLine("; Font name used for font rendering.");
+            sw.WriteLine("SubTitleFontName={0}", this.SubTitleFontName);
             sw.WriteLine();
             sw.WriteLine("; Boxの説明文のフォントレンダリングに使用するフォント名");
             sw.WriteLine("; Font name used for font rendering.");
@@ -3295,6 +3301,10 @@ namespace TJAPlayer3
                                             else if (str3.Equals("FontName"))
                                             {
                                                 this.FontName = str4;
+                                            }
+                                            else if (str3.Equals("SubTitleFontName"))
+                                            {
+                                                this.SubTitleFontName = str4;
                                             }
                                             else if (str3.Equals("BoxFontName"))
                                             {

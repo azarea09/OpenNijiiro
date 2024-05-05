@@ -1123,6 +1123,15 @@ namespace TJAPlayer3
                                     if (HPrivateFastFont.FontExists(strParam)) FontName = strParam;
                                     break;
                                 }
+                                case "SubTitleFontName":
+                                {
+                                    strParam = strParam.Replace('/', System.IO.Path.DirectorySeparatorChar);
+                                    strParam = strParam.Replace('\\', System.IO.Path.DirectorySeparatorChar);
+                                    if (HPrivateFastFont.FontExists(strParam)) SubTitleFontName = strParam;
+                                    strParam = Path(strParam);
+                                    if (HPrivateFastFont.FontExists(strParam)) SubTitleFontName = strParam;
+                                    break;
+                                }
                                 case "BoxFontName":
                                 {
                                     strParam = strParam.Replace('/', System.IO.Path.DirectorySeparatorChar);
@@ -9466,6 +9475,7 @@ namespace TJAPlayer3
         public string Skin_Creator = "Unknown";
         public int[] Resolution = new int[] { 1280, 720 };
         public string FontName = TJAPlayer3.ConfigIni.FontName;
+        public string SubTitleFontName = TJAPlayer3.ConfigIni.SubTitleFontName;
         public string BoxFontName = TJAPlayer3.ConfigIni.BoxFontName;
         #endregion
 
@@ -10006,14 +10016,14 @@ namespace TJAPlayer3
         public Color SongSelect_ForeColor_Classic = ColorTranslator.FromHtml("#FFFFFF");
         public Color SongSelect_ForeColor_GameMusic = ColorTranslator.FromHtml("#FFFFFF");
         public Color SongSelect_ForeColor_Namco = ColorTranslator.FromHtml("#FFFFFF");
-        public Color SongSelect_BackColor_JPOP = ColorTranslator.FromHtml("#01455B");
-        public Color SongSelect_BackColor_Anime = ColorTranslator.FromHtml("#99001F");
-        public Color SongSelect_BackColor_VOCALOID = ColorTranslator.FromHtml("#5B6278");
-        public Color SongSelect_BackColor_Children = ColorTranslator.FromHtml("#9D3800");
-        public Color SongSelect_BackColor_Variety = ColorTranslator.FromHtml("#366600");
-        public Color SongSelect_BackColor_Classic = ColorTranslator.FromHtml("#875600");
-        public Color SongSelect_BackColor_GameMusic = ColorTranslator.FromHtml("#412080");
-        public Color SongSelect_BackColor_Namco = ColorTranslator.FromHtml("#980E00");
+        public Color SongSelect_BackColor_JPOP = ColorTranslator.FromHtml("#11474d");
+        public Color SongSelect_BackColor_Anime = ColorTranslator.FromHtml("#971863");
+        public Color SongSelect_BackColor_VOCALOID = ColorTranslator.FromHtml("#283248");
+        public Color SongSelect_BackColor_Children = ColorTranslator.FromHtml("#a53400");
+        public Color SongSelect_BackColor_Variety = ColorTranslator.FromHtml("#134f16");
+        public Color SongSelect_BackColor_Classic = ColorTranslator.FromHtml("#67452d");
+        public Color SongSelect_BackColor_GameMusic = ColorTranslator.FromHtml("#501b71");
+        public Color SongSelect_BackColor_Namco = ColorTranslator.FromHtml("#911f00");
 
         public string[] SongSelect_CorrectionX_Chara = { "ここにX座標を補正したい文字をカンマで区切って記入" };
         public string[] SongSelect_CorrectionY_Chara = { "ここにY座標を補正したい文字をカンマで区切って記入" };

@@ -28,6 +28,10 @@ namespace TJAPlayer3
         {
             return tInstantiateFont(TJAPlayer3.Skin.FontName, scale, style);
         }
+        public static CCachedFontRenderer tInstantiateSubTitleFont(int scale, CFontRenderer.FontStyle style = CFontRenderer.FontStyle.Regular)
+        {
+            return tInstantiateFont(TJAPlayer3.Skin.SubTitleFontName, scale, style);
+        }
 
         public static CCachedFontRenderer tInstantiateBoxFont(int scale, CFontRenderer.FontStyle style = CFontRenderer.FontStyle.Regular)
         {
