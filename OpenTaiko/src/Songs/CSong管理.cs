@@ -1094,14 +1094,13 @@ namespace TJAPlayer3
 
 		private void t曲リストへ後処理を適用する( List<CSongListNode> ノードリスト, string parentName = "/", bool isGlobal = true )
 		{
-			
-			if (isGlobal && ノードリスト.Count > 0)
+			/*			if (isGlobal && ノードリスト.Count > 0)
             {
 				var randomNode = CSongDict.tGenerateRandomButton(ノードリスト[0].rParentNode, parentName);
 				ノードリスト.Add(randomNode);
 
 			}
-
+			*/
 
 			// Don't sort songs if the folder isn't global
 			// Call back reinsert back folders if sort called ?

@@ -136,6 +136,8 @@ namespace TJAPlayer3
 
             itemRandom.strタイトル = CLangManager.LangInstance.GetString(203);
 
+            itemRandom.BackColor = ColorTranslator.FromHtml("#432e10");
+
             itemRandom.nスコア数 = (int)Difficulty.Total;
             itemRandom.rParentNode = parent;
 

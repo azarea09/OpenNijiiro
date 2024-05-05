@@ -1717,7 +1717,7 @@ namespace TJAPlayer3
 							int x = TJAPlayer3.Skin.SongSelect_Bar_X[barCenterNum] + TJAPlayer3.Skin.SongSelect_RegularCrowns_Offset_X[i];
 							int y = TJAPlayer3.Skin.SongSelect_Bar_Y[barCenterNum] + TJAPlayer3.Skin.SongSelect_RegularCrowns_Offset_Y[i];
 
-							displayRegularCrowns((int)(x - centerMoveX / 1.1f), (int)(y - centerMove / 1.1f), クリア, スコアランク, 0.8f + BarAnimeCount / 620f);
+							displayRegularCrowns((int)(x - centerMoveX / 1.1f), (int)(y - centerMove / 1.1f), クリア, スコアランク, 0.75f + BarAnimeCount * 0.25f);
 							
 						}
 					}
@@ -3076,7 +3076,7 @@ namespace TJAPlayer3
 					{
 						if (i >= 2) continue;
 
-						displayRegularCrowns(x + TJAPlayer3.Skin.SongSelect_RegularCrowns_Offset_X[i], y + TJAPlayer3.Skin.SongSelect_RegularCrowns_Offset_Y[i], クリア[i], スコアランク[i], 0.8f);
+						displayRegularCrowns(x + TJAPlayer3.Skin.SongSelect_RegularCrowns_Offset_X[i], y + TJAPlayer3.Skin.SongSelect_RegularCrowns_Offset_Y[i], クリア[i], スコアランク[i], 0.75f);
 					}
 				}
 
@@ -3145,7 +3145,34 @@ namespace TJAPlayer3
 					bestScoreRank = i;
             }
 
-			if (bestCrown >= 0)
+            if (!ctBoxOpen.IsEnded)
+            {
+                TJAPlayer3.Tx.SongSelect_Crown.Opacity = (int)(ctBoxOpen.CurrentValue >= 1100 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1100) * 2.55f :
+                ctBoxOpen.CurrentValue >= 1900 ? (ctBoxOpen.CurrentValue - 1900) * 2.3f : ctBoxOpen.CurrentValue <= 1100 ? 255 : 0);
+                TJAPlayer3.Tx.SongSelect_ScoreRank.Opacity = (int)(ctBoxOpen.CurrentValue >= 1100 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1100) * 2.55f :
+                ctBoxOpen.CurrentValue >= 1900 ? (ctBoxOpen.CurrentValue - 1900) * 2.3f : ctBoxOpen.CurrentValue <= 1100 ? 255 : 0);
+            }
+
+			// 王冠
+            if (bestCrown >= 0)
+            {
+                float width = TJAPlayer3.Tx.SongSelect_Crown.szTextureSize.Width / 15.0f;
+                int height = TJAPlayer3.Tx.SongSelect_Crown.szTextureSize.Height;
+                TJAPlayer3.Tx.SongSelect_Crown?.t2D拡大率考慮中央基準描画(x + TJAPlayer3.Skin.SongSelect_RegularCrowns_ScoreRank_Offset_X[0], y + TJAPlayer3.Skin.SongSelect_RegularCrowns_ScoreRank_Offset_Y[0],
+                    new RectangleF((bestCrown * 3) * width + (クリア[bestCrown] - 1) * width, 0, width, height));
+            }
+            
+            // スコアランク
+            if (bestScoreRank >= 0)
+            {
+                float width = TJAPlayer3.Tx.SongSelect_ScoreRank.szTextureSize.Width / 5.0f;
+                float height = TJAPlayer3.Tx.SongSelect_ScoreRank.szTextureSize.Height / 7.0f;
+                TJAPlayer3.Tx.SongSelect_ScoreRank?.t2D拡大率考慮中央基準描画(x + TJAPlayer3.Skin.SongSelect_RegularCrowns_ScoreRank_Offset_X[1], y + TJAPlayer3.Skin.SongSelect_RegularCrowns_ScoreRank_Offset_Y[1] * _resize,
+                    new RectangleF(bestCrown * width, (スコアランク[bestScoreRank] - 1) * height, width, height));
+            }
+
+            /*
+            if (bestCrown >= 0)
 			{
 				float width = TJAPlayer3.Tx.SongSelect_Crown.szTextureSize.Width / 15.0f;
 				int height = TJAPlayer3.Tx.SongSelect_Crown.szTextureSize.Height;
@@ -3167,8 +3194,8 @@ namespace TJAPlayer3
 				int dani_difficulty_cymbol_height = TJAPlayer3.Tx.Dani_Difficulty_Cymbol.szTextureSize.Height;
 
 				TJAPlayer3.Tx.Dani_Difficulty_Cymbol.Opacity = TJAPlayer3.Tx.SongSelect_Favorite.Opacity;
-				TJAPlayer3.Tx.Dani_Difficulty_Cymbol.vcScaleRatio.X = 0.35f;
-				TJAPlayer3.Tx.Dani_Difficulty_Cymbol.vcScaleRatio.Y = 0.35f;
+				TJAPlayer3.Tx.Dani_Difficulty_Cymbol.vcScaleRatio.X = 0.5f;
+				TJAPlayer3.Tx.Dani_Difficulty_Cymbol.vcScaleRatio.Y = 0.5f;
 
 				if (bestCrown >= 0)
 				{
@@ -3190,9 +3217,9 @@ namespace TJAPlayer3
 				TJAPlayer3.Tx.Dani_Difficulty_Cymbol.vcScaleRatio.X = 1f;
 				TJAPlayer3.Tx.Dani_Difficulty_Cymbol.vcScaleRatio.Y = 1f;
 			}
+			*/
 
-
-		}
+        }
 
 		public void displayFavoriteStatus(int x, int y, CSongUniqueID csu, float _resize)
         {
