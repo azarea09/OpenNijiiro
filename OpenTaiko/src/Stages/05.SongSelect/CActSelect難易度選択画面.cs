@@ -43,6 +43,7 @@ namespace TJAPlayer3
             if (n現在の選択行[player] < 5)
             {
                 ctBarAnime[player].Start(0, 180, 1, TJAPlayer3.Timer);
+                ctDiffMarkAnime.Start(0, 1216, 1, TJAPlayer3.Timer);
                 if (!b裏譜面)
                 {
                     n現在の選択行[player]++;
@@ -64,11 +65,11 @@ namespace TJAPlayer3
                 if (TJAPlayer3.stageSongSelect.r現在選択中のスコア.譜面情報.nレベル[4] < 0 || TJAPlayer3.stageSongSelect.r現在選択中のスコア.譜面情報.nレベル[3] < 0)
                     return;
 
-                if (nスイッチカウント < 0)
+                if (nスイッチカウント < 9) // 10回叩くと裏になる
                 {
                     nスイッチカウント++;
                 }
-                else if (nスイッチカウント == 0)
+                else if (nスイッチカウント == 9)
                 {
                     for (int i = 0; i < 5; i++)
                     {
@@ -100,6 +101,7 @@ namespace TJAPlayer3
             if(n現在の選択行[player] - 1 >= 0)
             {
                 ctBarAnime[player].Start(0, 180, 1, TJAPlayer3.Timer);
+                ctDiffMarkAnime.Start(0, 1216, 1, TJAPlayer3.Timer);
                 nスイッチカウント = 0;
                 if(n現在の選択行[player] == 6)
                     n現在の選択行[player] -= 2;
@@ -138,6 +140,8 @@ namespace TJAPlayer3
             ctBarAnime[3] = new CCounter();
             ctBarAnime[4] = new CCounter();
 
+            ctDiffMarkAnime = new CCounter();
+
             base.Activate();
 		}
 		public override void DeActivate()
@@ -146,13 +150,14 @@ namespace TJAPlayer3
 				return;
 
             ctBarAnime = null;
+            ctDiffMarkAnime = null;
 
             base.DeActivate();
 		}
 		public override void CreateManagedResource()
 		{
-            this.pfTitle = HPrivateFastFont.tInstantiateMainFont(TJAPlayer3.Skin.SongSelect_MusicName_Scale);
-            this.pfSubTitle = HPrivateFastFont.tInstantiateMainFont(TJAPlayer3.Skin.SongSelect_Subtitle_Scale);
+            this.pfTitle = HPrivateFastFont.tInstantiateMainFont(TJAPlayer3.Skin.SongSelect_Difficulty_Select_Title_Scale);
+            this.pfSubTitle = HPrivateFastFont.tInstantiateMainFont(TJAPlayer3.Skin.SongSelect_Difficulty_Select_Subtitle_Scale);
 
             // this.soundSelectAnnounce = TJAPlayer3.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds{Path.DirectorySeparatorChar}DiffSelect.ogg" ), ESoundGroup.SoundEffect );
 
@@ -167,6 +172,16 @@ namespace TJAPlayer3
 
 			base.ReleaseManagedResource();
 		}
+
+        float EaseOut(float t)
+        {
+            return (float)(1 - Math.Pow(1 - t, 2)); // 二次関数によるイーズアウト
+        }
+        float EaseIn(float t)
+        {
+            return (float)(t * t * t * t * t); // 二次関数によるイーズイン
+        }
+
         public override int Draw()
         {
             if (this.IsDeActivated)
@@ -186,6 +201,7 @@ namespace TJAPlayer3
             #endregion
 
             ctBarAnimeIn.Tick();
+            ctDiffMarkAnime.Tick();
             for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
             {
                 ctBarAnime[i].Tick();
@@ -347,9 +363,39 @@ namespace TJAPlayer3
 
             #region [ 画像描画 ]
 
+            #region [ 後ろの難易度のマークの奴 ]
+            int difficulty_Mark_width = TJAPlayer3.Tx.Difficulty_Mark.sz画像サイズ.Width / 5;
+            float markMoveY = 0.0f;
+            TJAPlayer3.Tx.Difficulty_Mark.Opacity = ctDiffMarkAnime.CurrentValue < 320 ? (int)(0 + (150 - 0) * (float)(ctDiffMarkAnime.CurrentValue) / 320.0f) : 150;
+
+            if(ctDiffMarkAnime.CurrentValue <= 208)
+            {
+                float easedT = EaseOut((float)(ctDiffMarkAnime.CurrentValue) / 208.0f);
+                markMoveY = 100.0f + (-50.0f - 100.0f) * easedT;
+
+                TJAPlayer3.Tx.Difficulty_Mark.vcScaleRatio.Y = 0.95f + (1.1f - 0.95f) * easedT;
+                TJAPlayer3.Tx.Difficulty_Mark.vcScaleRatio.X = 1.0f + (0.95f - 1.0f) * easedT;
+            }
+            else if(ctDiffMarkAnime.CurrentValue >= 209 && ctDiffMarkAnime.CurrentValue < 384)
+            {
+                float easedT = EaseIn((float)(ctDiffMarkAnime.CurrentValue) / 384.0f);
+                markMoveY = -50.0f + (0.0f - -50.0f) * easedT;
+
+                TJAPlayer3.Tx.Difficulty_Mark.vcScaleRatio.Y = 1.1f + (1.0f - 1.1f) * easedT;
+                TJAPlayer3.Tx.Difficulty_Mark.vcScaleRatio.X = 0.95f + (1.0f - 0.95f) * easedT;
+            }
+
+            if (TJAPlayer3.ConfigIni.nPlayerCount == 1 ) 
+            {
+                if(n現在の選択行[0] >= 2)
+                {
+                    TJAPlayer3.Tx.Difficulty_Mark.t2D拡大率考慮中央基準描画(200, 407 + markMoveY, new RectangleF(difficulty_Mark_width * (n現在の選択行[0] - 2), 0, difficulty_Mark_width, difficulty_Mark_width));
+                }
+            }
+            #endregion
 
             // int boxType = nStrジャンルtoNum(TJAPlayer3.stage選曲.r現在選択中の曲.strジャンル);
-			var difficulty_back = HGenreBar.tGetGenreBar(TJAPlayer3.stageSongSelect.rNowSelectedSong.BoxType, TJAPlayer3.Tx.Difficulty_Back);
+            var difficulty_back = HGenreBar.tGetGenreBar(TJAPlayer3.stageSongSelect.rNowSelectedSong.BoxType, TJAPlayer3.Tx.Difficulty_Back);
 
 
             difficulty_back.Opacity =
@@ -581,6 +627,7 @@ namespace TJAPlayer3
 
         private CCounter ctBarAnimeIn;
         private CCounter[] ctBarAnime = new CCounter[2];
+        private CCounter ctDiffMarkAnime;
 
         private int exextraAnimation;
 

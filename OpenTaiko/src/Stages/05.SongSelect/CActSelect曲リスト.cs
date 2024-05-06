@@ -3391,7 +3391,7 @@ namespace TJAPlayer3
 	            if (tx文字テクスチャ.szTextureSize.Width > titleTextureKey.maxWidth)
 	            {
 	                tx文字テクスチャ.vcScaleRatio.X = (float) (((double) titleTextureKey.maxWidth) / tx文字テクスチャ.szTextureSize.Width);
-					tx文字テクスチャ.vcScaleRatio.Y = 1.0f;// (float) (((double) titleTextureKey.maxWidth) / tx文字テクスチャ.szテクスチャサイズ.Width);
+					tx文字テクスチャ.vcScaleRatio.Y = (float)(((double)titleTextureKey.maxWidth) / tx文字テクスチャ.szTextureSize.Width);// (float) (((double) titleTextureKey.maxWidth) / tx文字テクスチャ.szテクスチャサイズ.Width);
 
 	            }
 

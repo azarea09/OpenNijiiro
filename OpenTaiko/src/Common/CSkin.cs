@@ -2283,6 +2283,16 @@ namespace TJAPlayer3
                                     }
                                     break;
                                 }
+                                case "SongSelect_Difficulty_Select_Title_Scale":
+                                {
+                                    SongSelect_Difficulty_Select_Title_Scale = int.Parse(strParam);
+                                    break;
+                                }
+                                case "SongSelect_Difficulty_Select_Subtitle_Scale":
+                                {
+                                    SongSelect_Difficulty_Select_Subtitle_Scale = int.Parse(strParam);
+                                    break;
+                                }
                                 case "SongSelect_Box_Chara_Move":
                                 {
                                     SongSelect_Box_Chara_Move = int.Parse(strParam);
@@ -9815,6 +9825,8 @@ namespace TJAPlayer3
 
         public int[] SongSelect_Difficulty_Select_Title = new int[] { 640, 140 };
         public int[] SongSelect_Difficulty_Select_SubTitle = new int[] { 640, 180 };
+        public int SongSelect_Difficulty_Select_Title_Scale = 22;
+        public int SongSelect_Difficulty_Select_Subtitle_Scale = 13;
 
         public int SongSelect_Box_Chara_Move = 114;
 

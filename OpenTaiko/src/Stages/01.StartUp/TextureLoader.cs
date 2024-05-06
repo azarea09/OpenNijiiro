@@ -362,6 +362,7 @@ namespace TJAPlayer3
             Difficulty_Crown = TxC(SONGSELECT + @$"Difficulty_Select{Path.DirectorySeparatorChar}Difficulty_Crown.png");
             Difficulty_Option = TxC($"{SONGSELECT}Difficulty_Select/Difficulty_Option.png");
             Difficulty_Option_Select = TxC($"{SONGSELECT}Difficulty_Select/Difficulty_Option_Select.png");
+            Difficulty_Mark = TxC(SONGSELECT + @$"Difficulty_Select{Path.DirectorySeparatorChar}Difficulty_Mark.png");
 
             Difficulty_Select_Bar[0] = TxC(SONGSELECT + @$"Difficulty_Select{Path.DirectorySeparatorChar}Difficulty_Select_Bar.png");
             Difficulty_Select_Bar[1] = TxC(SONGSELECT + @$"Difficulty_Select{Path.DirectorySeparatorChar}Difficulty_Select_Bar2.png");
@@ -2672,6 +2673,7 @@ namespace TJAPlayer3
         public CTexture Difficulty_Crown;
         public CTexture Difficulty_Option;
         public CTexture Difficulty_Option_Select;
+        public CTexture Difficulty_Mark;
 
         public CTexture[] Difficulty_Select_Bar = new CTexture[5];
         public Dictionary<string, CTexture> Difficulty_Back;

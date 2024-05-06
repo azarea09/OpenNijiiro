@@ -92,7 +92,7 @@ namespace TJAPlayer3
 						else if (OperatingSystem.IsLinux())
 							osplatform = "linux";
 						else
-							throw new PlatformNotSupportedException("TJAPlayer3-f does not support this OS.");
+							throw new PlatformNotSupportedException("OpenNijiiro does not support this OS.");
 
 						string platform = "";
 
