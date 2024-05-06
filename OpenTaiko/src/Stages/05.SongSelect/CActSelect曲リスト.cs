@@ -1717,7 +1717,7 @@ namespace TJAPlayer3
 							int x = TJAPlayer3.Skin.SongSelect_Bar_X[barCenterNum] + TJAPlayer3.Skin.SongSelect_RegularCrowns_Offset_X[i];
 							int y = TJAPlayer3.Skin.SongSelect_Bar_Y[barCenterNum] + TJAPlayer3.Skin.SongSelect_RegularCrowns_Offset_Y[i];
 
-							displayRegularCrowns((int)(x - centerMoveX / 1.1f), (int)(y - centerMove / 1.1f), クリア, スコアランク, 0.75f + BarAnimeCount * 0.25f);
+							displayRegularCrowns((int)(x - centerMoveX / 1.1f), (int)(y - centerMove / 1.1f), クリア, スコアランク, 0.75f + BarAnimeCount * 0.249f);
 							
 						}
 					}
@@ -3134,7 +3134,8 @@ namespace TJAPlayer3
 			TJAPlayer3.Tx.SongSelect_ScoreRank.vcScaleRatio.X = _resize;
 			TJAPlayer3.Tx.SongSelect_ScoreRank.vcScaleRatio.Y = _resize;
 
-			int bestCrown = -1;
+
+            int bestCrown = -1;
 			int bestScoreRank = -1;
 
 			for (int i = 0; i <= (int)Difficulty.Edit; i++)
@@ -3227,7 +3228,13 @@ namespace TJAPlayer3
 				&& TJAPlayer3.Tx.SongSelect_Favorite != null
 				&& TJAPlayer3.Favorites.tIsFavorite(csu.data.id))
             {
-				TJAPlayer3.Tx.SongSelect_Favorite.vcScaleRatio.X = _resize;
+                if (!ctBoxOpen.IsEnded)
+                {
+                    TJAPlayer3.Tx.SongSelect_Favorite.Opacity = (int)(ctBoxOpen.CurrentValue >= 1100 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1100) * 2.55f :
+                    ctBoxOpen.CurrentValue >= 1900 ? (ctBoxOpen.CurrentValue - 1900) * 2.3f : ctBoxOpen.CurrentValue <= 1100 ? 255 : 0);
+                }
+
+                TJAPlayer3.Tx.SongSelect_Favorite.vcScaleRatio.X = _resize;
 				TJAPlayer3.Tx.SongSelect_Favorite.vcScaleRatio.Y = _resize;
 				TJAPlayer3.Tx.SongSelect_Favorite.t2D拡大率考慮中央基準描画(x, y);
 			}
