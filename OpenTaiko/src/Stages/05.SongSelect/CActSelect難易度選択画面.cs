@@ -43,7 +43,6 @@ namespace TJAPlayer3
             if (n現在の選択行[player] < 5)
             {
                 ctBarAnime[player].Start(0, 180, 1, TJAPlayer3.Timer);
-                ctDiffMarkAnime.Start(0, 1216, 1, TJAPlayer3.Timer);
                 if (!b裏譜面)
                 {
                     n現在の選択行[player]++;
@@ -59,6 +58,9 @@ namespace TJAPlayer3
                         n現在の選択行[player]++;
                     }
                 }
+
+                if (n現在の選択行[player] >= 2)
+                    ctDiffMarkAnime.Start(0, 1216, 1, TJAPlayer3.Timer);
             }
             else if (n現在の選択行[player] >= 5)
             {
@@ -79,12 +81,14 @@ namespace TJAPlayer3
                             {
                                 // Extreme to Extra
                                 TJAPlayer3.stageSongSelect.actExExtraTransAnime.BeginAnime(true);
+                                ctDiffMarkAnime.Start(0, 1216, 1, TJAPlayer3.Timer);
                                 n現在の選択行[i] = 6;
                             }
                             else if (n現在の選択行[i] == 6)
                             {
                                 //Extra to Extreme
                                 TJAPlayer3.stageSongSelect.actExExtraTransAnime.BeginAnime(false);
+                                ctDiffMarkAnime.Start(0, 1216, 1, TJAPlayer3.Timer);
                                 n現在の選択行[i] = 5;
                             }
                         }
@@ -101,7 +105,8 @@ namespace TJAPlayer3
             if(n現在の選択行[player] - 1 >= 0)
             {
                 ctBarAnime[player].Start(0, 180, 1, TJAPlayer3.Timer);
-                ctDiffMarkAnime.Start(0, 1216, 1, TJAPlayer3.Timer);
+                if (n現在の選択行[player] >= 2)
+                    ctDiffMarkAnime.Start(0, 1216, 1, TJAPlayer3.Timer);
                 nスイッチカウント = 0;
                 if(n現在の選択行[player] == 6)
                     n現在の選択行[player] -= 2;
@@ -179,7 +184,7 @@ namespace TJAPlayer3
         }
         float EaseIn(float t)
         {
-            return (float)(t * t * t * t * t); // 二次関数によるイーズイン
+            return (float)(t * t * t); // 二次関数によるイーズイン
         }
 
         public override int Draw()
