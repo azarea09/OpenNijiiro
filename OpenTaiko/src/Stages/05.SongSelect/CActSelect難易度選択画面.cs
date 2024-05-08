@@ -105,13 +105,14 @@ namespace TJAPlayer3
             if(n現在の選択行[player] - 1 >= 0)
             {
                 ctBarAnime[player].Start(0, 180, 1, TJAPlayer3.Timer);
-                if (n現在の選択行[player] >= 2)
-                    ctDiffMarkAnime.Start(0, 1216, 1, TJAPlayer3.Timer);
                 nスイッチカウント = 0;
                 if(n現在の選択行[player] == 6)
                     n現在の選択行[player] -= 2;
                 else
                     n現在の選択行[player]--;
+
+                if (n現在の選択行[player] >= 2)
+                    ctDiffMarkAnime.Start(0, 1216, 1, TJAPlayer3.Timer);
             }
 		}
 

@@ -256,11 +256,11 @@ namespace TJAPlayer3
             }
 
             float scale = TJAPlayer3.Skin.Resolution[1] / (float)txGenreBack.szTextureSize.Height;
-            this.ct背景スクロール用タイマー = new CCounter(0, (int)(txGenreBack.szTextureSize.Width * scale), 30, TJAPlayer3.Timer);
+            this.ct背景スクロール用タイマー = new CCounter(0, (int)(txGenreBack.szTextureSize.Width * scale), 10.416666, TJAPlayer3.Timer);
             this.ct背景スクロール用タイマー.CurrentValue = Math.Min(scroll, (int)(txGenreBack.szTextureSize.Width * scale));
 
             float oldScale = TJAPlayer3.Skin.Resolution[1] / (float)txOldGenreBack.szTextureSize.Height;
-            this.ctOldBGScroll = new CCounter(0, (int)(txOldGenreBack.szTextureSize.Width * oldScale), 30, TJAPlayer3.Timer);
+            this.ctOldBGScroll = new CCounter(0, (int)(txOldGenreBack.szTextureSize.Width * oldScale), 10.416666, TJAPlayer3.Timer);
             this.ctOldBGScroll.CurrentValue = Math.Min(scroll, (int)(txOldGenreBack.szTextureSize.Width * oldScale));
 
             this.actPreimageパネル.t選択曲が変更された();
@@ -317,8 +317,8 @@ namespace TJAPlayer3
                 // BGM played
                 this.bBGM再生済み = false;
 
-                this.ct背景スクロール用タイマー = new CCounter(0, txGenreBack.szTextureSize.Width, 30, TJAPlayer3.Timer);
-                this.ctOldBGScroll = new CCounter(0, txOldGenreBack.szTextureSize.Width, 30, TJAPlayer3.Timer);
+                this.ct背景スクロール用タイマー = new CCounter(0, txGenreBack.szTextureSize.Width, 10.416666, TJAPlayer3.Timer);
+                this.ctOldBGScroll = new CCounter(0, txOldGenreBack.szTextureSize.Width, 10.416666, TJAPlayer3.Timer);
 
                 TJAPlayer3.Skin.voiceMenuSongSelect[TJAPlayer3.SaveFile]?.tPlay();
                 
