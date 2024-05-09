@@ -500,7 +500,7 @@ namespace TJAPlayer3
                                 if (txOldGenreBack != null)
                                 {
                                     txOldGenreBack.color4 = CConversion.ColorToColor4(this.OldBgColor);
-                                    txOldGenreBack.Opacity = 600 - ctBackgroundFade.CurrentValue;
+                                    txOldGenreBack.Opacity = 255 - ctBackgroundFade.CurrentValue;
                                     txOldGenreBack.vcScaleRatio.X = scale;
                                     txOldGenreBack.vcScaleRatio.Y = scale;
                                     txOldGenreBack.t2D描画(-(int)ctOldBGScroll.CurrentValue + (txOldGenreBack.szTextureSize.Width * scale) * i, 0);
@@ -1635,7 +1635,7 @@ namespace TJAPlayer3
 
         private void tカーソルを下へ移動する()
         {
-            if ((this.actSongList.rGetSideSong(1).eノード種別 == CSongListNode.ENodeType.SCORE) || this.actSongList.rGetSideSong(1).eノード種別 == CSongListNode.ENodeType.BACKBOX)
+            if (this.actSongList.rGetSideSong(1).eノード種別 == CSongListNode.ENodeType.SCORE)
             {
                 TJAPlayer3.stageSongSelect.bBGMIn再生した = false;
 
@@ -1646,8 +1646,9 @@ namespace TJAPlayer3
                 CSongSelectSongManager.enable();
                 CSongSelectSongManager.playSongIfPossible();
             }
-            this.ctBackgroundFade.Start(0, 600, 1, TJAPlayer3.Timer);
-            if (this.actSongList.ctBarOpen.CurrentValue >= 200 || this.ctBackgroundFade.CurrentValue >= 600 - 255)
+
+            this.ctBackgroundFade.Start(0, 600, 1.8, TJAPlayer3.Timer);
+            if (this.actSongList.ctBarOpen.CurrentValue >= 50 || this.ctBackgroundFade.CurrentValue >= 600 - 255)
             {
                 TJAPlayer3.stageSongSelect.OldGenre = this.rNowSelectedSong.strジャンル;
                 TJAPlayer3.stageSongSelect.OldUseGenre = !this.rNowSelectedSong.isChangedBgType;
@@ -1660,7 +1661,7 @@ namespace TJAPlayer3
         }
         private void tカーソルを上へ移動する()
         {
-            if ((this.actSongList.rGetSideSong(-1).eノード種別 == CSongListNode.ENodeType.SCORE) || this.actSongList.rGetSideSong(-1).eノード種別 == CSongListNode.ENodeType.BACKBOX)
+            if (this.actSongList.rGetSideSong(-1).eノード種別 == CSongListNode.ENodeType.SCORE)
             {
                 TJAPlayer3.stageSongSelect.bBGMIn再生した = false;
 
@@ -1672,8 +1673,8 @@ namespace TJAPlayer3
                 CSongSelectSongManager.playSongIfPossible();
             }
 
-            this.ctBackgroundFade.Start(0, 600, 1, TJAPlayer3.Timer);
-            if (this.actSongList.ctBarOpen.CurrentValue >= 200 || this.ctBackgroundFade.CurrentValue >= 600 - 255)
+            this.ctBackgroundFade.Start(0, 600, 1.8, TJAPlayer3.Timer);
+            if (this.actSongList.ctBarOpen.CurrentValue >= 50 || this.ctBackgroundFade.CurrentValue >= 600 - 255)
             {
                 TJAPlayer3.stageSongSelect.OldGenre = this.rNowSelectedSong.strジャンル;
                 TJAPlayer3.stageSongSelect.OldUseGenre = !this.rNowSelectedSong.isChangedBgType;
@@ -1686,8 +1687,8 @@ namespace TJAPlayer3
         }
         private void tカーソルスキップ(bool Up)
         {
-            this.ctBackgroundFade.Start(0, 600, 1, TJAPlayer3.Timer);
-            if (this.actSongList.ctBarOpen.CurrentValue >= 200 || this.ctBackgroundFade.CurrentValue >= 600 - 255)
+            this.ctBackgroundFade.Start(0, 600, 1.8, TJAPlayer3.Timer);
+            if (this.actSongList.ctBarOpen.CurrentValue >= 50 || this.ctBackgroundFade.CurrentValue >= 600 - 255)
             {
                 TJAPlayer3.stageSongSelect.OldGenre = this.rNowSelectedSong.strジャンル;
                 TJAPlayer3.stageSongSelect.OldUseGenre = !this.rNowSelectedSong.isChangedBgType;

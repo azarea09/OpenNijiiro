@@ -700,7 +700,7 @@ namespace TJAPlayer3
 		}
 		public void tUpdateCurSong()
 		{
-			if ((this.rGetSideSong(0).eノード種別 == CSongListNode.ENodeType.SCORE) || this.rGetSideSong(0).eノード種別 == CSongListNode.ENodeType.BACKBOX)
+			if (this.rGetSideSong(0).eノード種別 == CSongListNode.ENodeType.SCORE)
 			{
 				TJAPlayer3.stageSongSelect.bBGMIn再生した = false;
 
@@ -712,8 +712,8 @@ namespace TJAPlayer3
 				CSongSelectSongManager.playSongIfPossible();
 			}
 
-			TJAPlayer3.stageSongSelect.ctBackgroundFade.Start(0, 600, 1, TJAPlayer3.Timer);
-			if (this.ctBarOpen.CurrentValue >= 200 || TJAPlayer3.stageSongSelect.ctBackgroundFade.CurrentValue >= 600 - 255)
+			TJAPlayer3.stageSongSelect.ctBackgroundFade.Start(0, 600, 1.8, TJAPlayer3.Timer);
+			if (this.ctBarOpen.CurrentValue >= 50 || TJAPlayer3.stageSongSelect.ctBackgroundFade.CurrentValue >= 600 - 255)
 			{
 				TJAPlayer3.stageSongSelect.OldGenre = this.rCurrentlySelectedSong.strジャンル;
 				TJAPlayer3.stageSongSelect.OldUseGenre = !this.rCurrentlySelectedSong.isChangedBgType;
@@ -1108,7 +1108,8 @@ namespace TJAPlayer3
 
 			base.ReleaseManagedResource();
 		}
-		public override int Draw()
+
+        public override int Draw()
 		{
 			if (this.IsDeActivated)
 				return 0;
@@ -2120,12 +2121,12 @@ namespace TJAPlayer3
 				{
 					this.tCloseBOX();
 					TJAPlayer3.stageSongSelect.bBGM再生済み = false;
-					/*
+                    /*
 					if (TJAPlayer3.ConfigIni.bBGM音を発声する || !TJAPlayer3.Skin.bgm選曲画面イン.b再生中)
 						TJAPlayer3.Skin.bgm選曲画面イン.t再生する();
 					TJAPlayer3.stage選曲.bBGMIn再生した = true;
 					*/
-					CSongSelectSongManager.playSongIfPossible();
+                    CSongSelectSongManager.playSongIfPossible();
 					bBoxClose = false;
 				}
 			}
