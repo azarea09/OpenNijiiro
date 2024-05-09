@@ -924,7 +924,7 @@ namespace TJAPlayer3
 
             //for( int n = 0; n < 1; n++ )
             {
-                this.st状態[nPlayer].ct進行 = new CCounter(0, 14, 20, TJAPlayer3.Timer);
+                this.st状態[nPlayer].ct進行 = new CCounter(0, 17, 16, TJAPlayer3.Timer);
                 this.st状態[nPlayer].judge = judge;
                 this.st状態[nPlayer].nPlayer = nPlayer;
 

@@ -723,11 +723,11 @@ namespace TJAPlayer3
 
             Effects_GoGoSplash = TxC(GAME + EFFECTS + @$"GoGoSplash.png");
             if (Effects_GoGoSplash != null) Effects_GoGoSplash.b加算合成 = TJAPlayer3.Skin.Game_Effect_GoGoSplash_AddBlend;
-            Effects_Hit_Great = new CTexture[15];
-            Effects_Hit_Great_Big = new CTexture[15];
-            Effects_Hit_Good = new CTexture[15];
-            Effects_Hit_Good_Big = new CTexture[15];
-            for (int i = 0; i < 15; i++)
+            Effects_Hit_Great = new CTexture[18];
+            Effects_Hit_Great_Big = new CTexture[18];
+            Effects_Hit_Good = new CTexture[18];
+            Effects_Hit_Good_Big = new CTexture[18];
+            for (int i = 0; i < 18; i++)
             {
                 Effects_Hit_Great[i] = TxC(GAME + EFFECTS + @$"Hit{Path.DirectorySeparatorChar}" + @$"Great{Path.DirectorySeparatorChar}" + i.ToString() + ".png");
                 Effects_Hit_Great_Big[i] = TxC(GAME + EFFECTS + @$"Hit{Path.DirectorySeparatorChar}" + @$"Great_Big{Path.DirectorySeparatorChar}" + i.ToString() + ".png");
