@@ -523,88 +523,7 @@ namespace TJAPlayer3
                         
                 }
 
-                this.actSongList.Draw();
-                int y = 0;
-                if (this.ct登場時アニメ用共通.IsTicked)
-                {
-                    double db登場割合 = ((double)this.ct登場時アニメ用共通.CurrentValue) / 100.0;   // 100が最終値
-                    double dbY表示割合 = Math.Sin(Math.PI / 2 * db登場割合);
-                    y = ((int)(TJAPlayer3.Tx.SongSelect_Header.sz画像サイズ.Height * dbY表示割合)) - TJAPlayer3.Tx.SongSelect_Header.sz画像サイズ.Height;
-                }
                 
-                TJAPlayer3.Tx.SongSelect_Header?.t2D描画(0, 0);
-                TJAPlayer3.Tx.SongSelect_Footer?.t2D描画(0, 0);
-
-                tTimerDraw(100 - ctTimer.CurrentValue);
-
-
-                if (this.rNowSelectedSong != null)
-                {
-                    if (this.rNowSelectedSong.eノード種別 == CSongListNode.ENodeType.BOX)
-                    {
-                    }
-                    else if (this.rNowSelectedSong.eノード種別 == CSongListNode.ENodeType.SCORE)
-                    {
-                        actSongInfo.Draw();
-
-                        if (TJAPlayer3.stageSongSelect.n現在選択中の曲の難易度 == (int)Difficulty.Dan)
-                        {
-                            actDanInfo.Draw();
-                        }
-                        else if (TJAPlayer3.stageSongSelect.n現在選択中の曲の難易度 == (int)Difficulty.Tower)
-                        {
-                            actTowerInfo.Draw();
-                        }
-                        else
-                        {
-                        }
-                    }
-                }
-
-                tSongNumberDraw(TJAPlayer3.Skin.SongSelect_SongNumber_X[0], TJAPlayer3.Skin.SongSelect_SongNumber_Y[0], NowSong);
-                tSongNumberDraw(TJAPlayer3.Skin.SongSelect_SongNumber_X[1], TJAPlayer3.Skin.SongSelect_SongNumber_Y[1], MaxSong);
-
-                this.actInformation.Draw();
-
-                #region[ 下部テキスト ]
-
-
-                for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
-                {
-                    ModIcons.tDisplayModsMenu(TJAPlayer3.Skin.SongSelect_ModIcons_X[i], TJAPlayer3.Skin.SongSelect_ModIcons_Y[i], i);
-                }
-
-                
-
-
-
-                if (TJAPlayer3.ConfigIni.bTokkunMode)
-                    TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, "GAME: TRAINING MODE");
-                if (TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー)
-                    TJAPlayer3.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL");
-                if (TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛)
-                    TJAPlayer3.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL HARD");
-                if (TJAPlayer3.ConfigIni.bSuperHard)
-                    TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.赤, "SUPER HARD MODE : ON");
-
-                #endregion
-
-                if (this.rNowSelectedSong != null
-                    && this.rNowSelectedSong.eノード種別 == CSongListNode.ENodeType.SCORE
-                    && (this.actDifficultySelectionScreen.bIsDifficltSelect == false || this.actSongList.ctDifficultyIn.CurrentValue < 1000))
-                    this.actPreimageパネル.Draw();
-
-                this.actPresound.Draw();
-
-                this.act演奏履歴パネル.Draw();
-
-                this.actShowCurrentPosition.Draw();                               // #27648 2011.3.28 yyagi
-
-                // Select screen song
-                if (base.ePhaseID == CStage.EPhase.Common_NORMAL)
-                {
-                    CSongSelectSongManager.playSongIfPossible();
-                }
 
                 if (this.ctDiffSelect移動待ち != null)
                     this.ctDiffSelect移動待ち.Tick();
@@ -1050,7 +969,7 @@ namespace TJAPlayer3
                     #endregion
 
                     this.actSortSongs.t進行描画();
-                    this.actQuickConfig.t進行描画();
+                    //this.actQuickConfig.t進行描画();
                 }
 
                 #endregion
@@ -1245,6 +1164,91 @@ namespace TJAPlayer3
 
                 #endregion
 
+
+                this.actSongList.Draw();
+                int y = 0;
+                if (this.ct登場時アニメ用共通.IsTicked)
+                {
+                    double db登場割合 = ((double)this.ct登場時アニメ用共通.CurrentValue) / 100.0;   // 100が最終値
+                    double dbY表示割合 = Math.Sin(Math.PI / 2 * db登場割合);
+                    y = ((int)(TJAPlayer3.Tx.SongSelect_Header.sz画像サイズ.Height * dbY表示割合)) - TJAPlayer3.Tx.SongSelect_Header.sz画像サイズ.Height;
+                }
+
+                TJAPlayer3.Tx.SongSelect_Header?.t2D描画(0, 0);
+                TJAPlayer3.Tx.SongSelect_Footer?.t2D描画(0, 0);
+
+                tTimerDraw(100 - ctTimer.CurrentValue);
+
+
+                if (this.rNowSelectedSong != null)
+                {
+                    if (this.rNowSelectedSong.eノード種別 == CSongListNode.ENodeType.BOX)
+                    {
+                    }
+                    else if (this.rNowSelectedSong.eノード種別 == CSongListNode.ENodeType.SCORE)
+                    {
+                        actSongInfo.Draw();
+
+                        if (TJAPlayer3.stageSongSelect.n現在選択中の曲の難易度 == (int)Difficulty.Dan)
+                        {
+                            actDanInfo.Draw();
+                        }
+                        else if (TJAPlayer3.stageSongSelect.n現在選択中の曲の難易度 == (int)Difficulty.Tower)
+                        {
+                            actTowerInfo.Draw();
+                        }
+                        else
+                        {
+                        }
+                    }
+                }
+
+                tSongNumberDraw(TJAPlayer3.Skin.SongSelect_SongNumber_X[0], TJAPlayer3.Skin.SongSelect_SongNumber_Y[0], NowSong);
+                tSongNumberDraw(TJAPlayer3.Skin.SongSelect_SongNumber_X[1], TJAPlayer3.Skin.SongSelect_SongNumber_Y[1], MaxSong);
+
+                this.actInformation.Draw();
+
+                this.actQuickConfig.t進行描画();
+
+                #region[ 下部テキスト ]
+
+
+                for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+                {
+                    ModIcons.tDisplayModsMenu(TJAPlayer3.Skin.SongSelect_ModIcons_X[i], TJAPlayer3.Skin.SongSelect_ModIcons_Y[i], i);
+                }
+
+
+
+
+
+                if (TJAPlayer3.ConfigIni.bTokkunMode)
+                    TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, "GAME: TRAINING MODE");
+                if (TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー)
+                    TJAPlayer3.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL");
+                if (TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛)
+                    TJAPlayer3.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL HARD");
+                if (TJAPlayer3.ConfigIni.bSuperHard)
+                    TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.赤, "SUPER HARD MODE : ON");
+
+                #endregion
+
+                if (this.rNowSelectedSong != null
+                    && this.rNowSelectedSong.eノード種別 == CSongListNode.ENodeType.SCORE
+                    && (this.actDifficultySelectionScreen.bIsDifficltSelect == false || this.actSongList.ctDifficultyIn.CurrentValue < 1000))
+                    this.actPreimageパネル.Draw();
+
+                this.actPresound.Draw();
+
+                this.act演奏履歴パネル.Draw();
+
+                this.actShowCurrentPosition.Draw();                               // #27648 2011.3.28 yyagi
+
+                // Select screen song
+                if (base.ePhaseID == CStage.EPhase.Common_NORMAL)
+                {
+                    CSongSelectSongManager.playSongIfPossible();
+                }
 
                 if (TJAPlayer3.ConfigIni.nPlayerCount == 1)
                 {
