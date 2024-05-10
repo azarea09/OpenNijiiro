@@ -2446,10 +2446,10 @@ namespace TJAPlayer3
 
                                 if (!NotesManager.IsFuzeRoll(pChip))
                                 {
-                                    TJAPlayer3.Tx.SENotes[(int)_gt].vcScaleRatio.X = x末端 - x - 44 - _shift;
-                                    TJAPlayer3.Tx.SENotes[(int)_gt].t2D描画(x + 90 + _shift, y + nSenotesY, new Rectangle(_60_cut, 8 * _size[1], 1, _size[1]));
+                                    TJAPlayer3.Tx.SENotes[(int)_gt].vcScaleRatio.X = x末端 - x - 76 - _shift;
+                                    TJAPlayer3.Tx.SENotes[(int)_gt].t2D描画(x + 132 + _shift, y + nSenotesY, new Rectangle(_60_cut, 8 * _size[1], 1, _size[1]));
                                     TJAPlayer3.Tx.SENotes[(int)_gt].vcScaleRatio.X = 1.0f;
-                                    TJAPlayer3.Tx.SENotes[(int)_gt].t2D描画(x + 30 + _shift, y + nSenotesY, new Rectangle(0, 8 * _size[1], _60_cut, _size[1]));
+                                    TJAPlayer3.Tx.SENotes[(int)_gt].t2D描画(x + 42 + _shift, y + nSenotesY, new Rectangle(0, 8 * _size[1], _60_cut, _size[1]));
                                     TJAPlayer3.Tx.SENotes[(int)_gt].t2D描画(x - (_shift / 13), y + nSenotesY, new Rectangle(0, _size[1] * pChip.nSenote, _size[0], _size[1]));
                                 }
                                 else
