@@ -2167,15 +2167,18 @@ namespace TJAPlayer3
 					if (rCurrentlySelectedSong.strタイトル != "" && this.ttk選択している曲の曲名 == null)
 						this.ttk選択している曲の曲名 = this.ttk曲名テクスチャを生成する(rCurrentlySelectedSong.strタイトル, rCurrentlySelectedSong.ForeColor, rCurrentlySelectedSong.BackColor, rCurrentlySelectedSong.eノード種別 == CSongListNode.ENodeType.BOX ? this.pfBoxName : this.pfMusicName);
 					if (rCurrentlySelectedSong.strサブタイトル != "" && this.ttk選択している曲のサブタイトル == null)
-                        tx選択している曲のサブタイトル = this.txサブタイトルテクスチャを生成する(rCurrentlySelectedSong.strサブタイトル, rCurrentlySelectedSong.ForeColor, rCurrentlySelectedSong.BackColor);
+                        ttk選択している曲のサブタイトル = this.ttkサブタイトルテクスチャを生成する(rCurrentlySelectedSong.strサブタイトル, rCurrentlySelectedSong.ForeColor, rCurrentlySelectedSong.BackColor);
 					if (rCurrentlySelectedSong.strMaker != "" && this.ttkSelectedSongMaker == null)
 						this.ttkSelectedSongMaker = this.ttkGenerateMakerTexture(rCurrentlySelectedSong.strMaker, rCurrentlySelectedSong.ForeColor, rCurrentlySelectedSong.BackColor);
 					if (this.ttkSelectedSongBPM == null)
 						this.ttkSelectedSongBPM = this.ttkGenerateBPMTexture(rCurrentlySelectedSong, rCurrentlySelectedSong.ForeColor, rCurrentlySelectedSong.BackColor); ;
 
-					//サブタイトルがあったら700
+                    if (this.ttk選択している曲のサブタイトル != null)
+                        tx選択している曲のサブタイトル = ResolveTitleTexture(ttk選択している曲のサブタイトル, TJAPlayer3.Skin.SongSelect_VerticalText);
 
-					if (ttk選択している曲の曲名 != null)
+                    //サブタイトルがあったら700
+
+                    if (ttk選択している曲の曲名 != null)
 					{
 						if (!ctBoxOpen.IsEnded)
 							ResolveTitleTexture(this.ttk選択している曲の曲名, TJAPlayer3.Skin.SongSelect_VerticalText).Opacity = (int)(ctBoxOpen.CurrentValue >= 1100 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1100) * 2.55f :
@@ -2189,7 +2192,7 @@ namespace TJAPlayer3
 						}
 					}
 
-					if (tx選択している曲のサブタイトル != null)
+					if (ttk選択している曲のサブタイトル != null)
 					{
 						if (!ctBoxOpen.IsEnded)// BOX開いた時の透明度
                             tx選択している曲のサブタイトル.Opacity = (int)(ctBoxOpen.CurrentValue >= 1100 && ctBoxOpen.CurrentValue <= 1620 ? 255 - (ctBoxOpen.CurrentValue - 1100) * 2.55f :
@@ -3281,28 +3284,16 @@ namespace TJAPlayer3
 
 		private TitleTextureKey ttk曲名テクスチャを生成する( string str文字, Color forecolor, Color backcolor, CCachedFontRenderer pf)
         {
-            return new TitleTextureKey(str文字, pf, forecolor, backcolor, TJAPlayer3.Skin.SongSelect_Title_MaxSize);
+            return new TitleTextureKey(str文字, pf, forecolor, backcolor, TJAPlayer3.Skin.SongSelect_Title_MaxSize, 30);
         }
-
-	    private CTexture txサブタイトルテクスチャを生成する( string str文字, Color forecolor, Color backcolor)
+        private TitleTextureKey ttkサブタイトルテクスチャを生成する(string str文字, Color forecolor, Color backcolor)
         {
-
-			var texture = pfSubtitle.DrawText(str文字, forecolor, backcolor, null, 26);
-            CTexture Tex = TJAPlayer3.tテクスチャの生成(texture);
-
-            if (Tex.szTextureSize.Width > TJAPlayer3.Skin.SongSelect_SubTitle_MaxSize)
-            {
-                Tex.vcScaleRatio.X = (float)(((double)TJAPlayer3.Skin.SongSelect_SubTitle_MaxSize) / Tex.szTextureSize.Width);
-                Tex.vcScaleRatio.Y = (float)(((double)TJAPlayer3.Skin.SongSelect_SubTitle_MaxSize) / Tex.szTextureSize.Width);
-
-            }
-
-            return Tex;
-		}
+            return new TitleTextureKey(str文字, pfSubtitle, forecolor, backcolor, TJAPlayer3.Skin.SongSelect_SubTitle_MaxSize, 26);
+        }
 
 		private TitleTextureKey ttkGenerateMakerTexture(string str文字, Color forecolor, Color backcolor)
 		{
-			return new TitleTextureKey("Maker: " + str文字, pfMaker, forecolor, backcolor, TJAPlayer3.Skin.SongSelect_Maker_MaxSize);
+			return new TitleTextureKey("Maker: " + str文字, pfMaker, forecolor, backcolor, TJAPlayer3.Skin.SongSelect_Maker_MaxSize, 30);
 		}
 
         private TitleTextureKey ttkGenerateBPMTexture(CSongListNode node, Color forecolor, Color backcolor)
@@ -3326,7 +3317,7 @@ namespace TJAPlayer3
 			else if (_speed < 1)
 				_color = Color.LightBlue;
 
-            return new TitleTextureKey(bpm_str, pfBPM, _color, backcolor, TJAPlayer3.Skin.SongSelect_BPM_Text_MaxSize);
+            return new TitleTextureKey(bpm_str, pfBPM, _color, backcolor, TJAPlayer3.Skin.SongSelect_BPM_Text_MaxSize, 30);
         }
 
         public CTexture ResolveTitleTexture(TitleTextureKey titleTextureKey)
@@ -3386,7 +3377,7 @@ namespace TJAPlayer3
 		private static CTexture GenerateTitleTexture(TitleTextureKey titleTextureKey, bool keepCenter = false)
 	    {
 			using (var bmp = titleTextureKey.cPrivateFastFont.DrawText(
-	            titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, titleTextureKey.secondEdge, 30, keepCenter))
+	            titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, titleTextureKey.secondEdge, titleTextureKey.edgeRatio, keepCenter))
 	        {
 	            CTexture tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp, false);
 	            if (tx文字テクスチャ.szTextureSize.Width > titleTextureKey.maxWidth)
@@ -3417,16 +3408,18 @@ namespace TJAPlayer3
 	        public readonly Color forecolor;
 	        public readonly Color backcolor;
 	        public readonly int maxWidth;
-			public readonly Color? secondEdge;
+            public readonly int edgeRatio;
+            public readonly Color? secondEdge;
 
-	        public TitleTextureKey(string str文字, CCachedFontRenderer cPrivateFastFont, Color forecolor, Color backcolor, int maxHeight, Color? secondEdge = null)
+	        public TitleTextureKey(string str文字, CCachedFontRenderer cPrivateFastFont, Color forecolor, Color backcolor, int maxHeight, int edgeRatio = 30, Color? secondEdge = null)
 	        {
 	            this.str文字 = str文字;
 	            this.cPrivateFastFont = cPrivateFastFont;
 	            this.forecolor = forecolor;
 	            this.backcolor = backcolor;
 	            this.maxWidth = maxHeight;
-				this.secondEdge = secondEdge;
+                this.edgeRatio = edgeRatio;
+                this.secondEdge = secondEdge;
 	        }
 
 	        private bool Equals(TitleTextureKey other)

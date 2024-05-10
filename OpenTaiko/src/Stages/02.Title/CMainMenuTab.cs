@@ -27,7 +27,7 @@ namespace TJAPlayer3
         {
             string title = CLangManager.LangInstance.GetString(100 + boxId);
 
-            ttkTitle = new TitleTextureKey(title, tpf, Color.White, col, 1280, Color.Black);
+            ttkTitle = new TitleTextureKey(title, tpf, Color.White, col, 1280, 30, Color.Black);
 
             string boxText = CLangManager.LangInstance.GetString(150 + boxId);
 

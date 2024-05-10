@@ -126,7 +126,7 @@ namespace TJAPlayer3
 
                             if (TJAPlayer3.Skin.Game_Effect_FlyingNotes_IsUsingEasing)
                             {
-                                Flying[i].X = (Flying[i].StartPointX + 736 + ((-Math.Cos(Flying[i].Counter.CurrentValue * (Math.PI / 180)) * 736))) - 127;
+                                Flying[i].X = (Flying[i].StartPointX + 736 + ((-Math.Cos(Flying[i].Counter.CurrentValue * (Math.PI / 180)) * 736))) - 107;
                                 //Flying[i].X += (Math.Cos(Flying[i].Counter.n現在の値 * (Math.PI / 180))) * Flying[i].Increase;
                             }
                             else
