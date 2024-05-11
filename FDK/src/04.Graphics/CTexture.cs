@@ -455,8 +455,8 @@ namespace FDK
             //-----
 
             //拡大縮小の時の補完を指定------
-            Game.Gl.TexParameterI(GLEnum.Texture2D, GLEnum.TextureMinFilter, (int)TextureMinFilter.Nearest); //この場合は補完しない
-            Game.Gl.TexParameterI(GLEnum.Texture2D, GLEnum.TextureMagFilter, (int)TextureMinFilter.Nearest);
+            Game.Gl.TexParameterI(GLEnum.Texture2D, GLEnum.TextureMinFilter, (int)TextureMinFilter.Linear);
+            Game.Gl.TexParameterI(GLEnum.Texture2D, GLEnum.TextureMagFilter, (int)TextureMagFilter.LinearSharpenSgis);
             //------
 
             Game.Gl.BindTexture(TextureTarget.Texture2D, 0); //バインドを解除することを忘れないように
