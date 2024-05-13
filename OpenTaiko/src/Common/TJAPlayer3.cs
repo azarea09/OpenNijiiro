@@ -743,10 +743,13 @@ namespace TJAPlayer3
 		}
 		protected override void OnExiting()
 		{
-			ConfigIni.n初期ウィンドウ開始位置X = WindowPosition.X;
-			ConfigIni.n初期ウィンドウ開始位置Y = WindowPosition.Y;
-			ConfigIni.nウインドウwidth = WindowSize.X;
-			ConfigIni.nウインドウheight = WindowSize.Y;
+			if(FullScreen)
+			{
+				ConfigIni.n初期ウィンドウ開始位置X = WindowPosition.X;
+                ConfigIni.n初期ウィンドウ開始位置Y = WindowPosition.Y;
+                ConfigIni.nウインドウwidth = WindowSize.X;
+                ConfigIni.nウインドウheight = WindowSize.Y;
+            }
 			ConfigIni.b全画面モード = FullScreen;
 			ConfigIni.b垂直帰線待ちを行う = VSync;
 			Framerate = 0;
@@ -2383,6 +2386,22 @@ for (int i = 0; i < 3; i++) {
 				Sound管理?.t再生中の処理をする();	// サウンドバッファの更新; 画面描画と同期させることで、スクロールをスムーズにする
 			}
 			*/
+			if(TJAPlayer3.InputManager.Keyboard.KeyPressing((int)SlimDXKeys.Key.LeftAlt) && TJAPlayer3.InputManager.Keyboard.KeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.InputManager.Keyboard.KeyPressed((int)SlimDXKeys.Key.LeftAlt) && TJAPlayer3.InputManager.Keyboard.KeyPressing((int)SlimDXKeys.Key.Return))
+			{
+				ConfigIni.b全画面モード = !ConfigIni.b全画面モード;
+				app.ToggleWindowMode();
+
+                if (FullScreen)
+                {
+                    // ウィンドウモードからフルスクリーンモードに切り替える場合の処理
+                    Window_Resize(new Vector2D<int>(1920, 1080)); // フルスクリーン時の解像度にウィンドウをリサイズ
+                }
+                else
+                {
+                    // フルスクリーンモードからウィンドウモードに切り替える場合の処理
+                    Window_Resize(new Vector2D<int>(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight)); // ウィンドウモード時の解像度にウィンドウをリサイズ
+                }
+			}
 
 			#region [ 全画面_ウインドウ切り替え ]
 			if ( this.b次のタイミングで全画面_ウィンドウ切り替えを行う )
