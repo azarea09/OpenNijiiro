@@ -278,6 +278,7 @@ namespace SampleFramework
             options.API = GraphicsAPI.None;
             options.WindowBorder = WindowBorder.Resizable;
             options.Title = Text;
+            options.Samples = 8;
 
 
             Silk.NET.Windowing.Glfw.GlfwWindowing.Use();

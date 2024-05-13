@@ -6047,6 +6047,26 @@ namespace TJAPlayer3
                                     Game_Effect_FlyingNotes_StartPoint_Y = strParam.Split(',').Select(int.Parse).ToArray();
                                     break;
                                 }
+                                case nameof(Game_Effect_FlyingNotes_ControlPoint1_X):
+                                {
+                                    Game_Effect_FlyingNotes_ControlPoint1_X = strParam.Split(',').Select(int.Parse).ToArray();
+                                    break;
+                                }
+                                case nameof(Game_Effect_FlyingNotes_ControlPoint1_Y):
+                                {
+                                    Game_Effect_FlyingNotes_ControlPoint1_Y = strParam.Split(',').Select(int.Parse).ToArray();
+                                    break;
+                                }
+                                case nameof(Game_Effect_FlyingNotes_ControlPoint2_X):
+                                {
+                                    Game_Effect_FlyingNotes_ControlPoint2_X = strParam.Split(',').Select(int.Parse).ToArray();
+                                    break;
+                                }
+                                case nameof(Game_Effect_FlyingNotes_ControlPoint2_Y):
+                                {
+                                    Game_Effect_FlyingNotes_ControlPoint2_Y = strParam.Split(',').Select(int.Parse).ToArray();
+                                    break;
+                                }
                                 case nameof(Game_Effect_FlyingNotes_EndPoint_X):
                                 {
                                     Game_Effect_FlyingNotes_EndPoint_X = strParam.Split(',').Select(int.Parse).ToArray();
@@ -10502,8 +10522,12 @@ namespace TJAPlayer3
         public bool Game_Effect_GoGoSplash_Rotate = true;
         public int Game_Effect_GoGoSplash_Timer = 18;
         // super-flying-notes AioiLight
-        public int[] Game_Effect_FlyingNotes_StartPoint_X = new int[] { 414, 414 };
-        public int[] Game_Effect_FlyingNotes_StartPoint_Y = new int[] { 260, 434 };
+        public int[] Game_Effect_FlyingNotes_StartPoint_X = new int[] { 618, 618 };
+        public int[] Game_Effect_FlyingNotes_StartPoint_Y = new int[] { 386, 650 };
+        public int[] Game_Effect_FlyingNotes_ControlPoint1_X = new int[] { 853, 853 };
+        public int[] Game_Effect_FlyingNotes_ControlPoint1_Y = new int[] { -107, 1160 };
+        public int[] Game_Effect_FlyingNotes_ControlPoint2_X = new int[] { 1488, 1488 };
+        public int[] Game_Effect_FlyingNotes_ControlPoint2_Y = new int[] { -180, 1260 };
         public int[] Game_Effect_FlyingNotes_EndPoint_X = new int[] { 1222, 1222 }; // 1P, 2P
         public int[] Game_Effect_FlyingNotes_EndPoint_Y = new int[] { 164, 554 };
         public int[] Game_Effect_FlyingNotes_EndPoint_X_AI = new int[] { 1222, 1222 }; // 1P, 2P
