@@ -4,7 +4,7 @@ namespace SampleFramework
 {
 	public static class GameWindowSize
 	{
-		public static int Width = 1280;
-		public static int Height = 720;
+		public static int Width = 1920;
+		public static int Height = 1080;
 	}
 }

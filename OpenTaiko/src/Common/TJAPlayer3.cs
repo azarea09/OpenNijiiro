@@ -21,6 +21,7 @@ using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
 using Color = System.Drawing.Color;
 using System.Runtime.InteropServices;
+using Silk.NET.Windowing;
 
 namespace TJAPlayer3
 {
@@ -2389,19 +2390,20 @@ for (int i = 0; i < 3; i++) {
 			if(TJAPlayer3.InputManager.Keyboard.KeyPressing((int)SlimDXKeys.Key.LeftAlt) && TJAPlayer3.InputManager.Keyboard.KeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.InputManager.Keyboard.KeyPressed((int)SlimDXKeys.Key.LeftAlt) && TJAPlayer3.InputManager.Keyboard.KeyPressing((int)SlimDXKeys.Key.Return))
 			{
 				ConfigIni.b全画面モード = !ConfigIni.b全画面モード;
-				app.ToggleWindowMode();
 
-                if (FullScreen)
-                {
-                    // ウィンドウモードからフルスクリーンモードに切り替える場合の処理
+                if (!FullScreen)
+                {　// ウィンドウモードからフルスクリーンモードに切り替える場合の処理
+					app.Window_.WindowBorder = WindowBorder.Hidden;
                     Window_Resize(new Vector2D<int>(1920, 1080)); // フルスクリーン時の解像度にウィンドウをリサイズ
+                    FullScreen = true;
                 }
                 else
-                {
-                    // フルスクリーンモードからウィンドウモードに切り替える場合の処理
+                { // フルスクリーンモードからウィンドウモードに切り替える場合の処理
+                    app.Window_.WindowBorder = WindowBorder.Resizable;
+                    FullScreen = false;
                     Window_Resize(new Vector2D<int>(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight)); // ウィンドウモード時の解像度にウィンドウをリサイズ
                 }
-			}
+            }
 
 			#region [ 全画面_ウインドウ切り替え ]
 			if ( this.b次のタイミングで全画面_ウィンドウ切り替えを行う )

@@ -139,6 +139,6 @@ function draw()
         func:SetOpacity(clearOpacity[player], "donbg_a_06_1p_01_clear.png")
         func:SetOpacity(clearOpacity[player], "donbg_a_06_1p_02_clear.png")
         drawBg01Clear()
-        func:DrawNum(50,0,bgScrollX_00)
+        --func:DrawNum(50,0,bgScrollX_00)
     end
 end
