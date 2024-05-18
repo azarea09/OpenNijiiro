@@ -57,7 +57,7 @@ namespace TJAPlayer3
 
         #region [Dan titles]
 
-        public bool tUpdateDanTitle(string title, bool isGold, int clearStatus, int player)
+        public bool tUpdateDanTitle(int title, bool isGold, int clearStatus, int player)
         {
             bool changed = false;
 
@@ -65,7 +65,7 @@ namespace TJAPlayer3
             int cs = clearStatus;
 
             if (TJAPlayer3.NamePlateConfig.data.DanTitles[player] == null)
-                TJAPlayer3.NamePlateConfig.data.DanTitles[player] = new Dictionary<string, SaveFile.CDanTitle>();
+                TJAPlayer3.NamePlateConfig.data.DanTitles[player] = new Dictionary<int, SaveFile.CDanTitle>();
 
             if (TJAPlayer3.NamePlateConfig.data.DanTitles[player].ContainsKey(title))
             {
@@ -162,7 +162,7 @@ namespace TJAPlayer3
             public string[] Title = { "初心者", "初心者", "初心者", "初心者", "初心者" };
 
             [JsonProperty("dan")]
-            public string[] Dan = { "新人", "新人", "新人", "新人", "新人" };
+            public int[] Dan = { 0, 0, 0, 0, 0 };
 
             [JsonProperty("danGold")]
             public bool[] DanGold = { false, false, false, false, false };
@@ -186,7 +186,7 @@ namespace TJAPlayer3
             public string[] CharacterName = { "0", "0", "0", "0", "0" };
 
             [JsonProperty("danTitles")]
-            public Dictionary<string, SaveFile.CDanTitle>[] DanTitles = new Dictionary<string, SaveFile.CDanTitle>[5];
+            public Dictionary<int, SaveFile.CDanTitle>[] DanTitles = new Dictionary<int, SaveFile.CDanTitle>[5];
 
             [JsonProperty("namePlateTitles")]
             public Dictionary<string, SaveFile.CNamePlateTitle>[] NamePlateTitles = new Dictionary<string, SaveFile.CNamePlateTitle>[5];

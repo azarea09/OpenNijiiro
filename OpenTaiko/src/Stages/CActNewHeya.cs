@@ -93,10 +93,10 @@ namespace TJAPlayer3
                         {
                             foreach (var item in TJAPlayer3.SaveFileInstances[CurrentPlayer].data.DanTitles)
                             {
-                                if (item.Value.isGold == true)
-                                    this.ttkDanTitles[idx] = new CActSelect曲リスト.TitleTextureKey(item.Key, this.MenuFont, Color.Gold, Color.Black, 1000);
-                                else 
-                                    this.ttkDanTitles[idx] = new CActSelect曲リスト.TitleTextureKey(item.Key, this.MenuFont, Color.White, Color.Black, 1000);
+                                //if (item.Value.isGold == true)
+                                //    this.ttkDanTitles[idx] = new CActSelect曲リスト.TitleTextureKey(item.Key, this.MenuFont, Color.Gold, Color.Black, 1000);
+                                //else 
+                                //    this.ttkDanTitles[idx] = new CActSelect曲リスト.TitleTextureKey(item.Key, this.MenuFont, Color.White, Color.Black, 1000);
                                 idx++;
                             }
                         }
@@ -349,11 +349,11 @@ namespace TJAPlayer3
 
                                 if (CurrentIndex > 0)
                                 {
-                                    iG = TJAPlayer3.SaveFileInstances[CurrentPlayer].data.DanTitles[this.ttkDanTitles[CurrentIndex].str文字].isGold;
-                                    cs = TJAPlayer3.SaveFileInstances[CurrentPlayer].data.DanTitles[this.ttkDanTitles[CurrentIndex].str文字].clearStatus;
+                                   // iG = TJAPlayer3.SaveFileInstances[CurrentPlayer].data.DanTitles[this.ttkDanTitles[CurrentIndex].str文字].isGold;
+                                    //cs = TJAPlayer3.SaveFileInstances[CurrentPlayer].data.DanTitles[this.ttkDanTitles[CurrentIndex].str文字].clearStatus;
                                 }
 
-                                TJAPlayer3.SaveFileInstances[CurrentPlayer].data.Dan = this.ttkDanTitles[CurrentIndex].str文字;
+                                //TJAPlayer3.SaveFileInstances[CurrentPlayer].data.Dan = this.ttkDanTitles[CurrentIndex].str文字;
                                 TJAPlayer3.SaveFileInstances[CurrentPlayer].data.DanGold = iG;
                                 TJAPlayer3.SaveFileInstances[CurrentPlayer].data.DanType = cs;
 
@@ -649,7 +649,7 @@ namespace TJAPlayer3
                             int danGrade = 0;
                             if (index > 0)
                             {
-                                danGrade = TJAPlayer3.SaveFileInstances[CurrentPlayer].data.DanTitles[this.ttkDanTitles[index].str文字].clearStatus;
+                                //danGrade = TJAPlayer3.SaveFileInstances[CurrentPlayer].data.DanTitles[this.ttkDanTitles[index].str文字].clearStatus;
                             }
 
                             TJAPlayer3.NamePlate.tNamePlateDisplayNamePlateBase(

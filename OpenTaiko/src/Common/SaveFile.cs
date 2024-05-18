@@ -53,26 +53,39 @@ namespace TJAPlayer3
 
         public bool tUpdateDanTitle(string title, bool isGold, int clearStatus)
         {
+            int dan;
+            switch(title)
+            {
+                case "五級":
+                    dan = 0;
+                    break;
+                case "四級":
+                    dan = 1;
+                    break;
+                default:
+                    dan = 0;
+                    break;
+            }
             bool changed = false;
 
             bool iG = isGold;
             int cs = clearStatus;
 
             if (this.data.DanTitles == null)
-                this.data.DanTitles = new Dictionary<string, CDanTitle>();
+                this.data.DanTitles = new Dictionary<int, CDanTitle>();
 
-            if (this.data.DanTitles.ContainsKey(title))
+            if (this.data.DanTitles.ContainsKey(dan))
             {
-                if (this.data.DanTitles[title].clearStatus > cs)
-                    cs = this.data.DanTitles[title].clearStatus;
-                if (this.data.DanTitles[title].isGold)
+                if (this.data.DanTitles[dan].clearStatus > cs)
+                    cs = this.data.DanTitles[dan].clearStatus;
+                if (this.data.DanTitles[dan].isGold)
                     iG = true;
             }
 
             // Automatically set the dan to nameplate if new
             // Add a function within the NamePlate.cs file to update the title texture 
 
-            if (!this.data.DanTitles.ContainsKey(title) || cs != clearStatus || iG != isGold)
+            if (!this.data.DanTitles.ContainsKey(dan) || cs != clearStatus || iG != isGold)
             {
                 changed = true;
                 /*
@@ -85,7 +98,7 @@ namespace TJAPlayer3
 
             CDanTitle danTitle = new CDanTitle(iG, cs);
 
-            this.data.DanTitles[title] = danTitle;
+            this.data.DanTitles[dan] = danTitle;
 
             tSaveFile();
 
@@ -194,7 +207,7 @@ namespace TJAPlayer3
             public string Title = "初心者";
 
             [JsonProperty("dan")]
-            public string Dan = "新人";
+            public int Dan = 0;
 
             [JsonProperty("danGold")]
             public bool DanGold = false;
@@ -218,7 +231,7 @@ namespace TJAPlayer3
             public string CharacterName = "0";
 
             [JsonProperty("danTitles")]
-            public Dictionary<string, CDanTitle> DanTitles = new Dictionary<string, CDanTitle>();
+            public Dictionary<int, CDanTitle> DanTitles = new Dictionary<int, CDanTitle>();
 
             [JsonProperty("namePlateTitles")]
             public Dictionary<string, CNamePlateTitle> NamePlateTitles = new Dictionary<string, CNamePlateTitle>();

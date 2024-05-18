@@ -32,6 +32,10 @@ namespace TJAPlayer3
         {
             return tInstantiateFont(TJAPlayer3.Skin.SubTitleFontName, scale, style);
         }
+        public static CCachedFontRenderer tInstantiateNamePlateTitleFont(int scale, CFontRenderer.FontStyle style = CFontRenderer.FontStyle.Regular)
+        {
+            return tInstantiateFont(TJAPlayer3.Skin.NamePlateTitleFontName, scale, style);
+        }
 
         public static CCachedFontRenderer tInstantiateBoxFont(int scale, CFontRenderer.FontStyle style = CFontRenderer.FontStyle.Regular)
         {

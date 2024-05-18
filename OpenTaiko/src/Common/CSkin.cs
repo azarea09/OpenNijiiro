@@ -1132,6 +1132,15 @@ namespace TJAPlayer3
                                     if (HPrivateFastFont.FontExists(strParam)) SubTitleFontName = strParam;
                                     break;
                                 }
+                                case "NamePlateTitleFontName":
+                                {
+                                    strParam = strParam.Replace('/', System.IO.Path.DirectorySeparatorChar);
+                                    strParam = strParam.Replace('\\', System.IO.Path.DirectorySeparatorChar);
+                                    if (HPrivateFastFont.FontExists(strParam)) NamePlateTitleFontName = strParam;
+                                    strParam = Path(strParam);
+                                    if (HPrivateFastFont.FontExists(strParam)) NamePlateTitleFontName = strParam;
+                                    break;
+                                }
                                 case "BoxFontName":
                                 {
                                     strParam = strParam.Replace('/', System.IO.Path.DirectorySeparatorChar);
@@ -9506,6 +9515,7 @@ namespace TJAPlayer3
         public int[] Resolution = new int[] { 1280, 720 };
         public string FontName = TJAPlayer3.ConfigIni.FontName;
         public string SubTitleFontName = TJAPlayer3.ConfigIni.SubTitleFontName;
+        public string NamePlateTitleFontName = TJAPlayer3.ConfigIni.NamePlateTitleFontName;
         public string BoxFontName = TJAPlayer3.ConfigIni.BoxFontName;
         #endregion
 
@@ -9513,6 +9523,8 @@ namespace TJAPlayer3
 
         public int Config_NamePlate_Ptn_Title;
         public int[] Config_NamePlate_Ptn_Title_Boxes;
+
+        public int Config_NamePlate_Ptn_Dan;
 
         public int[] Config_Arrow_X = new int[] { 552, 552 };
         public int[] Config_Arrow_Y = new int[] { 297, 363 };
@@ -11119,10 +11131,10 @@ namespace TJAPlayer3
         public int NamePlate_Title_Width = 160;
         public int NamePlate_Dan_Width = 66;
 
-        public int NamePlate_Font_Name_Size_Normal = 15;
-        public int NamePlate_Font_Name_Size_WithTitle = 12;
-        public int NamePlate_Font_Title_Size = 11;
-        public int NamePlate_Font_Dan_Size = 12;
+        public int NamePlate_Font_Name_Size_Normal = 22;
+        public int NamePlate_Font_Name_Size_WithTitle = 20;
+        public int NamePlate_Font_Title_Size = 16;
+        public int NamePlate_Font_Dan_Size = 18;
 
         #endregion
 

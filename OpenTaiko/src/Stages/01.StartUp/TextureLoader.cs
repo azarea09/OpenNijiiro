@@ -184,6 +184,17 @@ namespace TJAPlayer3
                 NamePlate_Title_Small[i] = TxC(@$"9_NamePlateEffect{Path.DirectorySeparatorChar}Title{Path.DirectorySeparatorChar}" + i.ToString() + @$"{Path.DirectorySeparatorChar}Small.png");
             }
 
+            //段位の文字
+            TJAPlayer3.Skin.Config_NamePlate_Ptn_Dan = System.IO.Directory.GetDirectories(CSkin.Path(BASE + @$"9_NamePlateEffect{Path.DirectorySeparatorChar}Dan{Path.DirectorySeparatorChar}")).Length;
+
+            NamePlate_DanNormal = new CTexture[TJAPlayer3.Skin.Config_NamePlate_Ptn_Dan];
+            NamePlate_DanGold = new CTexture[TJAPlayer3.Skin.Config_NamePlate_Ptn_Dan];
+
+            for (int i = 0; i < TJAPlayer3.Skin.Config_NamePlate_Ptn_Dan; i++)
+            {
+                NamePlate_DanNormal[i] = TxC(@$"9_NamePlateEffect{Path.DirectorySeparatorChar}Dan{Path.DirectorySeparatorChar}" + i.ToString() + @$"{Path.DirectorySeparatorChar}Normal.png");
+                NamePlate_DanGold[i] = TxC(@$"9_NamePlateEffect{Path.DirectorySeparatorChar}Dan{Path.DirectorySeparatorChar}" + i.ToString() + @$"{Path.DirectorySeparatorChar}Gold.png");
+            }
 
             #endregion
 
@@ -2571,6 +2582,9 @@ namespace TJAPlayer3
         public CTexture[][] NamePlate_Title;
         public CTexture[] NamePlate_Title_Big;
         public CTexture[] NamePlate_Title_Small;
+
+        public CTexture[] NamePlate_DanNormal;
+        public CTexture[] NamePlate_DanGold;
 
         #endregion
 
