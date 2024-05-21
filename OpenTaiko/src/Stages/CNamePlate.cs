@@ -230,7 +230,7 @@ namespace TJAPlayer3
                 else
                 {
                     //なぜかy軸方向にずれるためrectangleを高さ30に制限(やりたいことは下中心基準で描画したいだけだがなぜかそのまま下中心基準を使うとうまくいかないので、めんどくさいやり方でやってる)
-                    txTitle[player].t2D拡大率考慮下基準描画(x + TJAPlayer3.Skin.NamePlate_Title_Offset[0] - (txTitle[player].szTextureSize.Width / 2 * txTitle[player].vcScaleRatio.X), txTitle[player].vcScaleRatio.X < 0.7f ? y + TJAPlayer3.Skin.NamePlate_Title_Offset[1] - 1 : y + TJAPlayer3.Skin.NamePlate_Title_Offset[1] + 1, new Rectangle(0, 0, txTitle[player].szTextureSize.Width, 33));
+                    txTitle[player].t2D拡大率考慮下基準描画(x + TJAPlayer3.Skin.NamePlate_Title_Offset[0] - (txTitle[player].szTextureSize.Width / 2 * txTitle[player].vcScaleRatio.X), txTitle[player].vcScaleRatio.X < 0.7f ? y + TJAPlayer3.Skin.NamePlate_Title_Offset[1] - 2 : y + TJAPlayer3.Skin.NamePlate_Title_Offset[1] + 1, new Rectangle(0, 0, txTitle[player].szTextureSize.Width, 33));
                 }
 
                 // Name text
