@@ -169,6 +169,7 @@ namespace TJAPlayer3
             NamePlate_Title = new CTexture[TJAPlayer3.Skin.Config_NamePlate_Ptn_Title][];
             NamePlate_Title_Big = new CTexture[TJAPlayer3.Skin.Config_NamePlate_Ptn_Title];
             NamePlate_Title_Small = new CTexture[TJAPlayer3.Skin.Config_NamePlate_Ptn_Title];
+            NamePlate_Title_Tiny = new CTexture[TJAPlayer3.Skin.Config_NamePlate_Ptn_Title];
 
             for (int i = 0; i < TJAPlayer3.Skin.Config_NamePlate_Ptn_Title; i++)
             {
@@ -182,6 +183,7 @@ namespace TJAPlayer3
 
                 NamePlate_Title_Big[i] = TxC(@$"9_NamePlateEffect{Path.DirectorySeparatorChar}Title{Path.DirectorySeparatorChar}" + i.ToString() + @$"{Path.DirectorySeparatorChar}Big.png");
                 NamePlate_Title_Small[i] = TxC(@$"9_NamePlateEffect{Path.DirectorySeparatorChar}Title{Path.DirectorySeparatorChar}" + i.ToString() + @$"{Path.DirectorySeparatorChar}Small.png");
+                NamePlate_Title_Tiny[i] = TxC(@$"9_NamePlateEffect{Path.DirectorySeparatorChar}Title{Path.DirectorySeparatorChar}" + i.ToString() + @$"{Path.DirectorySeparatorChar}Tiny.png");
             }
 
             //段位の文字
@@ -1264,6 +1266,8 @@ namespace TJAPlayer3
             TJAPlayer3.Skin.Characters_UseResult1P = new bool[TJAPlayer3.Skin.Characters_Ptn];
             TJAPlayer3.Skin.Characters_X = new int[TJAPlayer3.Skin.Characters_Ptn][];
             TJAPlayer3.Skin.Characters_Y = new int[TJAPlayer3.Skin.Characters_Ptn][];
+            TJAPlayer3.Skin.Characters_SongSelect_X = new int[TJAPlayer3.Skin.Characters_Ptn][];
+            TJAPlayer3.Skin.Characters_SongSelect_Y = new int[TJAPlayer3.Skin.Characters_Ptn][];
             TJAPlayer3.Skin.Characters_4P = new int[TJAPlayer3.Skin.Characters_Ptn][];
             TJAPlayer3.Skin.Characters_5P = new int[TJAPlayer3.Skin.Characters_Ptn][];
             TJAPlayer3.Skin.Characters_X_AI = new int[TJAPlayer3.Skin.Characters_Ptn][];
@@ -1895,6 +1899,8 @@ namespace TJAPlayer3
 
                 TJAPlayer3.Skin.Characters_X[i] = new int[] { 0, 0 };
                 TJAPlayer3.Skin.Characters_Y[i] = new int[] { 0, 537 };
+                TJAPlayer3.Skin.Characters_SongSelect_X[i] = new int[] { 0, 1320 };
+                TJAPlayer3.Skin.Characters_SongSelect_Y[i] = new int[] { 380, 380 };
                 TJAPlayer3.Skin.Characters_4P[i] = new int[] { 165, 68 };
                 TJAPlayer3.Skin.Characters_5P[i] = new int[] { 165, 40 };
                 TJAPlayer3.Skin.Characters_X_AI[i] = new int[] { 472, 602 };
@@ -2016,6 +2022,24 @@ namespace TJAPlayer3
                                         for (int k = 0; k < 2; k++)
                                         {
                                             TJAPlayer3.Skin.Characters_Y[i][k] = int.Parse(strSplit[k]);
+                                        }
+                                        break;
+                                    }
+                                    case "Game_Chara_SongSelect_X":
+                                    {
+                                        string[] strSplit = strParam.Split(',');
+                                        for (int k = 0; k < 2; k++)
+                                        {
+                                            TJAPlayer3.Skin.Characters_SongSelect_X[i][k] = int.Parse(strSplit[k]);
+                                        }
+                                        break;
+                                    }
+                                    case "Game_Chara_SongSelect_Y":
+                                    {
+                                        string[] strSplit = strParam.Split(',');
+                                        for (int k = 0; k < 2; k++)
+                                        {
+                                            TJAPlayer3.Skin.Characters_SongSelect_Y[i][k] = int.Parse(strSplit[k]);
                                         }
                                         break;
                                     }
@@ -2582,6 +2606,7 @@ namespace TJAPlayer3
         public CTexture[][] NamePlate_Title;
         public CTexture[] NamePlate_Title_Big;
         public CTexture[] NamePlate_Title_Small;
+        public CTexture[] NamePlate_Title_Tiny;
 
         public CTexture[] NamePlate_DanNormal;
         public CTexture[] NamePlate_DanGold;

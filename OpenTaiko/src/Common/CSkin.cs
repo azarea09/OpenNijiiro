@@ -9624,6 +9624,8 @@ namespace TJAPlayer3
         public bool[] Characters_UseResult1P;
         public int[][] Characters_X;
         public int[][] Characters_Y;
+        public int[][] Characters_SongSelect_X;
+        public int[][] Characters_SongSelect_Y;
         public int[][] Characters_4P;
         public int[][] Characters_5P;
         public int[][] Characters_X_AI;

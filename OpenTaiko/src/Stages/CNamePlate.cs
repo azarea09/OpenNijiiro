@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using static TJAPlayer3.CActSelect曲リスト;
@@ -251,16 +252,270 @@ namespace TJAPlayer3
             if (Opacity == 0)
                 return;
 
-            //float resolutionScaleX = TJAPlayer3.Skin.Resolution[0] / 1280.0f;
-            //float resolutionScaleY = TJAPlayer3.Skin.Resolution[1] / 720.0f;
-            float resolutionScaleX = 1280.0f / TJAPlayer3.Skin.Resolution[0];
-            float resolutionScaleY = 720.0f / TJAPlayer3.Skin.Resolution[1];
+            float resolutionScaleX = TJAPlayer3.Skin.Resolution[0] / 1920.0f;
+            float resolutionScaleY = TJAPlayer3.Skin.Resolution[1] / 1080.0f;
             float resolutionCenterX = TJAPlayer3.Skin.Resolution[0] / 2;
             float resolutionCenterY = TJAPlayer3.Skin.Resolution[1] / 2;
-
+            
             if (TJAPlayer3.SaveFileInstances[player].data.TitleType != 0 && TJAPlayer3.SaveFileInstances[player].data.TitleType != 3 && !TJAPlayer3.ConfigIni.SimpleMode)
             {
+                if (this.ctNamePlateEffect.CurrentValue <= 10)
+                {
+                    float scale = 1.0f;
 
+                    if (this.ctNamePlateEffect.CurrentValue >= 6)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 6) / 4.0f;
+                    }
+                    tNamePlateSmallStarDraw(player, scale, x + ((-864 + resolutionCenterX) * resolutionScaleX), y + ((-507 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 3 && this.ctNamePlateEffect.CurrentValue <= 12)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 7)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 7) / 5.0f;
+                    }
+                    tNamePlateSmallStarDraw(player, scale, x + ((-908 + resolutionCenterX) * resolutionScaleX), y + ((-530 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 6 && this.ctNamePlateEffect.CurrentValue <= 15)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 11)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 11) / 4.0f;
+                    }
+                    tNamePlateSmallStarDraw(player, scale, x + ((-888 + resolutionCenterX) * resolutionScaleX), y + ((-534 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 8 && this.ctNamePlateEffect.CurrentValue <= 17)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 12)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 12) / 5.0f;
+                    }
+                    tNamePlateTinyStarDraw(player, scale, x + ((-800 + resolutionCenterX) * resolutionScaleX), y + ((-504 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 16 && this.ctNamePlateEffect.CurrentValue <= 25)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 20)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 20) / 5.0f;
+                    }
+                    tNamePlateTinyStarDraw(player, scale, x + ((-872 + resolutionCenterX) * resolutionScaleX), y + ((-504 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 17 && this.ctNamePlateEffect.CurrentValue <= 26)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 22)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 22) / 4.0f;
+                    }
+                    tNamePlateSmallStarDraw(player, scale, x + ((-817 + resolutionCenterX) * resolutionScaleX), y + ((-540 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 21 && this.ctNamePlateEffect.CurrentValue <= 30)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 25)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 25) / 5.0f;
+                    }
+                    tNamePlateTinyStarDraw(player, scale, x + ((-738 + resolutionCenterX) * resolutionScaleX), y + ((-530 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 29 && this.ctNamePlateEffect.CurrentValue <= 38)
+                {
+                    float scaleTiny = 1.0f;
+                    float scaleSmall = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 33)
+                    {
+                        scaleTiny = 1.0f - (this.ctNamePlateEffect.CurrentValue - 33) / 5.0f;
+                    }
+                    tNamePlateTinyStarDraw(player, scaleTiny, x + ((-680 + resolutionCenterX) * resolutionScaleX), y + ((-528 + resolutionCenterY) * resolutionScaleY));
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 34)
+                    {
+                        scaleSmall = 1.0f - (this.ctNamePlateEffect.CurrentValue - 34) / 4.0f;
+                    }
+                    tNamePlateSmallStarDraw(player, scaleSmall, x + ((-702 + resolutionCenterX) * resolutionScaleX), y + ((-504 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 31 && this.ctNamePlateEffect.CurrentValue <= 40)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 36)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 36) / 4.0f;
+                    }
+                    tNamePlateSmallStarDraw(player, scale, x + ((-762 + resolutionCenterX) * resolutionScaleX), y + ((-506 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 34 && this.ctNamePlateEffect.CurrentValue <= 43)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 38)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 38) / 5.0f;
+                    }
+                    tNamePlateTinyStarDraw(player, scale, x + ((-728 + resolutionCenterX) * resolutionScaleX), y + ((-504 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 43 && this.ctNamePlateEffect.CurrentValue <= 52)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 47)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 47) / 5.0f;
+                    }
+                    tNamePlateTinyStarDraw(player, scale, x + ((-716 + resolutionCenterX) * resolutionScaleX), y + ((-508 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 44 && this.ctNamePlateEffect.CurrentValue <= 53)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 49)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 49) / 4.0f;
+                    }
+                    tNamePlateSmallStarDraw(player, scale, x + ((-773 + resolutionCenterX) * resolutionScaleX), y + ((-505 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 46 && this.ctNamePlateEffect.CurrentValue <= 55)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 51)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 51) / 4.0f;
+                    }
+                    tNamePlateSmallStarDraw(player, scale, x + ((-701 + resolutionCenterX) * resolutionScaleX), y + ((-529 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 48 && this.ctNamePlateEffect.CurrentValue <= 57)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 52)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 52) / 5.0f;
+                    }
+                    tNamePlateTinyStarDraw(player, scale, x + ((-884 + resolutionCenterX) * resolutionScaleX), y + ((-530 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 58 && this.ctNamePlateEffect.CurrentValue <= 67)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 62)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 62) / 5.0f;
+                    }
+                    tNamePlateTinyStarDraw(player, scale, x + ((-664 + resolutionCenterX) * resolutionScaleX), y + ((-520 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 61 && this.ctNamePlateEffect.CurrentValue <= 70)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 66)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 66) / 4.0f;
+                    }
+                    tNamePlateSmallStarDraw(player, scale, x + ((-671 + resolutionCenterX) * resolutionScaleX), y + ((-506 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 63 && this.ctNamePlateEffect.CurrentValue <= 72)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 67)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 67) / 5.0f;
+                    }
+                    tNamePlateTinyStarDraw(player, scale, x + ((-740 + resolutionCenterX) * resolutionScaleX), y + ((-504 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                if (this.ctNamePlateEffect.CurrentValue >= 65 && this.ctNamePlateEffect.CurrentValue <= 74)
+                {
+                    float scale = 1.0f;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 70)
+                    {
+                        scale = 1.0f - (this.ctNamePlateEffect.CurrentValue - 70) / 4.0f;
+                    }
+                    tNamePlateSmallStarDraw(player, scale, x + ((-791 + resolutionCenterX) * resolutionScaleX), y + ((-530 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                // Slash
+                if (this.ctNamePlateEffect.CurrentValue >= 84 && this.ctNamePlateEffect.CurrentValue <= 108)
+                {
+                    TJAPlayer3.Tx.NamePlate_Effect[4].Opacity = 255;
+
+                    if (this.ctNamePlateEffect.CurrentValue >= 84 && this.ctNamePlateEffect.CurrentValue <= 87)
+                    {
+                        TJAPlayer3.Tx.NamePlate_Effect[4].Opacity = (int)(255 * (this.ctNamePlateEffect.CurrentValue - 84) / 3.0f);
+                    }
+                    else if (this.ctNamePlateEffect.CurrentValue >= 105 && this.ctNamePlateEffect.CurrentValue <= 108)
+                    {
+                        TJAPlayer3.Tx.NamePlate_Effect[4].Opacity = (int)(255 * (108 - this.ctNamePlateEffect.CurrentValue) / 3.0f);
+                    }
+
+                    float moveX = -893 + (-694 + 893) * (this.ctNamePlateEffect.CurrentValue - 84) / (108 - 84);
+
+                    TJAPlayer3.Tx.NamePlate_Effect[4].t2D拡大率考慮中央基準描画(x + ((moveX + resolutionCenterX) * resolutionScaleX), y + ((-518 + resolutionCenterY) * resolutionScaleY));
+                }
+
+                // Big Star
+                if (this.ctNamePlateEffect.CurrentValue >= 103 && this.ctNamePlateEffect.CurrentValue <= 120)
+                {
+                    int tt = TJAPlayer3.SaveFileInstances[player].data.TitleType;
+                    if (tt >= 0 && tt < TJAPlayer3.Skin.Config_NamePlate_Ptn_Title && TJAPlayer3.Tx.NamePlate_Title_Big[tt] != null)
+                    {
+                        TJAPlayer3.Tx.NamePlate_Title_Big[tt].vcScaleRatio.X = 1.0f;
+                        TJAPlayer3.Tx.NamePlate_Title_Big[tt].vcScaleRatio.Y = 1.0f;
+                        TJAPlayer3.Tx.NamePlate_Title_Big[tt].Opacity = 255;
+
+                        if (this.ctNamePlateEffect.CurrentValue >= 103 && this.ctNamePlateEffect.CurrentValue <= 109)
+                        {
+                            TJAPlayer3.Tx.NamePlate_Title_Big[tt].fZ軸中心回転 = (float)((-180 * (this.ctNamePlateEffect.CurrentValue - 103) / 6.0f) * Math.PI / 180);
+                        }
+
+                        if (this.ctNamePlateEffect.CurrentValue >= 103 && this.ctNamePlateEffect.CurrentValue < 113)
+                        {
+                            float scale = 0.5f + (this.ctNamePlateEffect.CurrentValue - 103) / 9.0f * 0.75f; // 0.5fから1.25fにスケールを変更
+                            TJAPlayer3.Tx.NamePlate_Title_Big[tt].vcScaleRatio.X = scale;
+                            TJAPlayer3.Tx.NamePlate_Title_Big[tt].vcScaleRatio.Y = scale;
+                        }
+                        else if (this.ctNamePlateEffect.CurrentValue >= 113 && this.ctNamePlateEffect.CurrentValue <= 120)
+                        {
+                            float scale = 1.25f - (this.ctNamePlateEffect.CurrentValue - 113) / 7.0f * 0.25f; // 1.25fから1.0fにスケールを変更
+                            TJAPlayer3.Tx.NamePlate_Title_Big[tt].vcScaleRatio.X = scale;
+                            TJAPlayer3.Tx.NamePlate_Title_Big[tt].vcScaleRatio.Y = scale;
+                            TJAPlayer3.Tx.NamePlate_Title_Big[tt].Opacity = (int)(255 * (120 - this.ctNamePlateEffect.CurrentValue) / 7.0f);
+                        }
+
+                        TJAPlayer3.Tx.NamePlate_Title_Big[tt].t2D拡大率考慮中央基準描画(x + ((-676 + resolutionCenterX) * resolutionScaleX), y + ((-532+ resolutionCenterY) * resolutionScaleY));
+                    }
+
+                }
             }
 
             /*
@@ -412,7 +667,7 @@ namespace TJAPlayer3
             */
         }
 
-        private void tNamePlateStarDraw(int player, float Scale, float x, float y)
+        private void tNamePlateSmallStarDraw(int player, float Scale, float x, float y)
         {
             /*
             TJAPlayer3.Tx.NamePlate_Effect[TJAPlayer3.NamePlateConfig.data.TitleType[player] - 1].vc拡大縮小倍率.X = Scale;
@@ -425,6 +680,23 @@ namespace TJAPlayer3
                 TJAPlayer3.Tx.NamePlate_Title_Small[tt].vcScaleRatio.X = Scale;
                 TJAPlayer3.Tx.NamePlate_Title_Small[tt].vcScaleRatio.Y = Scale;
                 TJAPlayer3.Tx.NamePlate_Title_Small[tt].t2D拡大率考慮中央基準描画(x, y);
+            }
+
+        }
+
+        private void tNamePlateTinyStarDraw(int player, float Scale, float x, float y)
+        {
+            /*
+            TJAPlayer3.Tx.NamePlate_Effect[TJAPlayer3.NamePlateConfig.data.TitleType[player] - 1].vc拡大縮小倍率.X = Scale;
+            TJAPlayer3.Tx.NamePlate_Effect[TJAPlayer3.NamePlateConfig.data.TitleType[player] - 1].vc拡大縮小倍率.Y = Scale;
+            TJAPlayer3.Tx.NamePlate_Effect[TJAPlayer3.NamePlateConfig.data.TitleType[player] - 1].t2D拡大率考慮中央基準描画(x, y);
+            */
+            int tt = TJAPlayer3.SaveFileInstances[player].data.TitleType;
+            if (tt >= 0 && tt < TJAPlayer3.Skin.Config_NamePlate_Ptn_Title && TJAPlayer3.Tx.NamePlate_Title_Tiny[tt] != null)
+            {
+                TJAPlayer3.Tx.NamePlate_Title_Tiny[tt].vcScaleRatio.X = Scale;
+                TJAPlayer3.Tx.NamePlate_Title_Tiny[tt].vcScaleRatio.Y = Scale;
+                TJAPlayer3.Tx.NamePlate_Title_Tiny[tt].t2D拡大率考慮中央基準描画(x, y);
             }
 
         }

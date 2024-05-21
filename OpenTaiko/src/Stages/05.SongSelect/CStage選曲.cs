@@ -999,8 +999,8 @@ namespace TJAPlayer3
                     //int chara_x = TJAPlayer3.Skin.Characters_Menu_X[_charaId][player];
                     //int chara_y = TJAPlayer3.Skin.Characters_Menu_Y[_charaId][player];
 
-                    int chara_x = TJAPlayer3.Skin.SongSelect_NamePlate_X[player] + TJAPlayer3.Tx.NamePlateBase.szTextureSize.Width / 2;
-                    int chara_y = TJAPlayer3.Skin.SongSelect_NamePlate_Y[player];
+                    int chara_x = TJAPlayer3.Skin.Characters_SongSelect_X[_charaId][player % 2];
+                    int chara_y = TJAPlayer3.Skin.Characters_SongSelect_Y[_charaId][player % 2];
 
                     //int puchi_x = player == 0 ? 0 + 100 : 981 + 250;
                     //int puchi_y = player == 0 ? 330 + 230 : 330 + 230;
@@ -1511,13 +1511,20 @@ namespace TJAPlayer3
         private void tSongNumberDraw(int x, int y, int num)
         {
             int[] nums = CConversion.SeparateDigits(num);
+
+            // 各桁の幅を計算
+            float digitWidth = TJAPlayer3.Tx.SongSelect_Song_Number.sz画像サイズ.Width / 10.0f;
+            float totalWidth = digitWidth * nums.Length;
+
+            // 数字全体の幅の半分を引く
+            float startX = x - (totalWidth / 2.0f);
+
             for (int j = 0; j < nums.Length; j++)
             {
-                float offset = j - (nums.Length / 2.0f);
-                float _x = x - (TJAPlayer3.Skin.SongSelect_SongNumber_Interval[0] * offset);
-                float _y = y - (TJAPlayer3.Skin.SongSelect_SongNumber_Interval[1] * offset);
+                float _x = startX + (digitWidth * j);
+                float _y = y;
 
-                float width = TJAPlayer3.Tx.SongSelect_Song_Number.sz画像サイズ.Width / 10.0f;
+                float width = digitWidth;
                 float height = TJAPlayer3.Tx.SongSelect_Song_Number.sz画像サイズ.Height;
 
                 TJAPlayer3.Tx.SongSelect_Song_Number.t2D描画(_x, _y, new RectangleF(width * nums[j], 0, width, height));
