@@ -703,7 +703,7 @@ namespace TJAPlayer3
 
         private CCachedFontRenderer[] pfName = new CCachedFontRenderer[5];
         private CCachedFontRenderer pfTitle;
-        private CCachedFontRenderer pfdan;
+        //private CCachedFontRenderer pfdan;
         private CCounter ctNamePlateEffect;
 
         public CCounter ctAnimatedNamePlateTitle;
