@@ -1736,6 +1736,7 @@ namespace TJAPlayer3
                     {
                         //ﾊﾟｧｰﾝ
                         TJAPlayer3.Skin.soundBalloon.tPlay();
+                        actBalloon.tEnd();
                         //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, player ); //ここで飛ばす。飛ばされるのは大音符のみ。
                         TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(3, player);
                         TJAPlayer3.stage演奏ドラム画面.Rainbow.Start(player);

@@ -704,8 +704,8 @@ namespace TJAPlayer3
             Balloon_Number_Roll = TxC(GAME + BALLOON + @$"Number_Roll.png");
             Balloon_Number_Combo = TxC(GAME + BALLOON + @$"Number_Combo.png");
 
-            Balloon_Breaking = new CTexture[6];
-            for (int i = 0; i < 6; i++)
+            Balloon_Breaking = new CTexture[8];
+            for (int i = 0; i < 8; i++)
             {
                 Balloon_Breaking[i] = TxC(GAME + BALLOON + @$"Breaking_" + i.ToString() + ".png");
             }
