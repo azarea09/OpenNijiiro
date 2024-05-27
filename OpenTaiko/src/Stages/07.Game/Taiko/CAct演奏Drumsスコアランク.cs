@@ -69,25 +69,35 @@ namespace TJAPlayer3
 
             if (!cct.IsTicked)
             {
-                cct.Start(0, 3000, 1, TJAPlayer3.Timer);
+                cct.Start(0, 2660, 1, TJAPlayer3.Timer);
             }
-            if (cct.CurrentValue <= 255)
+            if (cct.CurrentValue <= 210)
             {
-                tex.Opacity = cct.CurrentValue;
-                x = ((cct.CurrentValue / 255.0f) - 1.0f) * (player == 0 ? -TJAPlayer3.Skin.Game_Judge_Move[0] : TJAPlayer3.Skin.Game_Judge_Move[0]);
-                y = ((cct.CurrentValue / 255.0f) - 1.0f) * (player == 0 ? -TJAPlayer3.Skin.Game_Judge_Move[1] : TJAPlayer3.Skin.Game_Judge_Move[1]);
+                tex.Opacity = (int)(255.0f * (cct.CurrentValue / 210.0f));
+                x = ((cct.CurrentValue / 210.0f) - 1.0f) * (player == 0 ? -TJAPlayer3.Skin.Game_Judge_Move[0] : TJAPlayer3.Skin.Game_Judge_Move[0]);
+                y = ((cct.CurrentValue / 210.0f) - 1.0f) * (player == 0 ? -TJAPlayer3.Skin.Game_Judge_Move[1] : TJAPlayer3.Skin.Game_Judge_Move[1]);
             }
-            if (cct.CurrentValue > 255 && cct.CurrentValue <= 255 + 180)
+            if (cct.CurrentValue > 210 && cct.CurrentValue <= 300)
             {
                 tex.Opacity = 255;
 
-                float newSize = 1.0f + (float)Math.Sin((cct.CurrentValue - 255) * (Math.PI / 180)) * 0.2f;
+                float newSize = 1.0f + ((cct.CurrentValue - 210) / 90.0f) * (1.08f - 1.0f);
                 tex.vcScaleRatio.X = newSize;
                 tex.vcScaleRatio.Y = newSize;
                 x = 0;
                 y = 0;
             }
-            if (cct.CurrentValue > 255 + 180 && cct.CurrentValue <= 2745)
+            if (cct.CurrentValue > 300 && cct.CurrentValue <= 380)
+            {
+                tex.Opacity = 255;
+
+                float newSize = 1.08f - ((cct.CurrentValue - 300) / 80.0f) * (1.08f - 1.0f);
+                tex.vcScaleRatio.X = newSize;
+                tex.vcScaleRatio.Y = newSize;
+                x = 0;
+                y = 0;
+            }
+            if (cct.CurrentValue > 380 && cct.CurrentValue <= 2400)
             {
                 tex.Opacity = 255;
                 tex.vcScaleRatio.X = 1.0f;
@@ -95,11 +105,11 @@ namespace TJAPlayer3
                 x = 0;
                 y = 0;
             }
-            if (cct.CurrentValue >= 2745 && cct.CurrentValue <= 3000)
+            if (cct.CurrentValue >= 2400 && cct.CurrentValue <= 2660)
             {
-                tex.Opacity = 255 - ((cct.CurrentValue - 2745));
-                x = ((cct.CurrentValue - 2745) / 255.0f) * (player == 0 || TJAPlayer3.ConfigIni.nPlayerCount >= 2 ? -TJAPlayer3.Skin.Game_Judge_Move[0] : TJAPlayer3.Skin.Game_Judge_Move[0]);
-                y = ((cct.CurrentValue - 2745) / 255.0f) * (player == 0 || TJAPlayer3.ConfigIni.nPlayerCount >= 2 ? -TJAPlayer3.Skin.Game_Judge_Move[1] : TJAPlayer3.Skin.Game_Judge_Move[1]);
+                tex.Opacity = 255 - (int)(255 * (cct.CurrentValue - 2400) / 260.0f);
+                x = ((cct.CurrentValue - 2400) / 260.0f) * (player == 0 || TJAPlayer3.ConfigIni.nPlayerCount >= 2 ? -TJAPlayer3.Skin.Game_Judge_Move[0] : TJAPlayer3.Skin.Game_Judge_Move[0]);
+                y = ((cct.CurrentValue - 2400) / 260.0f) * (player == 0 || TJAPlayer3.ConfigIni.nPlayerCount >= 2 ? -TJAPlayer3.Skin.Game_Judge_Move[1] : TJAPlayer3.Skin.Game_Judge_Move[1]);
             }
 
             var xpos = 0;
