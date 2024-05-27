@@ -2213,14 +2213,8 @@ namespace TJAPlayer3
                                     }
                                         
 
-                                    if (this.actCombo.ctコンボ加算[nPlayer].IsUnEnded)
-                                    {
-                                        this.actCombo.ctコンボ加算[nPlayer].CurrentValue = 1;
-                                    }
-                                    else
-                                    {
-                                        this.actCombo.ctコンボ加算[nPlayer].CurrentValue = 0;
-                                    }
+
+                                    this.actCombo.ctコンボ加算[nPlayer].CurrentValue = 0;
 
 
                                     AIRegisterInput(nPlayer, 1);
@@ -2253,14 +2247,7 @@ namespace TJAPlayer3
                                         this.tIncreaseComboDan(actDan.NowShowingNumber);
                                     }
 
-                                    if (this.actCombo.ctコンボ加算[nPlayer].IsUnEnded)
-                                    {
-                                        this.actCombo.ctコンボ加算[nPlayer].CurrentValue = 1;
-                                    }
-                                    else
-                                    {
-                                        this.actCombo.ctコンボ加算[nPlayer].CurrentValue = 0;
-                                    }
+                                    this.actCombo.ctコンボ加算[nPlayer].CurrentValue = 0;
 
 
                                     AIRegisterInput(nPlayer, 0.5f);
@@ -2338,14 +2325,8 @@ namespace TJAPlayer3
                                         if ( nPlayer == 0 ) this.nヒット数_Auto含む.Drums.Perfect++;
                                         this.actCombo.n現在のコンボ数[ nPlayer ]++;
                                         //this.actCombo.ctコンボ加算.t進行();
-                                        if (this.actCombo.ctコンボ加算[nPlayer].IsUnEnded)
-                                        {
-                                            this.actCombo.ctコンボ加算[nPlayer].CurrentValue = 1;
-                                        }
-                                        else
-                                        {
-                                            this.actCombo.ctコンボ加算[nPlayer].CurrentValue = 0;
-                                        }
+                                        this.actCombo.ctコンボ加算[nPlayer].CurrentValue = 0;
+
 
                                         AIRegisterInput(nPlayer, 1);
 
@@ -2380,14 +2361,8 @@ namespace TJAPlayer3
                                         if (nPlayer == 0) this.nヒット数_Auto含む.Drums.Great++;
                                         this.actCombo.n現在のコンボ数[nPlayer]++;
 
-                                        if (this.actCombo.ctコンボ加算[nPlayer].IsUnEnded)
-                                        {
-                                            this.actCombo.ctコンボ加算[nPlayer].CurrentValue = 1;
-                                        }
-                                        else
-                                        {
-                                            this.actCombo.ctコンボ加算[nPlayer].CurrentValue = 0;
-                                        }
+                                        this.actCombo.ctコンボ加算[nPlayer].CurrentValue = 0;
+
 
 
                                         AIRegisterInput(nPlayer, 0.5f);
