@@ -800,7 +800,9 @@ namespace TJAPlayer3
 						{
 							this.status[i].nジャンプインデックス値 = 0;
 							this.status[i].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.NowTime;
-						}
+							this.ctコンボ加算[i].CurrentValue = 0;
+
+                        }
 
 						this.status[i].n現在表示中のCOMBO値 = this.status[i].nCOMBO値;
 						switch (i)
