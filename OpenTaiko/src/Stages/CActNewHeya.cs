@@ -540,14 +540,14 @@ namespace TJAPlayer3
                             TJAPlayer3.Tx.Puchichara[index].tx?.tUpdateColor4(CConversion.ColorToColor4(Color.White));
 
 
-                            if (ttkCharacterNames[index] != null)
+                            if (ttkPuchiCharaNames[index] != null)
                             {
                                 CTexture tmpTex = TJAPlayer3.stageSongSelect.actSongList.ResolveTitleTexture(ttkPuchiCharaNames[index]);
 
                                 tmpTex.t2D拡大率考慮上中央基準描画(x + TJAPlayer3.Skin.SongSelect_NewHeya_Box_Name_Offset[0], y + TJAPlayer3.Skin.SongSelect_NewHeya_Box_Name_Offset[1]);
                             }
 
-                            if (ttkCharacterAuthors[index] != null)
+                            if (ttkPuchiCharaAuthors[index] != null)
                             {
                                 CTexture tmpTex = TJAPlayer3.stageSongSelect.actSongList.ResolveTitleTexture(ttkPuchiCharaAuthors[index]);
 
