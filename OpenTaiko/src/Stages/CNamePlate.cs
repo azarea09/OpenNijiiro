@@ -6,6 +6,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using static TJAPlayer3.CActSelect曲リスト;
 
 namespace TJAPlayer3
@@ -18,10 +19,22 @@ namespace TJAPlayer3
             {
                 this.pfName[player]?.Dispose();
 
-                if (TJAPlayer3.SaveFileInstances[player].data.Title == "" || TJAPlayer3.SaveFileInstances[player].data.Title == null)
-                    this.pfName[player] = HPrivateFastFont.tInstantiateSubTitleFont(TJAPlayer3.Skin.NamePlate_Font_Name_Size_Normal);
+                // 日本語を含まない場合は英字フォントを使う
+                if (Regex.IsMatch(TJAPlayer3.SaveFileInstances[player].data.Name, @"[\p{IsHiragana}\p{IsKatakana}\p{IsCJKUnifiedIdeographs}]+"))
+                {
+                    // 日本語を含む場合
+                    if (TJAPlayer3.SaveFileInstances[player].data.Title == "" || TJAPlayer3.SaveFileInstances[player].data.Title == null)
+                        this.pfName[player] = HPrivateFastFont.tInstantiateSubTitleFont(TJAPlayer3.Skin.NamePlate_Font_Name_Size_Normal);
+                    else
+                        this.pfName[player] = HPrivateFastFont.tInstantiateSubTitleFont(TJAPlayer3.Skin.NamePlate_Font_Name_Size_WithTitle);
+                }
                 else
-                    this.pfName[player] = HPrivateFastFont.tInstantiateSubTitleFont(TJAPlayer3.Skin.NamePlate_Font_Name_Size_WithTitle);
+                {
+                    if (TJAPlayer3.SaveFileInstances[player].data.Title == "" || TJAPlayer3.SaveFileInstances[player].data.Title == null)
+                        this.pfName[player] = HPrivateFastFont.tInstantiateEnglishFont(TJAPlayer3.Skin.NamePlate_Font_ENGName_Size_Normal);
+                    else
+                        this.pfName[player] = HPrivateFastFont.tInstantiateEnglishFont(TJAPlayer3.Skin.NamePlate_Font_ENGName_Size_WithTitle);
+                }
             }
 
             this.pfTitle?.Dispose();
@@ -163,11 +176,15 @@ namespace TJAPlayer3
             {
                 if (txName[player].szTextureSize.Width > TJAPlayer3.Skin.NamePlate_Name_Width_Full)
                     txName[player].vcScaleRatio.X = (float)TJAPlayer3.Skin.NamePlate_Name_Width_Full / txName[player].szTextureSize.Width;
+                if (txName[player].szTextureSize.Width > TJAPlayer3.Skin.NamePlate_Name_Width_Full)
+                    txName[player].vcScaleRatio.Y = (float)TJAPlayer3.Skin.NamePlate_Name_Width_Full / txName[player].szTextureSize.Width;
             }
             else
             {
                 if (txName[player].szTextureSize.Width > TJAPlayer3.Skin.NamePlate_Name_Width_Normal)
                     txName[player].vcScaleRatio.X = (float)TJAPlayer3.Skin.NamePlate_Name_Width_Normal / txName[player].szTextureSize.Width;
+                if (txName[player].szTextureSize.Width > TJAPlayer3.Skin.NamePlate_Name_Width_Normal)
+                    txName[player].vcScaleRatio.Y = (float)TJAPlayer3.Skin.NamePlate_Name_Width_Normal / txName[player].szTextureSize.Width;
             }
 
             // Dan text squash (to add to skin config)
@@ -210,16 +227,10 @@ namespace TJAPlayer3
             // Title text
             if (TJAPlayer3.SaveFileInstances[player].data.Title != "" && TJAPlayer3.SaveFileInstances[player].data.Title != null)
             {
-                if (txTitle[player].szTextureSize.Height > 53)
+                if (txTitle[player].szTextureSize.Height > 54 || txTitle[player].szTextureSize.Width > TJAPlayer3.Skin.NamePlate_Title_Width)
                 {
-                    txTitle[player].vcScaleRatio.X = 53f / txTitle[player].szTextureSize.Height;
-                    txTitle[player].vcScaleRatio.Y = 53f / txTitle[player].szTextureSize.Height;
-                }
-
-                if (txTitle[player].szTextureSize.Width > TJAPlayer3.Skin.NamePlate_Title_Width)
-                {
-                    txTitle[player].vcScaleRatio.X = (float)TJAPlayer3.Skin.NamePlate_Title_Width / txTitle[player].szTextureSize.Width;
-                    txTitle[player].vcScaleRatio.Y = (float)TJAPlayer3.Skin.NamePlate_Title_Width / txTitle[player].szTextureSize.Width;
+                    txTitle[player].vcScaleRatio.X = Math.Min(54f / txTitle[player].szTextureSize.Height, (float)TJAPlayer3.Skin.NamePlate_Title_Width / txTitle[player].szTextureSize.Width);
+                    txTitle[player].vcScaleRatio.Y = Math.Min(54f / txTitle[player].szTextureSize.Height, (float)TJAPlayer3.Skin.NamePlate_Title_Width / txTitle[player].szTextureSize.Width);
                 }
 
                 // ベースラインをはみ出す文字の場合は調整する
@@ -230,14 +241,78 @@ namespace TJAPlayer3
                 else
                 {
                     //なぜかy軸方向にずれるためrectangleを高さ30に制限(やりたいことは下中心基準で描画したいだけだがなぜかそのまま下中心基準を使うとうまくいかないので、めんどくさいやり方でやってる)
-                    txTitle[player].t2D拡大率考慮下基準描画(x + TJAPlayer3.Skin.NamePlate_Title_Offset[0] - (txTitle[player].szTextureSize.Width / 2 * txTitle[player].vcScaleRatio.X), txTitle[player].vcScaleRatio.X < 0.7f ? y + TJAPlayer3.Skin.NamePlate_Title_Offset[1] - 2 : y + TJAPlayer3.Skin.NamePlate_Title_Offset[1] + 1, new Rectangle(0, 0, txTitle[player].szTextureSize.Width, 33));
+                    txTitle[player].t2D拡大率考慮下基準描画(x + TJAPlayer3.Skin.NamePlate_Title_Offset[0] - (txTitle[player].szTextureSize.Width / 2 * txTitle[player].vcScaleRatio.X),
+                        txTitle[player].vcScaleRatio.X < 0.7f ? y + TJAPlayer3.Skin.NamePlate_Title_Offset[1] - 2 
+                        : y + TJAPlayer3.Skin.NamePlate_Title_Offset[1] + 1, new Rectangle(0, 0, txTitle[player].szTextureSize.Width, 33));
                 }
 
                 // Name text
-                if (TJAPlayer3.SaveFileInstances[player].data.Dan == -1)
-                    this.txName[player].t2D拡大率考慮中央基準描画(x + TJAPlayer3.Skin.NamePlate_Name_Offset_WithTitle[0], y + TJAPlayer3.Skin.NamePlate_Name_Offset_WithTitle[1]);
+                if (Regex.IsMatch(TJAPlayer3.SaveFileInstances[player].data.Name, @"[\p{IsHiragana}\p{IsKatakana}\p{IsCJKUnifiedIdeographs}]+"))
+                {
+                    // 日本語を含む場合
+                    if (TJAPlayer3.SaveFileInstances[player].data.Dan == -1)
+                    {
+                        // 段位がない場合
+                        // ベースラインをはみ出す文字の場合は調整する
+                        if (TJAPlayer3.SaveFileInstances[player].data.Name.Contains("j") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("q") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("p") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("y") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("g"))
+                        {
+                            this.txName[player].t2D拡大率考慮中央基準描画(x + TJAPlayer3.Skin.NamePlate_Name_Offset_WithTitle[0],
+                                txName[player].vcScaleRatio.X < 0.7f ? y + TJAPlayer3.Skin.NamePlate_Name_Offset_WithTitle[1] + 4
+                                : y + TJAPlayer3.Skin.NamePlate_Name_Offset_WithTitle[1] + 5, new Rectangle(0, 0, txName[player].szTextureSize.Width, 46));
+                        }
+                        else
+                        {
+                            this.txName[player].t2D拡大率考慮中央基準描画(x + TJAPlayer3.Skin.NamePlate_Name_Offset_WithTitle[0], y + TJAPlayer3.Skin.NamePlate_Name_Offset_WithTitle[1], new Rectangle(0, 0, txName[player].szTextureSize.Width, 36));
+                        }
+                    }
+                    else
+                    {
+                        // ベースラインをはみ出す文字の場合は調整する
+                        if (TJAPlayer3.SaveFileInstances[player].data.Name.Contains("j") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("q") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("p") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("y") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("g"))
+                        {
+                            this.txName[player].t2D拡大率考慮中央基準描画(x + TJAPlayer3.Skin.NamePlate_Name_Offset_Full[0],
+                                txName[player].vcScaleRatio.X < 0.7f ? y + TJAPlayer3.Skin.NamePlate_Name_Offset_Full[1] + 4
+                                : y + TJAPlayer3.Skin.NamePlate_Name_Offset_Full[1] + 5, new Rectangle(0, 0, txName[player].szTextureSize.Width, 46));
+                        }
+                        else
+                        {
+                            this.txName[player].t2D拡大率考慮中央基準描画(x + TJAPlayer3.Skin.NamePlate_Name_Offset_Full[0], y + TJAPlayer3.Skin.NamePlate_Name_Offset_Full[1], new Rectangle(0, 0, txName[player].szTextureSize.Width, 36));
+                        }
+                    }
+                }
                 else
-                    this.txName[player].t2D拡大率考慮中央基準描画(x + TJAPlayer3.Skin.NamePlate_Name_Offset_Full[0], y + TJAPlayer3.Skin.NamePlate_Name_Offset_Full[1]);
+                {
+                    // 英字フォントの場合
+                    if (TJAPlayer3.SaveFileInstances[player].data.Dan == -1)
+                    {
+                        // 段位がない場合
+                        // ベースラインをはみ出す文字の場合は調整する
+                        if (TJAPlayer3.SaveFileInstances[player].data.Name.Contains("j") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("q") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("p") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("y") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("g"))
+                        {
+                            this.txName[player].t2D拡大率考慮中央基準描画(x + TJAPlayer3.Skin.NamePlate_ENGName_Offset_WithTitle[0],
+                                txName[player].vcScaleRatio.X < 0.8f ? y + TJAPlayer3.Skin.NamePlate_ENGName_Offset_WithTitle[1] + 4
+                                : y + TJAPlayer3.Skin.NamePlate_ENGName_Offset_WithTitle[1] + 5, new Rectangle(0, 0, txName[player].szTextureSize.Width, 46));
+                        }
+                        else
+                        {
+                            this.txName[player].t2D拡大率考慮中央基準描画(x + TJAPlayer3.Skin.NamePlate_ENGName_Offset_WithTitle[0], y + TJAPlayer3.Skin.NamePlate_ENGName_Offset_WithTitle[1], new Rectangle(0, 0, txName[player].szTextureSize.Width, 36));
+                        }
+                    }
+                    else
+                    {
+                        // ベースラインをはみ出す文字の場合は調整する
+                        if (TJAPlayer3.SaveFileInstances[player].data.Name.Contains("j") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("q") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("p") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("y") || TJAPlayer3.SaveFileInstances[player].data.Name.Contains("g"))
+                        {
+                            this.txName[player].t2D拡大率考慮中央基準描画(x + TJAPlayer3.Skin.NamePlate_ENGName_Offset_Full[0],
+                                txName[player].vcScaleRatio.X < 0.8f ? y + TJAPlayer3.Skin.NamePlate_ENGName_Offset_Full[1] + 4
+                                : y + TJAPlayer3.Skin.NamePlate_ENGName_Offset_Full[1] + 5, new Rectangle(0, 0, txName[player].szTextureSize.Width, 46));
+                        }
+                        else
+                        {
+                            this.txName[player].t2D拡大率考慮中央基準描画(x + TJAPlayer3.Skin.NamePlate_ENGName_Offset_Full[0], y + TJAPlayer3.Skin.NamePlate_ENGName_Offset_Full[1], new Rectangle(0, 0, txName[player].szTextureSize.Width, 36));
+                        }
+                    }
+                }
             }
             else // Name text if no Title (称号がない時の名前)
                 this.txName[player].t2D拡大率考慮中央基準描画(x + TJAPlayer3.Skin.NamePlate_Name_Offset_Normal[0], y + TJAPlayer3.Skin.NamePlate_Name_Offset_Normal[1]);

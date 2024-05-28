@@ -1132,6 +1132,15 @@ namespace TJAPlayer3
                                     if (HPrivateFastFont.FontExists(strParam)) SubTitleFontName = strParam;
                                     break;
                                 }
+                                case "EnglishFontName":
+                                {
+                                    strParam = strParam.Replace('/', System.IO.Path.DirectorySeparatorChar);
+                                    strParam = strParam.Replace('\\', System.IO.Path.DirectorySeparatorChar);
+                                    if (HPrivateFastFont.FontExists(strParam)) EnglishFontName = strParam;
+                                    strParam = Path(strParam);
+                                    if (HPrivateFastFont.FontExists(strParam)) EnglishFontName = strParam;
+                                    break;
+                                }
                                 case "NamePlateTitleFontName":
                                 {
                                     strParam = strParam.Replace('/', System.IO.Path.DirectorySeparatorChar);
@@ -5697,6 +5706,24 @@ namespace TJAPlayer3
                                     }
                                     break;
                                 }
+                                case "Game_Balloon_Combo_Number_Ex4_X":
+                                {
+                                    string[] strSplit = strParam.Split(',');
+                                    for (int i = 0; i < 2; i++)
+                                    {
+                                        Game_Balloon_Combo_Number_Ex4_X[i] = int.Parse(strSplit[i]);
+                                    }
+                                    break;
+                                }
+                                case "Game_Balloon_Combo_Number_Ex4_Y":
+                                {
+                                    string[] strSplit = strParam.Split(',');
+                                    for (int i = 0; i < 2; i++)
+                                    {
+                                        Game_Balloon_Combo_Number_Ex4_Y[i] = int.Parse(strSplit[i]);
+                                    }
+                                    break;
+                                }
                                 case "Game_Balloon_Combo_Number_Size":
                                 {
                                     string[] strSplit = strParam.Split(',');
@@ -9127,6 +9154,35 @@ namespace TJAPlayer3
                                     }
                                     break;
                                 }
+                                // 英語フォント
+                                case "NamePlate_ENGName_Offset_Normal":
+                                {
+                                    string[] strSplit = strParam.Split(',');
+                                    for (int i = 0; i < 2; i++)
+                                    {
+                                        NamePlate_ENGName_Offset_Normal[i] = int.Parse(strSplit[i]);
+                                    }
+                                    break;
+                                }
+                                case "NamePlate_ENGName_Offset_WithTitle":
+                                {
+                                    string[] strSplit = strParam.Split(',');
+                                    for (int i = 0; i < 2; i++)
+                                    {
+                                        NamePlate_ENGName_Offset_WithTitle[i] = int.Parse(strSplit[i]);
+                                    }
+                                    break;
+                                }
+                                case "NamePlate_ENGName_Offset_Full":
+                                {
+                                    string[] strSplit = strParam.Split(',');
+                                    for (int i = 0; i < 2; i++)
+                                    {
+                                        NamePlate_ENGName_Offset_Full[i] = int.Parse(strSplit[i]);
+                                    }
+                                    break;
+                                }
+
                                 case "NamePlate_Name_Width_Normal":
                                 {
                                     NamePlate_Name_Width_Normal = int.Parse(strParam);
@@ -9155,6 +9211,16 @@ namespace TJAPlayer3
                                 case "NamePlate_Font_Name_Size_WithTitle":
                                 {
                                     NamePlate_Font_Name_Size_WithTitle = int.Parse(strParam);
+                                    break;
+                                }
+                                case "NamePlate_Font_ENGName_Size_Normal":
+                                {
+                                    NamePlate_Font_ENGName_Size_Normal = int.Parse(strParam);
+                                    break;
+                                }
+                                case "NamePlate_Font_ENGName_Size_WithTitle":
+                                {
+                                    NamePlate_Font_ENGName_Size_WithTitle = int.Parse(strParam);
                                     break;
                                 }
                                 case "NamePlate_Font_Title_Size":
@@ -9515,6 +9581,7 @@ namespace TJAPlayer3
         public int[] Resolution = new int[] { 1280, 720 };
         public string FontName = TJAPlayer3.ConfigIni.FontName;
         public string SubTitleFontName = TJAPlayer3.ConfigIni.SubTitleFontName;
+        public string EnglishFontName = TJAPlayer3.ConfigIni.EnglishFontName;
         public string NamePlateTitleFontName = TJAPlayer3.ConfigIni.NamePlateTitleFontName;
         public string BoxFontName = TJAPlayer3.ConfigIni.BoxFontName;
         #endregion
@@ -10479,6 +10546,8 @@ namespace TJAPlayer3
         public int[] Game_Balloon_Combo_Number_Y = new int[] { 54, 603 };
         public int[] Game_Balloon_Combo_Number_Ex_X = new int[] { 257, 257 };
         public int[] Game_Balloon_Combo_Number_Ex_Y = new int[] { 54, 603 };
+        public int[] Game_Balloon_Combo_Number_Ex4_X = new int[] { 257, 257 };
+        public int[] Game_Balloon_Combo_Number_Ex4_Y = new int[] { 54, 603 };
         public int[] Game_Balloon_Combo_Number_Size = new int[] { 53, 62 };
         public int[] Game_Balloon_Combo_Number_Interval = new int[] { 45, 0 };
         public int[] Game_Balloon_Combo_Text_X = new int[] { 440, 440 };
@@ -11128,6 +11197,9 @@ namespace TJAPlayer3
         public int[] NamePlate_Name_Offset_Normal = new int[] { 121, 36 };
         public int[] NamePlate_Name_Offset_WithTitle = new int[] { 121, 44 };
         public int[] NamePlate_Name_Offset_Full = new int[] { 144, 44 };
+        public int[] NamePlate_ENGName_Offset_Normal = new int[] { 121, 36 };
+        public int[] NamePlate_ENGName_Offset_WithTitle = new int[] { 121, 44 };
+        public int[] NamePlate_ENGName_Offset_Full = new int[] { 144, 44 };
         public int NamePlate_Name_Width_Normal = 220;
         public int NamePlate_Name_Width_Full = 120;
         public int NamePlate_Title_Width = 160;
@@ -11135,6 +11207,8 @@ namespace TJAPlayer3
 
         public int NamePlate_Font_Name_Size_Normal = 22;
         public int NamePlate_Font_Name_Size_WithTitle = 20;
+        public int NamePlate_Font_ENGName_Size_Normal = 22;
+        public int NamePlate_Font_ENGName_Size_WithTitle = 20;
         public int NamePlate_Font_Title_Size = 16;
         public int NamePlate_Font_Dan_Size = 18;
 
