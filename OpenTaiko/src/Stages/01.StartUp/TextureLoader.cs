@@ -864,7 +864,8 @@ namespace TJAPlayer3
             Tokkun_ProgressBarWhite = TxC(GAME + TRAINING + @$"ProgressBar_White.png");
             Tokkun_GoGoPoint = TxC(GAME + TRAINING + @$"GoGoPoint.png");
             Tokkun_JumpPoint = TxC(GAME + TRAINING + @$"JumpPoint.png");
-            Tokkun_Background_Up = TxC(GAME + TRAINING + @$"Background_Up.png");
+            Tokkun_Background_Overlay = TxC(GAME + TRAINING + @$"Background_Overlay.png");
+            Tokkun_Background = TxC(GAME + TRAINING + @$"Background.png");
             Tokkun_BigNumber = TxC(GAME + TRAINING + @$"BigNumber.png");
             Tokkun_SmallNumber = TxC(GAME + TRAINING + @$"SmallNumber.png");
             Tokkun_Speed_Measure = TxC(GAME + TRAINING + @$"Speed_Measure.png");
@@ -2928,7 +2929,8 @@ namespace TJAPlayer3
             Tokkun_ProgressBarWhite,
             Tokkun_GoGoPoint,
             Tokkun_JumpPoint,
-            Tokkun_Background_Up,
+            Tokkun_Background_Overlay,
+            Tokkun_Background,
             Tokkun_BigNumber,
             Tokkun_SmallNumber,
             Tokkun_Speed_Measure;

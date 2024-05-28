@@ -162,7 +162,8 @@ namespace TJAPlayer3
                 }
 
                 tex?.t2D描画(bg_x, bg_y);
-                TJAPlayer3.Tx.Taiko_ScoreBack.t2D中心基準描画(152, 314);
+                if (!TJAPlayer3.ConfigIni.bTokkunMode)
+                    TJAPlayer3.Tx.Taiko_ScoreBack.t2D中心基準描画(152, 314);
             }
             /*
             if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan)  // Dan-i Dojo
