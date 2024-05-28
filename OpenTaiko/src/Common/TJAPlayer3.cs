@@ -2336,6 +2336,12 @@ for (int i = 0; i < 3; i++) {
 				{
 					TJAPlayer3.Tx.Overlay.t2D描画(0, 0);
 				}
+
+				//FPSを表示する
+				if (r現在のステージ != null && r現在のステージ.eStageID != CStage.EStage.StartUp)
+				{
+					TJAPlayer3.act文字コンソール.tPrint(20, 20, C文字コンソール.Eフォント種別.白細, string.Format("{0:####0} FPS", TJAPlayer3.FPS.NowFPS));
+				}
 			}
 
 			//foreach(var capture in ConfigIni.KeyAssign.System.Capture)
