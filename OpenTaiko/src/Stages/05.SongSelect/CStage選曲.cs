@@ -372,8 +372,16 @@ namespace TJAPlayer3
                
 
                 if(rNowSelectedSong != null)
+                {
                     NowGenre = rNowSelectedSong.strジャンル;
-                    
+                    NowUseGenre = !rNowSelectedSong.isChangedBgType;
+                    NowBg = rNowSelectedSong.BgType;
+                    NowBgColor = rNowSelectedSong.BgColor;
+                }
+
+                TJAPlayer3.stageSongSelect.NowGenre = this.rNowSelectedSong.strジャンル;
+
+
                 AI_Background = new ScriptBG(CSkin.Path($@"{TextureLoader.BASE}{TextureLoader.SONGSELECT}{Path.DirectorySeparatorChar}AIBattle{Path.DirectorySeparatorChar}Script.lua"));
                 AI_Background.Init();
             }

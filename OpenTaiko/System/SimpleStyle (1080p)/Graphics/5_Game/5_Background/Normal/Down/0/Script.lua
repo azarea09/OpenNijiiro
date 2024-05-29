@@ -314,7 +314,7 @@ function draw()
     func:DrawGraph(0, 540, "bg_nomal_a_02_00.png");
     func:SetBlendMode("Add", "bg_nomal_a_02_01.png");
     func:DrawGraph(0, 540, "bg_nomal_a_02_01.png");
-    func:DrawNum(500,100,bgTimer_Coin)
+    --func:DrawNum(500,100,bgTimer_Coin)
     
     --fever03
     func:SetOpacity(bgfever03_00Fade, "bg_fever_a_03_00.png");
