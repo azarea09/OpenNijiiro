@@ -2746,7 +2746,7 @@ for (int i = 0; i < 3; i++) {
 				Skin = new CSkin( TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName, false);
 				TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName( true );  // 旧指定のSkinフォルダが消滅していた場合に備える
 
-				ChangeResolution(TJAPlayer3.Skin.Resolution[0], TJAPlayer3.Skin.Resolution[1]);
+				//ChangeResolution(TJAPlayer3.Skin.Resolution[0], TJAPlayer3.Skin.Resolution[1]);
 
 				Trace.TraceInformation( "スキンの初期化を完了しました。" );
 			}
