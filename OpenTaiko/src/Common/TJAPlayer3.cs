@@ -744,7 +744,7 @@ namespace TJAPlayer3
 		}
 		protected override void OnExiting()
 		{
-			if(FullScreen)
+			if(!FullScreen)
 			{
 				ConfigIni.n初期ウィンドウ開始位置X = WindowPosition.X;
                 ConfigIni.n初期ウィンドウ開始位置Y = WindowPosition.Y;
