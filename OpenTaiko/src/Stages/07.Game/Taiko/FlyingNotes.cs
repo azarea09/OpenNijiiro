@@ -4,6 +4,7 @@ using System.Text;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using FDK;
+using System.Numerics;
 
 namespace TJAPlayer3
 {
@@ -89,6 +90,50 @@ namespace TJAPlayer3
         }
 
         #region ベジエ曲線
+
+        // ベジエ曲線上の位置を計算する関数
+        Vector2 CalculateBezier(double t, int i)
+        {
+            double x = CalculateBezierX(t, i);
+            double y = CalculateBezierY(t, i);
+            return new Vector2((float)x, (float)y);
+        }
+
+        // ベジエ曲線の長さを近似計算する関数
+        double ApproximateBezierLength(int i, int segments = 100)
+        {
+            double length = 0;
+            Vector2 previous = CalculateBezier(0, i);
+            for (int j = 1; j <= segments; j++)
+            {
+                double t = (double)j / segments;
+                Vector2 current = CalculateBezier(t, i);
+                length += Vector2.Distance(previous, current);
+                previous = current;
+            }
+            return length;
+        }
+
+        // 指定した距離に対応するt値を計算する関数
+        double GetTForDistance(double distance, double totalLength, int i, int segments = 100)
+        {
+            double accumulatedLength = 0;
+            Vector2 previous = CalculateBezier(0, i);
+            for (int j = 1; j <= segments; j++)
+            {
+                double t = (double)j / segments;
+                Vector2 current = CalculateBezier(t, i);
+                double segmentLength = Vector2.Distance(previous, current);
+                accumulatedLength += segmentLength;
+                if (accumulatedLength >= distance)
+                {
+                    return t;
+                }
+                previous = current;
+            }
+            return 1; // 距離が総長を超えた場合、t = 1 を返す
+        }
+
         double CalculateBezierX(double t, int i)
         {
             double p0 = TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_X[Flying[i].Player];
@@ -107,6 +152,12 @@ namespace TJAPlayer3
             double q3 = TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[Flying[i].Player];
             return q0 * Math.Pow(1 - t, 3) + 3 * q1 * t * Math.Pow(1 - t, 2) + 3 * q2 * Math.Pow(t, 2) * (1 - t) + q3 * Math.Pow(t, 3);
         }
+
+        double EaseOut(double t)
+        {
+            return 1 - Math.Pow(1 - t, 1.078);
+        }
+
         #endregion
 
         public override int Draw()
@@ -147,19 +198,27 @@ namespace TJAPlayer3
                             int movingDistanceY = endY - TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_Y[Flying[i].Player];
                             */
 
-                            double t = (Flying[i].Counter.CurrentValue) / (double)(120);
+                            //double t = (Flying[i].Counter.CurrentValue) / (double)(120);
+
+                            double totalLength = ApproximateBezierLength(i);
+                            double currentDistance = (Flying[i].Counter.CurrentValue / 120.0) * totalLength;
+                            double t = GetTForDistance(currentDistance, totalLength, i);
 
                             if (TJAPlayer3.Skin.Game_Effect_FlyingNotes_IsUsingEasing)
                             {
                                 //Flying[i].X = (Flying[i].StartPointX + 736 + ((-Math.Cos(Flying[i].Counter.CurrentValue * (Math.PI / 180)) * 736))) - 107;
                                 //Flying[i].X += (Math.Cos(Flying[i].Counter.n現在の値 * (Math.PI / 180))) * Flying[i].Increase;
+
+                                t = EaseOut(t);
                                 Flying[i].X = CalculateBezierX(t, i);
                                 Flying[i].Y = CalculateBezierY(t, i);
                             }
                             else
                             {
-                                Flying[i].X += Flying[i].IncreaseX;
-                                Flying[i].Y += Flying[i].IncreaseY;
+                                Flying[i].X = CalculateBezierX(t, i);
+                                Flying[i].Y = CalculateBezierY(t, i);
+                                //Flying[i].X += Flying[i].IncreaseX;
+                                //Flying[i].Y += Flying[i].IncreaseY;
                             }
 
                             /*
