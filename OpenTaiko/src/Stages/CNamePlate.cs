@@ -57,7 +57,7 @@ namespace TJAPlayer3
             }
 
             ctNamePlateEffect = new CCounter(0, 120, 16.6f, TJAPlayer3.Timer);
-            ctAnimatedNamePlateTitle = new CCounter(0, 10000, 8.33f, TJAPlayer3.Timer);
+            ctAnimatedNamePlateTitle = new CCounter(0, 10000, 8.3f, TJAPlayer3.Timer);
         }
 
         public void tNamePlateDisplayNamePlateBase(int x, int y, int item)
@@ -227,23 +227,23 @@ namespace TJAPlayer3
             // Title text
             if (TJAPlayer3.SaveFileInstances[player].data.Title != "" && TJAPlayer3.SaveFileInstances[player].data.Title != null)
             {
-                if (txTitle[player].szTextureSize.Height > 54 || txTitle[player].szTextureSize.Width > TJAPlayer3.Skin.NamePlate_Title_Width)
+                if (txTitle[player].szTextureSize.Height > 50 || txTitle[player].szTextureSize.Width > TJAPlayer3.Skin.NamePlate_Title_Width)
                 {
-                    txTitle[player].vcScaleRatio.X = Math.Min(54f / txTitle[player].szTextureSize.Height, (float)TJAPlayer3.Skin.NamePlate_Title_Width / txTitle[player].szTextureSize.Width);
-                    txTitle[player].vcScaleRatio.Y = Math.Min(54f / txTitle[player].szTextureSize.Height, (float)TJAPlayer3.Skin.NamePlate_Title_Width / txTitle[player].szTextureSize.Width);
+                    txTitle[player].vcScaleRatio.X = Math.Min(50f / txTitle[player].szTextureSize.Height, (float)TJAPlayer3.Skin.NamePlate_Title_Width / txTitle[player].szTextureSize.Width);
+                    txTitle[player].vcScaleRatio.Y = Math.Min(50f / txTitle[player].szTextureSize.Height, (float)TJAPlayer3.Skin.NamePlate_Title_Width / txTitle[player].szTextureSize.Width);
                 }
 
                 // ベースラインをはみ出す文字の場合は調整する
                 if (TJAPlayer3.SaveFileInstances[player].data.Title.Contains("j") || TJAPlayer3.SaveFileInstances[player].data.Title.Contains("q") || TJAPlayer3.SaveFileInstances[player].data.Title.Contains("p") || TJAPlayer3.SaveFileInstances[player].data.Title.Contains("y") || TJAPlayer3.SaveFileInstances[player].data.Title.Contains("g"))
                 {
-                    txTitle[player].t2D拡大率考慮下基準描画(x + TJAPlayer3.Skin.NamePlate_Title_Offset[0] - (txTitle[player].szTextureSize.Width / 2 * txTitle[player].vcScaleRatio.X), y + TJAPlayer3.Skin.NamePlate_Title_Offset[1] + 6, new Rectangle(0, 0, txTitle[player].szTextureSize.Width, 40));
+                    txTitle[player].t2D拡大率考慮下基準描画(x + TJAPlayer3.Skin.NamePlate_Title_Offset[0] - (txTitle[player].szTextureSize.Width / 2 * txTitle[player].vcScaleRatio.X), y + TJAPlayer3.Skin.NamePlate_Title_Offset[1], new Rectangle(0, 0, txTitle[player].szTextureSize.Width, 40));
                 }
                 else
                 {
                     //なぜかy軸方向にずれるためrectangleを高さ30に制限(やりたいことは下中心基準で描画したいだけだがなぜかそのまま下中心基準を使うとうまくいかないので、めんどくさいやり方でやってる)
                     txTitle[player].t2D拡大率考慮下基準描画(x + TJAPlayer3.Skin.NamePlate_Title_Offset[0] - (txTitle[player].szTextureSize.Width / 2 * txTitle[player].vcScaleRatio.X),
-                        txTitle[player].vcScaleRatio.X < 0.7f ? y + TJAPlayer3.Skin.NamePlate_Title_Offset[1] - 2 
-                        : y + TJAPlayer3.Skin.NamePlate_Title_Offset[1] + 1, new Rectangle(0, 0, txTitle[player].szTextureSize.Width, 33));
+                        txTitle[player].vcScaleRatio.X < 0.6f ? y + TJAPlayer3.Skin.NamePlate_Title_Offset[1] - 2 
+                        : y + TJAPlayer3.Skin.NamePlate_Title_Offset[1], new Rectangle(0, 0, txTitle[player].szTextureSize.Width, 40));
                 }
 
                 // Name text
