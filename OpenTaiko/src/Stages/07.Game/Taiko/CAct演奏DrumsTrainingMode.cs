@@ -11,7 +11,11 @@ namespace TJAPlayer3
 {
 	class CAct演奏DrumsTrainingMode : CActivity
 	{
-		public CAct演奏DrumsTrainingMode()
+        // プロパティ
+        public bool bTrainingPAUSE;
+
+
+        public CAct演奏DrumsTrainingMode()
 		{
 			base.IsDeActivated = true;
 		}
@@ -567,7 +571,6 @@ namespace TJAPlayer3
 		private long nスクロール後ms;
 		private long n最終演奏位置ms;
 
-		private bool bTrainingPAUSE;
 		private bool bCurrentlyScrolling;
 
 		private CCounter ctScrollCounter;

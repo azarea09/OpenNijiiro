@@ -2465,7 +2465,8 @@ namespace TJAPlayer3
                         {
                             if (pChip.bShow)
                             {
-                                if (nowTime >= pChip.n発声時刻ms && nowTime < pChip.nノーツ終了時刻ms)
+                                // 特訓モードのポーズ時はバルーンを追従させないように 2024.5.31 (Azarea)
+                                if (nowTime >= pChip.n発声時刻ms && nowTime < pChip.nノーツ終了時刻ms && !actTokkun.bTrainingPAUSE)
                                     x = NoteOriginX[nPlayer];
                                 else if (nowTime >= pChip.nノーツ終了時刻ms)
                                     x = (NoteOriginX[nPlayer] + pChip.nバーからのノーツ末端距離dot);
