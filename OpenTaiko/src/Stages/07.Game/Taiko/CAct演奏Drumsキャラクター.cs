@@ -1036,7 +1036,7 @@ namespace TJAPlayer3
                     break;
                 case Anime.Balloon_Broke:
                     nCharaFrameCount[player] = TJAPlayer3.Skin.Characters_Balloon_Broke_Ptn[iCurrentCharacter[player]] - 1;
-                    nCharaBeat[player] = 0.5f;
+                    nCharaBeat[player] = 0.25f;
                     break;
                 case Anime.Balloon_Miss:
                     nCharaFrameCount[player] = TJAPlayer3.Skin.Characters_Balloon_Miss_Ptn[iCurrentCharacter[player]] - 1;
