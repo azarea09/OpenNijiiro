@@ -73,7 +73,8 @@ namespace TJAPlayer3
                 this.ct風船アニメ[i] = new CCounter();
             }
 
-            this.ct風船ふきだしアニメ = new CCounter(0, 1, 100, TJAPlayer3.Timer);
+            this.ct風船終了.CurrentValue = 9;
+            this.ct風船ふきだしアニメ = new CCounter(0, 1, 66.4, TJAPlayer3.Timer);
 
             KusudamaScript = new (CSkin.Path($"{TextureLoader.BASE}{TextureLoader.GAME}{TextureLoader.BALLOON}{TextureLoader.KUSUDAMA}Script.lua"));
             KusudamaScript.Init();
@@ -239,33 +240,49 @@ namespace TJAPlayer3
                 }
                 */
             }
+            return base.Draw();
+        }
+
+        public int DrawEndBallon(int n連打数, int player)
+        {
+            int x;
+            int y;
+            if (TJAPlayer3.ConfigIni.nPlayerCount == 5)
+            {
+                x = TJAPlayer3.Skin.Game_Balloon_Balloon_5P[0] + (TJAPlayer3.Skin.Game_UIMove_5P[0] * player);
+                y = TJAPlayer3.Skin.Game_Balloon_Balloon_5P[1] + (TJAPlayer3.Skin.Game_UIMove_5P[1] * player);
+            }
+            else if (TJAPlayer3.ConfigIni.nPlayerCount == 4 || TJAPlayer3.ConfigIni.nPlayerCount == 3)
+            {
+                x = TJAPlayer3.Skin.Game_Balloon_Balloon_4P[0] + (TJAPlayer3.Skin.Game_UIMove_4P[0] * player);
+                y = TJAPlayer3.Skin.Game_Balloon_Balloon_4P[1] + (TJAPlayer3.Skin.Game_UIMove_4P[1] * player);
+            }
             else
             {
-                if (n連打数 == 0 && TJAPlayer3.stage演奏ドラム画面.actChara.b風船連打中[player])
+                x = TJAPlayer3.Skin.Game_Balloon_Balloon_X[player];
+                y = TJAPlayer3.Skin.Game_Balloon_Balloon_Y[player];
+            }
+
+            if (n連打数 <= 0 && !this.ct風船終了.IsEnded)
+            {
+                //TJAPlayer3.stage演奏ドラム画面.actChara.b風船連打中[player] = false;
+                //TJAPlayer3.stage演奏ドラム画面.b連打中[player] = false;
+
+                this.ct風船終了.Tick();
+
+                if (TJAPlayer3.Tx.Balloon_Breaking[7] != null)
                 {
-                    //TJAPlayer3.stage演奏ドラム画面.actChara.b風船連打中[player] = false;
-                    //TJAPlayer3.stage演奏ドラム画面.b連打中[player] = false;
-
-                    this.ct風船終了.Tick();
-
-                    if (TJAPlayer3.Tx.Balloon_Breaking[7] != null)
-                    {
-                        TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.赤, this.ct風船終了.CurrentValue.ToString());
-                        TJAPlayer3.Tx.Balloon_Breaking[7].Opacity = (int)(255 * (1 - (this.ct風船終了.CurrentValue / 9.0)));
-                        TJAPlayer3.Tx.Balloon_Breaking[7].t2D描画(x, y);
-                    }
-
-                    if (this.ct風船終了.IsEnded)
-                    {
-                        TJAPlayer3.stage演奏ドラム画面.actChara.b風船連打中[player] = false;
-                        TJAPlayer3.stage演奏ドラム画面.b連打中[player] = false;
-                    }
+                    TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.赤, this.ct風船終了.CurrentValue.ToString());
+                    TJAPlayer3.Tx.Balloon_Breaking[7].Opacity = (int)(255 * (1 - (this.ct風船終了.CurrentValue / 9.0)));
+                    TJAPlayer3.Tx.Balloon_Breaking[7].t2D描画(x, y);
                 }
             }
 
-
-
-
+            if (this.ct風船終了.IsEnded)
+            {
+                TJAPlayer3.stage演奏ドラム画面.actChara.b風船連打中[player] = false;
+                TJAPlayer3.stage演奏ドラム画面.b連打中[player] = false;
+            }
 
             return base.Draw();
         }

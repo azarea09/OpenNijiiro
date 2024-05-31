@@ -2612,12 +2612,13 @@ namespace TJAPlayer3
 
             for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
             {
+                this.actBalloon.DrawEndBallon(this.n風船残り[i], i);
                 var chkChip = this.chip現在処理中の連打チップ[i];
                 if (chkChip != null)
                 {
-                    long nowTime = (long)(SoundManager.PlayTimer.NowTime * TJAPlayer3.ConfigIni.SongPlaybackSpeed);
+                    long nowTime = (long)(SoundManager.PlayTimer.NowTimeMs * TJAPlayer3.ConfigIni.SongPlaybackSpeed);
                     //int n = this.chip現在処理中の連打チップ[i].nチャンネル番号;
-                    if ((NotesManager.IsGenericBalloon(chkChip) || NotesManager.IsKusudama(chkChip)) && (this.b連打中[i] == true))
+                    if (NotesManager.IsGenericBalloon(chkChip) || NotesManager.IsKusudama(chkChip))
                     {
                         //if (this.chip現在処理中の連打チップ.n発声時刻ms <= (int)CSound管理.rc演奏用タイマ.n現在時刻ms && this.chip現在処理中の連打チップ.nノーツ終了時刻ms >= (int)CSound管理.rc演奏用タイマ.n現在時刻ms)
                         if (chkChip.n発声時刻ms <= (int)nowTime
