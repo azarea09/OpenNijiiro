@@ -167,6 +167,28 @@ namespace TJAPlayer3
                 // 描画処理を一時的に保持するリスト
                 List<Action> drawActions = new List<Action>();
 
+                // 最新のチップを16こだけソート
+                var sortedFlying = Flying
+                .Where(f => f.IsUsing)
+                .OrderBy(f => f.Counter.CurrentValue)
+                .Take(16 + 8)
+                .ToList();
+
+                sortedFlying.Reverse();
+
+                // チップフラッシュ
+                foreach (var flyingNote in sortedFlying)
+                {
+                    if (flyingNote.IsUsing)
+                    {
+                        if (flyingNote.Counter.IsEnded)
+                        {
+                            TJAPlayer3.stage演奏ドラム画面.actGauge.Start(flyingNote.Lane, ENoteJudge.Perfect, flyingNote.Player);
+                            TJAPlayer3.stage演奏ドラム画面.actChipEffects.Start(flyingNote.Player, flyingNote.Lane);
+                        }
+                    }
+                }
+
                 for (int i = 127; i >= 0; i--)
                 {
                     if (Flying[i].IsUsing)
@@ -175,8 +197,6 @@ namespace TJAPlayer3
                         {
                             Flying[i].Counter.Stop();
                             Flying[i].IsUsing = false;
-                            TJAPlayer3.stage演奏ドラム画面.actGauge.Start(Flying[i].Lane, ENoteJudge.Perfect, Flying[i].Player);
-                            TJAPlayer3.stage演奏ドラム画面.actChipEffects.Start(Flying[i].Player, Flying[i].Lane);
                         }
                     }
                 }
@@ -215,15 +235,16 @@ namespace TJAPlayer3
                                 }
                             }
                         }
-
-                        // 描画処理をリストに追加
-                        int index = i; // ラムダ式でのキャプチャのために一時変数を使用
-                        drawActions.Add(() =>
-                        {
-                            NotesManager.DisplayNote(Flying[index].Player, (int)Flying[index].X, (int)Flying[index].Y, Flying[index].Lane);
-                            // その他の描画処理...
-                        });
                     }
+                }
+
+                foreach (var flyingNote in sortedFlying)
+                {
+                    // sortedFlyingの各要素を描画処理に追加
+                    drawActions.Add(() =>
+                    {
+                        NotesManager.DisplayNote(flyingNote.Player, (int)flyingNote.X, (int)flyingNote.Y, flyingNote.Lane);
+                    });
                 }
 
                 // Flying配列の更新後に描画を行う
