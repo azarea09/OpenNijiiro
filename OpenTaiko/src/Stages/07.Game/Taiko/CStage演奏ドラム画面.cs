@@ -2618,8 +2618,9 @@ namespace TJAPlayer3
                 {
                     long nowTime = (long)(SoundManager.PlayTimer.NowTimeMs * TJAPlayer3.ConfigIni.SongPlaybackSpeed);
                     //int n = this.chip現在処理中の連打チップ[i].nチャンネル番号;
-                    if (NotesManager.IsGenericBalloon(chkChip) || NotesManager.IsKusudama(chkChip))
+                    if ((NotesManager.IsGenericBalloon(chkChip) || NotesManager.IsKusudama(chkChip)) && (this.n風船残り[i] > 0))
                     {
+                        TJAPlayer3.act文字コンソール.tPrint(200, 20, C文字コンソール.Eフォント種別.白細, string.Format("{0:####0} FPS", TJAPlayer3.FPS.NowFPS));
                         //if (this.chip現在処理中の連打チップ.n発声時刻ms <= (int)CSound管理.rc演奏用タイマ.n現在時刻ms && this.chip現在処理中の連打チップ.nノーツ終了時刻ms >= (int)CSound管理.rc演奏用タイマ.n現在時刻ms)
                         if (chkChip.n発声時刻ms <= (int)nowTime
                             && chkChip.nノーツ終了時刻ms + 500 >= (int)nowTime)
