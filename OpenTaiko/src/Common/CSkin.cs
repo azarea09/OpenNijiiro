@@ -6135,7 +6135,7 @@ namespace TJAPlayer3
                                 }
                                 case nameof(Game_Effect_FlyingNotes_Timer):
                                 {
-                                    Game_Effect_FlyingNotes_Timer = int.Parse(strParam);
+                                    Game_Effect_FlyingNotes_Timer = double.Parse(strParam);
                                     break;
                                 }
                                 case nameof(Game_Effect_FireWorks):
@@ -10618,7 +10618,7 @@ namespace TJAPlayer3
 
         public int Game_Effect_FlyingNotes_Sine = 220;
         public bool Game_Effect_FlyingNotes_IsUsingEasing = true;
-        public int Game_Effect_FlyingNotes_Timer = 4;
+        public double Game_Effect_FlyingNotes_Timer = 8.33;
         public int[] Game_Effect_FireWorks = new int[] { 180, 180, 30 };
         public int Game_Effect_FireWorks_Timer = 5;
         public int[] Game_Effect_Rainbow_X = new int[] { 360, 360 };
