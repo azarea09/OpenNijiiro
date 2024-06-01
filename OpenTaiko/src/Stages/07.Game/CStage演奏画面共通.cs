@@ -3784,10 +3784,12 @@ namespace TJAPlayer3
                                     else 
                                     {
                                         if (chip現在処理中の連打チップ[nPlayer].nBalloon > chip現在処理中の連打チップ[nPlayer].nRollCount 
-                                            && chip現在処理中の連打チップ[nPlayer].nRollCount > 0)
+                                            && chip現在処理中の連打チップ[nPlayer].nRollCount > 0 && !TJAPlayer3.stage演奏ドラム画面.actTokkun.bTrainingPAUSE)
                                         {
                                             {
                                                 this.actChara.ChangeAnime(nPlayer, CAct演奏Drumsキャラクター.Anime.Balloon_Miss, true);
+
+                                                this.n風船残り[nPlayer] = 0;
 
                                                 if (actChara.CharaAction_Balloon_Delay[nPlayer] != null) actChara.CharaAction_Balloon_Delay[nPlayer] = new CCounter(0, 
                                                     TJAPlayer3.Skin.Characters_Balloon_Delay[actChara.iCurrentCharacter[nPlayer]] - 1, 

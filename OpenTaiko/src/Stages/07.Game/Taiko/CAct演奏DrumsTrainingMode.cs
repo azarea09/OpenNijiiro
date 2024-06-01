@@ -417,7 +417,7 @@ namespace TJAPlayer3
 
 			this.nスクロール後ms = SoundManager.PlayTimer.NowTimeMs;
 
-			TJAPlayer3.stage演奏ドラム画面.Activate();
+            TJAPlayer3.stage演奏ドラム画面.Activate();
 			SoundManager.PlayTimer.Pause();
 
 			for (int i = 0; i < dTX.listChip.Count; i++)
