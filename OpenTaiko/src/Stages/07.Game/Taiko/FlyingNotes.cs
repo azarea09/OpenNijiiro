@@ -164,17 +164,19 @@ namespace TJAPlayer3
         {
             if (!base.IsDeActivated && !TJAPlayer3.ConfigIni.SimpleMode)
             {
-                // 描画処理を一時的に保持するリスト
-                List<Action> drawActions = new List<Action>();
+
+                var usingCount = Flying.Count(f => f.IsUsing);
 
                 // 最新のチップを16こだけソート
                 var sortedFlying = Flying
                 .Where(f => f.IsUsing)
                 .OrderBy(f => f.Counter.CurrentValue)
-                .Take(16 + 8)
+                .Take(16)
                 .ToList();
 
-                sortedFlying.Reverse();
+                //TJAPlayer3.act文字コンソール.tPrint(200, 20, C文字コンソール.Eフォント種別.白細, sortedFlying.Count.ToString());
+
+                //sortedFlying.Reverse();
 
                 // チップフラッシュ
                 foreach (var flyingNote in sortedFlying)
@@ -189,7 +191,7 @@ namespace TJAPlayer3
                     }
                 }
 
-                for (int i = 127; i >= 0; i--)
+                for (int i = 0; i < 128; i++)
                 {
                     if (Flying[i].IsUsing)
                     {
@@ -240,17 +242,9 @@ namespace TJAPlayer3
 
                 foreach (var flyingNote in sortedFlying)
                 {
-                    // sortedFlyingの各要素を描画処理に追加
-                    drawActions.Add(() =>
-                    {
+                    // sortedFlyingの各要素を描画
+                    if (flyingNote.IsUsing)
                         NotesManager.DisplayNote(flyingNote.Player, (int)flyingNote.X, (int)flyingNote.Y, flyingNote.Lane);
-                    });
-                }
-
-                // Flying配列の更新後に描画を行う
-                foreach (var drawAction in drawActions)
-                {
-                    drawAction();
                 }
             }
             return base.Draw();

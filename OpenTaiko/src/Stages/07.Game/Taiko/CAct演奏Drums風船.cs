@@ -272,7 +272,7 @@ namespace TJAPlayer3
 
                 if (TJAPlayer3.Tx.Balloon_Breaking[7] != null)
                 {
-                    TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.赤, this.ct風船終了.CurrentValue.ToString());
+                    //TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.赤, this.ct風船終了.CurrentValue.ToString());
                     TJAPlayer3.Tx.Balloon_Breaking[7].Opacity = (int)(255 * (1 - (this.ct風船終了.CurrentValue / 9.0)));
                     TJAPlayer3.Tx.Balloon_Breaking[7].t2D描画(x, y);
                 }
