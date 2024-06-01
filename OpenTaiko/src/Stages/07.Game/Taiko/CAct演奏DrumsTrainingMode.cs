@@ -417,7 +417,7 @@ namespace TJAPlayer3
 
 			this.nスクロール後ms = SoundManager.PlayTimer.NowTimeMs;
 
-            TJAPlayer3.stage演奏ドラム画面.Activate();
+            //TJAPlayer3.stage演奏ドラム画面.Activate();
 			SoundManager.PlayTimer.Pause();
 
 			for (int i = 0; i < dTX.listChip.Count; i++)
@@ -452,16 +452,16 @@ namespace TJAPlayer3
 			finalStartBar = this.nCurrentMeasure - 2;
 			if (finalStartBar < 0) finalStartBar = 0;
 
-			TJAPlayer3.stage演奏ドラム画面.t演奏位置の変更(finalStartBar, 0);
-
-
 			int n少し戻ってから演奏開始Chip = TJAPlayer3.stage演奏ドラム画面.n現在のトップChip;
 
 			TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0] = 0;
 			TJAPlayer3.stage演奏ドラム画面.t数値の初期化(true, true);
-			TJAPlayer3.stage演奏ドラム画面.Activate();
+			//TJAPlayer3.stage演奏ドラム画面.Activate();
 
-			for (int i = 0; i < dTX.listChip.Count; i++)
+            TJAPlayer3.stage演奏ドラム画面.t演奏位置の変更(finalStartBar, 0);
+
+
+            for (int i = 0; i < dTX.listChip.Count; i++)
 			{
 				
 				//if (i < n演奏開始Chip && (dTX.listChip[i].nチャンネル番号 > 0x10 && dTX.listChip[i].nチャンネル番号 < 0x20)) //2020.07.08 ノーツだけ消す。 null参照回避のために順番変更

@@ -2282,7 +2282,7 @@ namespace TJAPlayer3
                                         this.CSectionScore[nPlayer].nMiss++;
                                         this.Chara_MissCount[nPlayer]++;
 
-                                        if (nPlayer == 0) this.nヒット数_Auto含まない.Drums.Miss++;
+                                        if (nPlayer == 0 && !TJAPlayer3.stage演奏ドラム画面.actTokkun.bTrainingPAUSE) this.nヒット数_Auto含まない.Drums.Miss++;
                                     }
                                     
                                     this.actCombo.n現在のコンボ数[ nPlayer ] = 0;
@@ -2448,7 +2448,11 @@ namespace TJAPlayer3
                             //{
                             int Character = this.actChara.iCurrentCharacter[nPlayer];
                                 // Edit character values here
-                                if (!pChip.bGOGOTIME) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
+                                if (this.actChara.eNowAnime[nPlayer] != CAct演奏Drumsキャラクター.Anime.GoGoTime 
+                                && this.actChara.eNowAnime[nPlayer] != CAct演奏Drumsキャラクター.Anime.GoGoTime_Maxed
+                                && this.actChara.eNowAnime[nPlayer] != CAct演奏Drumsキャラクター.Anime.GoGoStart
+                                && this.actChara.eNowAnime[nPlayer] != CAct演奏Drumsキャラクター.Anime.GoGoStart_Clear
+                                && this.actChara.eNowAnime[nPlayer] != CAct演奏Drumsキャラクター.Anime.GoGoStart_Max) 
                                 {
                                     if (TJAPlayer3.Skin.Characters_10Combo_Ptn[Character] != 0 && this.actChara.eNowAnime[nPlayer] != CAct演奏Drumsキャラクター.Anime.Combo10 && actChara.CharaAction_Balloon_Delay[nPlayer].IsEnded)
                                     {
@@ -3788,9 +3792,6 @@ namespace TJAPlayer3
                                         {
                                             {
                                                 this.actChara.ChangeAnime(nPlayer, CAct演奏Drumsキャラクター.Anime.Balloon_Miss, true);
-
-                                                this.n風船残り[nPlayer] = 0;
-
                                                 if (actChara.CharaAction_Balloon_Delay[nPlayer] != null) actChara.CharaAction_Balloon_Delay[nPlayer] = new CCounter(0, 
                                                     TJAPlayer3.Skin.Characters_Balloon_Delay[actChara.iCurrentCharacter[nPlayer]] - 1, 
                                                     1, 
@@ -5391,6 +5392,7 @@ namespace TJAPlayer3
                     this.n現在の連打数[ i ] = 0;
                     this.n合計連打数[ i ] = 0;
                     this.n分岐した回数[ i ] = 0;
+                    this.n風船残り[i] = 0;
                 }
                 for (int i = 0; i < 5; i++)
                 {

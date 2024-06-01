@@ -159,7 +159,7 @@ namespace TJAPlayer3
 
                 void updateNormal()
                 {
-                    if (!TJAPlayer3.stage演奏ドラム画面.bPAUSE)
+                    if (!TJAPlayer3.stage演奏ドラム画面.bPAUSE || TJAPlayer3.stage演奏ドラム画面.actTokkun.bTrainingPAUSE)
                     {
                         nNowCharaCounter[i] += ((Math.Abs((float)TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM[i]) / 60.0f) * (float)TJAPlayer3.FPS.DeltaTime) / nCharaBeat[i];
                     }
@@ -938,6 +938,9 @@ namespace TJAPlayer3
 
         public void ChangeAnime(int player, Anime anime, bool resetCounter)
         {
+            if (TJAPlayer3.stage演奏ドラム画面.actTokkun.bTrainingPAUSE)
+                anime = Anime.Normal;
+
             eNowAnime[player] = anime;
 
             if (resetCounter)

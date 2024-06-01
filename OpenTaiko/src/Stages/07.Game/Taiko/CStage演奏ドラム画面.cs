@@ -640,6 +640,7 @@ namespace TJAPlayer3
                     {
                         bIsFinishedPlaying = false;
                         TJAPlayer3.Skin.sound特訓停止音.tPlay();
+                        TJAPlayer3.stage演奏ドラム画面.Activate();
                         actTokkun.tPausePlay();
 
                         actTokkun.tMatchWithTheChartDisplayPosition(true);
@@ -2620,7 +2621,6 @@ namespace TJAPlayer3
                     //int n = this.chip現在処理中の連打チップ[i].nチャンネル番号;
                     if ((NotesManager.IsGenericBalloon(chkChip) || NotesManager.IsKusudama(chkChip)) && (this.n風船残り[i] > 0) && !actTokkun.bTrainingPAUSE)
                     {
-                        TJAPlayer3.act文字コンソール.tPrint(200, 20, C文字コンソール.Eフォント種別.白細, string.Format("{0:####0} FPS", TJAPlayer3.FPS.NowFPS));
                         //if (this.chip現在処理中の連打チップ.n発声時刻ms <= (int)CSound管理.rc演奏用タイマ.n現在時刻ms && this.chip現在処理中の連打チップ.nノーツ終了時刻ms >= (int)CSound管理.rc演奏用タイマ.n現在時刻ms)
                         if (chkChip.n発声時刻ms <= (int)nowTime
                             && chkChip.nノーツ終了時刻ms + 500 >= (int)nowTime)
@@ -2717,16 +2717,16 @@ namespace TJAPlayer3
                 if( TJAPlayer3.Tx.Judge_Meter != null )
                     TJAPlayer3.Tx.Judge_Meter.t2D描画( TJAPlayer3.Skin.Game_Judge_Meter[0], TJAPlayer3.Skin.Game_Judge_Meter[1]);
 
-                this.t小文字表示(TJAPlayer3.Skin.Game_Judge_Meter_Perfect[0], TJAPlayer3.Skin.Game_Judge_Meter_Perfect[1], this.nヒット数_Auto含まない.Drums.Perfect, false, false);
-                this.t小文字表示(TJAPlayer3.Skin.Game_Judge_Meter_Good[0], TJAPlayer3.Skin.Game_Judge_Meter_Good[1], this.nヒット数_Auto含まない.Drums.Great, false, false);
-                this.t小文字表示(TJAPlayer3.Skin.Game_Judge_Meter_Miss[0], TJAPlayer3.Skin.Game_Judge_Meter_Miss[1], this.nヒット数_Auto含まない.Drums.Miss, false, false);
+                this.t小文字表示(TJAPlayer3.Skin.Game_Judge_Meter_Perfect[0], TJAPlayer3.Skin.Game_Judge_Meter_Perfect[1], this.nヒット数_Auto含む.Drums.Perfect + this.nヒット数_Auto含まない.Drums.Perfect, false, false);
+                this.t小文字表示(TJAPlayer3.Skin.Game_Judge_Meter_Good[0], TJAPlayer3.Skin.Game_Judge_Meter_Good[1], this.nヒット数_Auto含む.Drums.Great + this.nヒット数_Auto含まない.Drums.Great, false, false);
+                this.t小文字表示(TJAPlayer3.Skin.Game_Judge_Meter_Miss[0], TJAPlayer3.Skin.Game_Judge_Meter_Miss[1], this.nヒット数_Auto含む.Drums.Miss + this.nヒット数_Auto含まない.Drums.Miss, false, false);
                 this.t小文字表示(TJAPlayer3.Skin.Game_Judge_Meter_Roll[0], TJAPlayer3.Skin.Game_Judge_Meter_Roll[1], GetRoll(0), false, false);
 
-                int nNowTotal = this.nヒット数_Auto含まない.Drums.Perfect + this.nヒット数_Auto含まない.Drums.Great + this.nヒット数_Auto含まない.Drums.Miss;
-                double dbたたけた率 = Math.Round((100.0 * ( TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great)) / (double)nNowTotal);
-                double dbPERFECT率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) / (double)nNowTotal);
-                double dbGREAT率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great / (double)nNowTotal));
-                double dbMISS率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss / (double)nNowTotal));
+                int nNowTotal = this.nヒット数_Auto含む.Drums.Perfect + this.nヒット数_Auto含む.Drums.Great + this.nヒット数_Auto含む.Drums.Miss + this.nヒット数_Auto含まない.Drums.Perfect + this.nヒット数_Auto含まない.Drums.Great + this.nヒット数_Auto含まない.Drums.Miss;
+                double dbたたけた率 = Math.Round((100.0 * ( TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great)) / (double)nNowTotal);
+                double dbPERFECT率 = Math.Round((100.0 * (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + this.nヒット数_Auto含まない.Drums.Perfect)) / (double)nNowTotal);
+                double dbGREAT率 = Math.Round((100.0 * (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + this.nヒット数_Auto含まない.Drums.Great) / (double)nNowTotal));
+                double dbMISS率 = Math.Round((100.0 * (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Miss + this.nヒット数_Auto含まない.Drums.Miss) / (double)nNowTotal));
 
                 if (double.IsNaN(dbたたけた率))
                     dbたたけた率 = 0;
