@@ -280,7 +280,7 @@ namespace TJAPlayer3
 
 				if (this.bCurrentlyScrolling)
 				{
-					SoundManager.PlayTimer.NowTimeMs = easing.EaseOut(this.ctScrollCounter, (int)this.nスクロール前ms, (int)this.nスクロール後ms, Easing.CalcType.Circular);
+					SoundManager.PlayTimer.NowTimeMs = easing.EaseOut(this.ctScrollCounter, (int)this.nスクロール前ms, (int)this.nスクロール後ms, Easing.CalcType.Cubic);
 
 					this.ctScrollCounter.Tick();
 

@@ -2469,7 +2469,7 @@ namespace TJAPlayer3
                                 if (nowTime >= pChip.n発声時刻ms && nowTime < pChip.nノーツ終了時刻ms && !actTokkun.bTrainingPAUSE)
                                     x = NoteOriginX[nPlayer];
                                 else if (nowTime >= pChip.nノーツ終了時刻ms)
-                                    x = (NoteOriginX[nPlayer] + pChip.nバーからのノーツ末端距離dot);
+                                    x = !actTokkun.bTrainingPAUSE ? (NoteOriginX[nPlayer] + pChip.nバーからのノーツ末端距離dot) : NoteOriginX[nPlayer] + nノート座標;
 
                                 NotesManager.DisplayNote(nPlayer, x, y, pChip, num9, TJAPlayer3.Skin.Game_Notes_Size[0] * 2);
                                 NotesManager.DisplaySENotes(nPlayer, x + nSenotesX, y + nSenotesY, pChip);
