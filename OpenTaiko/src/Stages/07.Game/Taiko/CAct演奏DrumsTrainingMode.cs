@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Drawing;
+using static TJAPlayer3.CStage演奏画面共通;
 
 namespace TJAPlayer3
 {
@@ -93,7 +94,7 @@ namespace TJAPlayer3
 
 			this.ctScrollCounter = null;
 			this.ctBackgroundScrollTimer = null;
-			base.DeActivate();
+            base.DeActivate();
 		}
 
 		public override void CreateManagedResource()
@@ -446,20 +447,22 @@ namespace TJAPlayer3
 			this.bCurrentlyScrolling = false;
 			SoundManager.PlayTimer.NowTimeMs = this.nスクロール後ms;
 
-			int n演奏開始Chip = TJAPlayer3.stage演奏ドラム画面.n現在のトップChip;
+            int n演奏開始Chip = TJAPlayer3.stage演奏ドラム画面.n現在のトップChip;
 			int finalStartBar;
 
 			finalStartBar = this.nCurrentMeasure - 2;
 			if (finalStartBar < 0) finalStartBar = 0;
 
-			int n少し戻ってから演奏開始Chip = TJAPlayer3.stage演奏ドラム画面.n現在のトップChip;
+            TJAPlayer3.stage演奏ドラム画面.t演奏位置の変更(finalStartBar, 0);
+
+            int n少し戻ってから演奏開始Chip = TJAPlayer3.stage演奏ドラム画面.n現在のトップChip;
 
 			TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0] = 0;
 			TJAPlayer3.stage演奏ドラム画面.t数値の初期化(true, true);
 			//TJAPlayer3.stage演奏ドラム画面.Activate();
 
-            TJAPlayer3.stage演奏ドラム画面.t演奏位置の変更(finalStartBar, 0);
-
+            TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0] = new CHITCOUNTOFRANK();
+            TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む[0] = new CHITCOUNTOFRANK();
 
             for (int i = 0; i < dTX.listChip.Count; i++)
 			{
@@ -575,7 +578,7 @@ namespace TJAPlayer3
 
 		private CCounter ctScrollCounter;
 		private CCounter ctBackgroundScrollTimer;
-		private Easing easing = new Easing();
+        private Easing easing = new Easing();
 		private long length = 1;
 
 		private List<int> gogoXList;
