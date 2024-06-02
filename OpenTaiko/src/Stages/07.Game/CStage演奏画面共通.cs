@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using FDK;
 using FDK.ExtensionMethods;
 using TJAPlayer3;
@@ -5407,7 +5409,9 @@ namespace TJAPlayer3
             this.nHand = new int[]{ 0, 0, 0, 0, 0 };
         }
 
-		public void t演奏位置の変更( int nStartBar, int nPlayer )
+        public CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(); // 初期化
+
+        public void t演奏位置の変更( int nStartBar, int nPlayer )
 		{
 			// まず全サウンドオフにする
 			TJAPlayer3.DTX.t全チップの再生停止();
@@ -5567,7 +5571,32 @@ namespace TJAPlayer3
             if (!(TJAPlayer3.ConfigIni.b演奏速度が一倍速であるとき以外音声を再生しない && TJAPlayer3.ConfigIni.n演奏速度 != 20))
                 foreach (CSound cs in pausedCSound)
                 {
-                    cs.tPlaySound();
+                    cs.SetGain(0); // まず音量を0に設定
+                    cs.tPlaySound(); // 音量0で再生を開始
+
+                    int fadeInDuration = 500; // フェードイン時間を500msと設定
+                    int fadeInSteps = 30; // 40ステップで音量を上げる
+                    int stepDuration = fadeInDuration / fadeInSteps;
+
+                    // フェードインを開始する
+                    Task.Run(async () =>
+                    {
+                        try
+                        {
+                            await Task.Delay(150, cancellationTokenSource.Token); // 100ms待つ
+                            for (int i = 0; i <= fadeInSteps; i++)
+                            {
+                                cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                                float volume = (i / (float)fadeInSteps) * 100; // 0から100の間で音量を設定
+                                cs.SetGain((int)volume);
+                                await Task.Delay(stepDuration, cancellationTokenSource.Token);
+                            }
+                        }
+                        catch (TaskCanceledException)
+                        {
+                            // タスクがキャンセルされた場合の処理
+                        }
+                    }, cancellationTokenSource.Token);
                 }
 #endregion
             pausedCSound.Clear();

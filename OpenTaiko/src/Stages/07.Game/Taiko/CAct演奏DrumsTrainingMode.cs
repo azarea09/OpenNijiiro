@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Drawing;
 using static TJAPlayer3.CStage演奏画面共通;
+using System.Threading;
 
 namespace TJAPlayer3
 {
@@ -123,7 +124,12 @@ namespace TJAPlayer3
 					if (this.bTrainingPAUSE)
 					{
 						TJAPlayer3.Skin.sound特訓再生音.tPlay();
-						this.tResumePlay();
+                        // 非同期処理をキャンセルする
+                        TJAPlayer3.stage演奏ドラム画面.cancellationTokenSource.Cancel();
+
+                        // 新しい非同期処理を開始する前に、cancellationTokenSource を新しいインスタンスで再初期化する
+                        TJAPlayer3.stage演奏ドラム画面.cancellationTokenSource = new CancellationTokenSource();
+                        this.tResumePlay();
 					}
 					else
 					{
