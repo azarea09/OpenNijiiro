@@ -50,6 +50,10 @@ namespace TJAPlayer3
 
                         Flying[i].IncreaseX = (1.00 * Math.Abs((TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - StartPointX[nPlayer]))) / (180);
                         Flying[i].IncreaseY = (1.00 * Math.Abs((TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[nPlayer] - TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer]))) / (180);
+
+                        Flying[i].BezierPoints = CalculateBezierPoints(i, 11);
+                        Flying[i].LastPointIndexPassed = -1;
+
                         break;
                     }
                 }
@@ -229,12 +233,19 @@ namespace TJAPlayer3
                                 Flying[i].Y = CalculateBezierY(t, i);
                             }
 
-                            if (n % TJAPlayer3.Skin.Game_Effect_FireWorks_Timing == 0 && !Flying[i].IsRoll && Flying[i].Counter.CurrentValue > 18)
+                            
+                        }
+
+                        // Fireworks logic
+                        for (int j = Flying[i].LastPointIndexPassed + 1; j < Flying[i].BezierPoints.Count; j++)
+                        {
+                            if (Flying[i].X >= Flying[i].BezierPoints[j].X)
                             {
-                                if (Flying[i].Lane == 3 || Flying[i].Lane == 4)
+                                if (Flying[i].Lane == 3 || Flying[i].Lane == 4 && !Flying[i].IsRoll)
                                 {
-                                    TJAPlayer3.stage演奏ドラム画面.FireWorks.Start(Flying[i].Lane, Flying[i].Player, Flying[i].X, Flying[i].Y);
+                                    TJAPlayer3.stage演奏ドラム画面.FireWorks.Start(Flying[i].Lane, Flying[i].Player, Flying[i].BezierPoints[j].X, Flying[i].BezierPoints[j].Y);
                                 }
+                                Flying[i].LastPointIndexPassed = j;
                             }
                         }
                     }
@@ -249,6 +260,27 @@ namespace TJAPlayer3
             }
             return base.Draw();
         }
+
+        private List<Vector2> CalculateBezierPoints(int i, int count)
+        {
+            List<Vector2> points = new List<Vector2>();
+            double totalLength = ApproximateBezierLength(i);
+            double segmentLength = totalLength / (count - 1);
+
+            for (int j = 0; j < count; j++)
+            {
+                double currentDistance = j * segmentLength;
+                double t = GetTForDistance(currentDistance, totalLength, i);
+                points.Add(CalculateBezier(t, i));
+            }
+
+            // 最初と最後のポイントを除く
+            points.RemoveAt(0);
+            points.RemoveAt(points.Count - 1);
+
+            return points;
+        }
+
 
 
 
@@ -273,6 +305,8 @@ namespace TJAPlayer3
             public int StartPointX;
             public int StartPointY;
             public double Theta;
+            public List<Vector2> BezierPoints; // Bezier points
+            public int LastPointIndexPassed;  // Last point index passed
         }
 
         private Status[] Flying = new Status[128];

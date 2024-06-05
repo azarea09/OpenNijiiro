@@ -5575,7 +5575,7 @@ namespace TJAPlayer3
                     cs.tPlaySound(); // 音量0で再生を開始
 
                     int fadeInDuration = 500; // フェードイン時間を500msと設定
-                    int fadeInSteps = 30; // 40ステップで音量を上げる
+                    int fadeInSteps = 30; // 30ステップで音量を上げる
                     int stepDuration = fadeInDuration / fadeInSteps;
 
                     // フェードインを開始する
@@ -5583,7 +5583,7 @@ namespace TJAPlayer3
                     {
                         try
                         {
-                            await Task.Delay(150, cancellationTokenSource.Token); // 100ms待つ
+                            await Task.Delay(150, cancellationTokenSource.Token); // 150ms待つ
                             for (int i = 0; i <= fadeInSteps; i++)
                             {
                                 cancellationTokenSource.Token.ThrowIfCancellationRequested();

@@ -55,6 +55,9 @@ Game_Chara_Beat_Clear=2
 ;キャラのゴーゴータイム時モーションが何拍子でループするか。(カンマ区切り)
 Game_Chara_Beat_GoGo=4
 
+;キャラのソウルイン時モーションが何拍子で再生されるか。(カンマ区切り)
+Game_Chara_Beat_SoulIn=2.25
+
 ;ふうせん連打時のキャラ画像X座標。(X,Y)
 Game_Chara_Balloon_X=0,0
 
