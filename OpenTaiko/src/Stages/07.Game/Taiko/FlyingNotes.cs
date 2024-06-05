@@ -51,7 +51,7 @@ namespace TJAPlayer3
                         Flying[i].IncreaseX = (1.00 * Math.Abs((TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - StartPointX[nPlayer]))) / (180);
                         Flying[i].IncreaseY = (1.00 * Math.Abs((TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[nPlayer] - TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer]))) / (180);
 
-                        Flying[i].BezierPoints = CalculateBezierPoints(i, 11);
+                        Flying[i].FireWorksPoints = CalculateBezierPoints(i, 11);
                         Flying[i].LastPointIndexPassed = -1;
 
                         break;
@@ -237,13 +237,13 @@ namespace TJAPlayer3
                         }
 
                         // Fireworks logic
-                        for (int j = Flying[i].LastPointIndexPassed + 1; j < Flying[i].BezierPoints.Count; j++)
+                        for (int j = Flying[i].LastPointIndexPassed + 1; j < Flying[i].FireWorksPoints.Count; j++)
                         {
-                            if (Flying[i].X >= Flying[i].BezierPoints[j].X)
+                            if (Flying[i].X >= Flying[i].FireWorksPoints[j].X && !Flying[i].IsRoll)
                             {
-                                if (Flying[i].Lane == 3 || Flying[i].Lane == 4 && !Flying[i].IsRoll)
+                                if (Flying[i].Lane == 3 || Flying[i].Lane == 4)
                                 {
-                                    TJAPlayer3.stage演奏ドラム画面.FireWorks.Start(Flying[i].Lane, Flying[i].Player, Flying[i].BezierPoints[j].X, Flying[i].BezierPoints[j].Y);
+                                    TJAPlayer3.stage演奏ドラム画面.FireWorks.Start(Flying[i].Lane, Flying[i].Player, Flying[i].FireWorksPoints[j].X, Flying[i].FireWorksPoints[j].Y);
                                 }
                                 Flying[i].LastPointIndexPassed = j;
                             }
@@ -261,6 +261,12 @@ namespace TJAPlayer3
             return base.Draw();
         }
 
+        /// <summary>
+        /// ベジエ軌道上の等間隔になる任意のポイントを取得する関数
+        /// </summary>
+        /// <param name="i">Flyingのインデックス</param>
+        /// <param name="count">取得したい数に両端分の2を足した数</param>
+        /// <returns></returns>
         private List<Vector2> CalculateBezierPoints(int i, int count)
         {
             List<Vector2> points = new List<Vector2>();
@@ -305,8 +311,8 @@ namespace TJAPlayer3
             public int StartPointX;
             public int StartPointY;
             public double Theta;
-            public List<Vector2> BezierPoints; // Bezier points
-            public int LastPointIndexPassed;  // Last point index passed
+            public List<Vector2> FireWorksPoints; //　FireWorksの描画されるポイントのリスト
+            public int LastPointIndexPassed;  // 最後に通過したポイント
         }
 
         private Status[] Flying = new Status[128];
