@@ -72,16 +72,16 @@ namespace TJAPlayer3
 			{
 				this.nフラッシュ制御タイマ = num;
 			}
-			while( ( num - this.nフラッシュ制御タイマ ) >= 20 )
+			while( ( num - this.nフラッシュ制御タイマ ) >= 15 )
 			{
 				for( int j = 0; j < 25; j++ )
 				{
 					if( this.stパッド状態[ j ].n明るさ > 0 )
 					{
 						this.stパッド状態[ j ].n明るさ--;
-					}
+                    }
 				}
-				this.nフラッシュ制御タイマ += 20;
+				this.nフラッシュ制御タイマ += 15;
 		    }
 
 
@@ -117,19 +117,12 @@ namespace TJAPlayer3
                         {
                             if (TJAPlayer3.stageSongSelect.nChoosenSongDifficulty[0] == (int)Difficulty.Dan)
                             {
-                                tex = TJAPlayer3.Tx.Taiko_Background[2];
-                            }
-                            else if (TJAPlayer3.ConfigIni.bTokkunMode)
-                            {
-                                if (TJAPlayer3.P1IsBlue())
-                                    tex = TJAPlayer3.Tx.Taiko_Background[6];
-                                else
-                                    tex = TJAPlayer3.Tx.Taiko_Background[5];
+                                tex = TJAPlayer3.Tx.Taiko_Background[5];
                             }
                             else
                             {
                                 if (TJAPlayer3.P1IsBlue())
-                                    tex = TJAPlayer3.Tx.Taiko_Background[4];
+                                    tex = TJAPlayer3.Tx.Taiko_Background[1];
                                 else
                                     tex = TJAPlayer3.Tx.Taiko_Background[0];
                             }
@@ -139,31 +132,40 @@ namespace TJAPlayer3
                         {
                             if (TJAPlayer3.ConfigIni.bAIBattleMode)
                             {
-                                tex = TJAPlayer3.Tx.Taiko_Background[9];
+                                tex = TJAPlayer3.Tx.Taiko_Background[7];
                             }
                             else
                             {
-                                if (TJAPlayer3.ConfigIni.nPlayerCount == 2)
-                                    tex = TJAPlayer3.Tx.Taiko_Background[1];
-                                else
-                                    tex = TJAPlayer3.Tx.Taiko_Background[4];
-                            }
+                                tex = TJAPlayer3.Tx.Taiko_Background[1];
+                            }  
                         }
                         break;
                     case 2:
-                        tex = TJAPlayer3.Tx.Taiko_Background[7];
+                        tex = TJAPlayer3.Tx.Taiko_Background[2];
                         break;
                     case 3:
-                        tex = TJAPlayer3.Tx.Taiko_Background[8];
+                        tex = TJAPlayer3.Tx.Taiko_Background[3];
                         break;
                     case 4:
-                        tex = TJAPlayer3.Tx.Taiko_Background[11];
+                        tex = TJAPlayer3.Tx.Taiko_Background[4];
                         break;
                 }
 
                 tex?.t2D描画(bg_x, bg_y);
-                if (!TJAPlayer3.ConfigIni.bTokkunMode)
-                    TJAPlayer3.Tx.Taiko_ScoreBack.t2D中心基準描画(152, 314);
+
+
+                // ScoreBackの描画
+                switch (i)
+                {
+                    case 0:
+                        if (!TJAPlayer3.ConfigIni.bTokkunMode)
+                            TJAPlayer3.Tx.Taiko_ScoreBack.t2D描画(0, 288);
+                        break;
+                    case 1:
+                        if (!TJAPlayer3.ConfigIni.bTokkunMode)
+                            TJAPlayer3.Tx.Taiko_ScoreBack.t2D上下反転描画(0, 740);
+                        break;
+                }
             }
             /*
             if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan)  // Dan-i Dojo
@@ -220,7 +222,7 @@ namespace TJAPlayer3
                 }
                 else
                 {
-                    return brightness * 73;
+                    return brightness * 107;
                 }
             }
 

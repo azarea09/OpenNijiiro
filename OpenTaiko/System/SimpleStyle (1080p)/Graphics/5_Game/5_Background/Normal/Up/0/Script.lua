@@ -21,13 +21,23 @@ local bgScrollDistanceY_03 = bgScrollEndY_03 - bgScrollY_03
 local bgScrollTime_03 = 2.65 --移動にかかる時間（秒）
 
 function drawBg00()
-    func:DrawGraphCenter(CenterX + bgScrollX_00 + -1073.0, CenterY + -402.0, "donbg_a_06_1p_00.png")
-    func:DrawGraphCenter(CenterX + bgScrollX_00 + -583.0, CenterY + -402.0, "donbg_a_06_1p_00.png")
-    func:DrawGraphCenter(CenterX + bgScrollX_00 + -93.0, CenterY + -402.0, "donbg_a_06_1p_00.png")
-    func:DrawGraphCenter(CenterX + bgScrollX_00 + 397.0, CenterY + -402.0, "donbg_a_06_1p_00.png")
-    func:DrawGraphCenter(CenterX + bgScrollX_00 + 887.0, CenterY + -402.0, "donbg_a_06_1p_00.png")
-    func:DrawGraphCenter(CenterX + bgScrollX_00 + 1377.0, CenterY + -402.0, "donbg_a_06_1p_00.png")
-    func:DrawGraphCenter(CenterX + bgScrollX_00 + 1867.0, CenterY + -402.0, "donbg_a_06_1p_00.png")
+    if p1IsBlue == false then
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + -1073.0, CenterY + -402.0, "donbg_a_06_1p_00.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + -583.0, CenterY + -402.0, "donbg_a_06_1p_00.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + -93.0, CenterY + -402.0, "donbg_a_06_1p_00.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 397.0, CenterY + -402.0, "donbg_a_06_1p_00.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 887.0, CenterY + -402.0, "donbg_a_06_1p_00.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 1377.0, CenterY + -402.0, "donbg_a_06_1p_00.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 1867.0, CenterY + -402.0, "donbg_a_06_1p_00.png")
+    else
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + -1073.0, CenterY + -402.0, "donbg_a_06_2p_00.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + -583.0, CenterY + -402.0, "donbg_a_06_2p_00.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + -93.0, CenterY + -402.0, "donbg_a_06_2p_00.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 397.0, CenterY + -402.0, "donbg_a_06_2p_00.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 887.0, CenterY + -402.0, "donbg_a_06_2p_00.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 1377.0, CenterY + -402.0, "donbg_a_06_2p_00.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 1867.0, CenterY + -402.0, "donbg_a_06_2p_00.png")
+    end
 end
 
 function drawBg00Clear()
@@ -41,9 +51,15 @@ function drawBg00Clear()
 end
 
 function drawBg03()
-    func:DrawGraphCenter(CenterX + bgScrollX_03, CenterY + bgScrollY_03, "donbg_a_06_1p_03.png")
-    func:DrawGraphCenter(CenterX + bgScrollX_03 + -977.0, CenterY + bgScrollY_03 + -1.0, "donbg_a_06_1p_03.png")
-    func:DrawGraphCenter(CenterX + bgScrollX_03 + 982.0, CenterY + bgScrollY_03 + -1.0, "donbg_a_06_1p_03.png")
+    if p1IsBlue == false then
+        func:DrawGraphCenter(CenterX + bgScrollX_03, CenterY + bgScrollY_03, "donbg_a_06_1p_03.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_03 + -977.0, CenterY + bgScrollY_03 + -1.0, "donbg_a_06_1p_03.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_03 + 982.0, CenterY + bgScrollY_03 + -1.0, "donbg_a_06_1p_03.png")
+    else
+        func:DrawGraphCenter(CenterX + bgScrollX_03, CenterY + bgScrollY_03, "donbg_a_06_2p_03.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_03 + -977.0, CenterY + bgScrollY_03 + -1.0, "donbg_a_06_2p_03.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_03 + 982.0, CenterY + bgScrollY_03 + -1.0, "donbg_a_06_2p_03.png")
+    end
 end
 
 function drawBg03Clear()
@@ -53,13 +69,23 @@ function drawBg03Clear()
 end
 
 function drawBg01()
-    func:DrawGraphCenter(CenterX + bgScrollX_00 + -821.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_1p_01.png")
-    func:DrawGraphCenter(CenterX + bgScrollX_00 + -348.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_1p_02.png")
-    func:DrawGraphCenter(CenterX + bgScrollX_00 + 159.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_1p_01.png")
-    func:DrawGraphCenter(CenterX + bgScrollX_00 + 632.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_1p_02.png")
-    func:DrawGraphCenter(CenterX + bgScrollX_00 + 1139.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_1p_01.png")
-    func:DrawGraphCenter(CenterX + bgScrollX_00 + 1612.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_1p_02.png")
-    func:DrawGraphCenter(CenterX + bgScrollX_00 + 2119.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_1p_01.png")
+    if p1IsBlue == false then
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + -821.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_1p_01.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + -348.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_1p_02.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 159.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_1p_01.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 632.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_1p_02.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 1139.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_1p_01.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 1612.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_1p_02.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 2119.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_1p_01.png")
+    else
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + -821.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_2p_01.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + -348.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_2p_02.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 159.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_2p_01.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 632.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_2p_02.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 1139.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_2p_01.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 1612.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_2p_02.png")
+        func:DrawGraphCenter(CenterX + bgScrollX_00 + 2119.0, CenterY + bgScrollY_01 + -402.0, "donbg_a_06_2p_01.png")
+    end
 end
 
 function drawBg01Clear()
@@ -87,6 +113,10 @@ function init()
     func:AddGraph("donbg_a_06_1p_01_clear.png")
     func:AddGraph("donbg_a_06_1p_02_clear.png")
     func:AddGraph("donbg_a_06_1p_03_clear.png")
+    func:AddGraph("donbg_a_06_2p_00.png")
+    func:AddGraph("donbg_a_06_2p_01.png")
+    func:AddGraph("donbg_a_06_2p_02.png")
+    func:AddGraph("donbg_a_06_2p_03.png")
 end
 
 function update()
