@@ -82,8 +82,8 @@ namespace TJAPlayer3
                             if (judgeC.counter.CurrentValue <= 100)
                                 y += (moveValue * TJAPlayer3.Skin.Game_Judge_Move[1]) + TJAPlayer3.stage演奏ドラム画面.GetJPOSCROLLY(j);
 
-                            // 最初の1フレームだけ半透明にして位置を下げる
-                            if (judgeC.counter.CurrentValue <= 16)
+                            // 最初の8.33msだけ半透明にして位置を下げる
+                            if (judgeC.counter.CurrentValue <= 8)
                             {
                                 x = TJAPlayer3.Skin.Game_Judge_X[j];
                                 y = TJAPlayer3.Skin.Game_Judge_Y[j];
@@ -91,7 +91,7 @@ namespace TJAPlayer3
                                 TJAPlayer3.Tx.Judge.Opacity = 127;
                                 TJAPlayer3.Tx.Judge.t2D描画(x, y, judgeC.rc);
                             }
-                            else if (judgeC.counter.CurrentValue > 16)
+                            else if (judgeC.counter.CurrentValue > 8)
                             {
                                 TJAPlayer3.Tx.Judge.Opacity = (int)(255f - (judgeC.counter.CurrentValue >= 220 ? ((judgeC.counter.CurrentValue - 220) / 50.0f) * 150f : 0f));
                                 TJAPlayer3.Tx.Judge.t2D描画(x, y, judgeC.rc);
