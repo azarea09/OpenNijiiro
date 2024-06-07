@@ -508,19 +508,17 @@ namespace TJAPlayer3
 
             #region Taiko
 
-            Taiko_Background = new CTexture[12];
+            Taiko_Background = new CTexture[9];
             Taiko_Background[0] = TxC(GAME + TAIKO + @$"1P_Background.png");
             Taiko_Background[1] = TxC(GAME + TAIKO + @$"2P_Background.png");
-            Taiko_Background[2] = TxC(GAME + TAIKO + @$"Dan_Background.png");
-            Taiko_Background[3] = TxC(GAME + TAIKO + @$"Tower_Background.png");
-            Taiko_Background[4] = TxC(GAME + TAIKO + @$"1P_Background_Right.png");
-            Taiko_Background[5] = TxC(GAME + TAIKO + @$"1P_Background_Tokkun.png");
-            Taiko_Background[6] = TxC(GAME + TAIKO + @$"2P_Background_Tokkun.png");
-            Taiko_Background[7] = TxC(GAME + TAIKO + @$"3P_Background.png");
-            Taiko_Background[8] = TxC(GAME + TAIKO + @$"4P_Background.png");
-            Taiko_Background[9] = TxC(GAME + TAIKO + @$"AI_Background.png");
-            Taiko_Background[10] = TxC(GAME + TAIKO + @$"Boss_Background.png");
-            Taiko_Background[11] = TxC(GAME + TAIKO + @$"5P_Background.png");
+            Taiko_Background[2] = TxC(GAME + TAIKO + @$"3P_Background.png");
+            Taiko_Background[3] = TxC(GAME + TAIKO + @$"4P_Background.png");
+            Taiko_Background[4] = TxC(GAME + TAIKO + @$"5P_Background.png");
+            Taiko_Background[5] = TxC(GAME + TAIKO + @$"Dan_Background.png");
+            Taiko_Background[6] = TxC(GAME + TAIKO + @$"Tower_Background.png");
+            Taiko_Background[7] = TxC(GAME + TAIKO + @$"AI_Background.png");
+            Taiko_Background[8] = TxC(GAME + TAIKO + @$"Boss_Background.png");
+            
 
             Taiko_Frame = new CTexture[7];
             Taiko_Frame[0] = TxC(GAME + TAIKO + @$"1P_Frame.png");
