@@ -3799,7 +3799,8 @@ namespace TJAPlayer3
                                                     1, 
                                                     TJAPlayer3.Timer);
                                             }
-                                         }
+                                            this.n風船残り[nPlayer] = 0; // ふうせんを叩ききれなかった場合に初期化する
+                                        }
                                     }
                                     if (chip現在処理中の連打チップ[nPlayer].nBalloon > chip現在処理中の連打チップ[nPlayer].nRollCount)
                                     {
