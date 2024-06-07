@@ -34,18 +34,25 @@ namespace TJAPlayer3
                         Flying[i].IsUsing = true;
                         Flying[i].Lane = nLane;
                         Flying[i].Player = nPlayer;
-                        Flying[i].X = -100; //StartPointX[nPlayer];
-                        Flying[i].Y = -100; //TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer];
+                        if (TJAPlayer3.Skin.Game_Effect_FlyingNotes_IsNijiiroStyle)
+                        {
+                            Flying[i].X = 639;
+                            Flying[i].Y = 342;
+                        }
+                        else
+                        {
+                            Flying[i].X = TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_X[Flying[i].Player];
+                            Flying[i].Y = TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_Y[Flying[i].Player];
+                        }
                         Flying[i].StartPointX = StartPointX[nPlayer];
                         Flying[i].StartPointY = TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer];
-                        Flying[i].OldValue = 0;
                         Flying[i].IsRoll = isRoll;
                         // 角度の決定
                         Flying[i].Height = Math.Abs(TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[nPlayer] - TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer]);
                         Flying[i].Width = (Math.Abs((TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - StartPointX[nPlayer])) / 2);
                         //Console.WriteLine("{0}, {1}", width2P, height2P);
                         Flying[i].Theta = ((Math.Atan2(Flying[i].Height, Flying[i].Width) * 180.0) / Math.PI);
-                        Flying[i].Counter = new CCounter(0, 30, 16.6, TJAPlayer3.Timer);
+                        Flying[i].Counter = new CCounter(0, 30, TJAPlayer3.Skin.Game_Effect_FlyingNotes_Timer, TJAPlayer3.Timer);
                         //Flying[i].Counter = new CCounter(0, 200000, CDTXMania.Skin.Game_Effect_FlyingNotes_Timer, CDTXMania.Timer);
 
                         Flying[i].IncreaseX = (1.00 * Math.Abs((TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - StartPointX[nPlayer]))) / (180);
@@ -159,10 +166,46 @@ namespace TJAPlayer3
 
         double EaseOut(double t)
         {
-            return 0.99 - Math.Pow(1 - t, 1.078);
+            return 1.0 - Math.Pow(1 - t, 1.0);
         }
 
         #endregion
+
+        // ニジイロ風の座標
+        private static Vector2[] flyingPos = new Vector2[]
+        {
+            new Vector2(639, 342),
+            new Vector2(664, 300),
+            new Vector2(693, 260),
+            new Vector2(724, 223),
+            new Vector2(757, 187),
+            new Vector2(792, 153),
+            new Vector2(830, 122),
+            new Vector2(869, 93),
+            new Vector2(910, 67),
+            new Vector2(953, 44),
+            new Vector2(997, 24),
+            new Vector2(1043, 8),
+            new Vector2(1043, 8),
+            new Vector2(1090, -6),
+            new Vector2(1138, -16),
+            new Vector2(1187, -23),
+            new Vector2(1236, -26),
+            new Vector2(1285, -27),
+            new Vector2(1333, -25),
+            new Vector2(1381, -19),
+            new Vector2(1429, -11),
+            new Vector2(1476, 1),
+            new Vector2(1523, 17),
+            new Vector2(1568, 35),
+            new Vector2(1612, 57),
+            new Vector2(1654, 82),
+            new Vector2(1694, 110),
+            new Vector2(1732, 141),
+            new Vector2(1768, 174),
+            new Vector2(1802, 209),
+            new Vector2(1834, 246)
+        };
 
         public override int Draw()
         {
@@ -211,11 +254,15 @@ namespace TJAPlayer3
                 {
                     if (Flying[i].IsUsing)
                     {
-                        // Flying配列の更新処理
-                        Flying[i].OldValue = Flying[i].Counter.CurrentValue;
+                        // Flyingの更新処理
                         Flying[i].Counter.Tick();
 
-                        for (int n = Flying[i].OldValue; n < Flying[i].Counter.CurrentValue; n += 16)
+                        if(TJAPlayer3.Skin.Game_Effect_FlyingNotes_IsNijiiroStyle)
+                        {
+                            Flying[i].X = flyingPos[Flying[i].Counter.CurrentValue].X;
+                            Flying[i].Y = flyingPos[Flying[i].Counter.CurrentValue].Y;
+                        }
+                        else
                         {
                             double totalLength = ApproximateBezierLength(i);
                             double currentDistance = (Flying[i].Counter.CurrentValue / 30.0) * totalLength;
@@ -232,11 +279,9 @@ namespace TJAPlayer3
                                 Flying[i].X = CalculateBezierX(t, i);
                                 Flying[i].Y = CalculateBezierY(t, i);
                             }
+                        }                      
 
-                            
-                        }
-
-                        // Fireworks logic
+                        // Fireworksの描画
                         for (int j = Flying[i].LastPointIndexPassed + 1; j < Flying[i].FireWorksPoints.Count; j++)
                         {
                             if (Flying[i].X >= Flying[i].FireWorksPoints[j].X && !Flying[i].IsRoll)
@@ -300,7 +345,6 @@ namespace TJAPlayer3
             public int Player;
             public bool IsUsing;
             public CCounter Counter;
-            public int OldValue;
             public double X;
             public double Y;
             public int Height;

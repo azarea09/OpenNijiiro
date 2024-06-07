@@ -6133,6 +6133,11 @@ namespace TJAPlayer3
                                     Game_Effect_FlyingNotes_IsUsingEasing = CConversion.bONorOFF(strParam[0]);
                                     break;
                                 }
+                                case nameof(Game_Effect_FlyingNotes_IsNijiiroStyle):
+                                {
+                                    Game_Effect_FlyingNotes_IsNijiiroStyle = CConversion.bONorOFF(strParam[0]);
+                                    break;
+                                }
                                 case nameof(Game_Effect_FlyingNotes_Timer):
                                 {
                                     Game_Effect_FlyingNotes_Timer = double.Parse(strParam);
@@ -10618,7 +10623,8 @@ namespace TJAPlayer3
 
         public int Game_Effect_FlyingNotes_Sine = 220;
         public bool Game_Effect_FlyingNotes_IsUsingEasing = true;
-        public double Game_Effect_FlyingNotes_Timer = 8.33;
+        public bool Game_Effect_FlyingNotes_IsNijiiroStyle = true;
+        public double Game_Effect_FlyingNotes_Timer = 16.6666;
         public int[] Game_Effect_FireWorks = new int[] { 180, 180, 30 };
         public int Game_Effect_FireWorks_Timer = 5;
         public int[] Game_Effect_Rainbow_X = new int[] { 360, 360 };
