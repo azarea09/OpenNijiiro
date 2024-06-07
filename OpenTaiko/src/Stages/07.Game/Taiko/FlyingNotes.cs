@@ -52,7 +52,7 @@ namespace TJAPlayer3
                         Flying[i].Width = (Math.Abs((TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - StartPointX[nPlayer])) / 2);
                         //Console.WriteLine("{0}, {1}", width2P, height2P);
                         Flying[i].Theta = ((Math.Atan2(Flying[i].Height, Flying[i].Width) * 180.0) / Math.PI);
-                        Flying[i].Counter = new CCounter(0, 30, TJAPlayer3.Skin.Game_Effect_FlyingNotes_Timer, TJAPlayer3.Timer);
+                        Flying[i].Counter = new CCounter(0, 29, TJAPlayer3.Skin.Game_Effect_FlyingNotes_Timer, TJAPlayer3.Timer);
                         //Flying[i].Counter = new CCounter(0, 200000, CDTXMania.Skin.Game_Effect_FlyingNotes_Timer, CDTXMania.Timer);
 
                         Flying[i].IncreaseX = (1.00 * Math.Abs((TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - StartPointX[nPlayer]))) / (180);
@@ -172,48 +172,80 @@ namespace TJAPlayer3
         #endregion
 
         // ニジイロ風の座標
-        private static Vector2[] flyingPos = new Vector2[]
+        private static Vector2[][] flyingPos = new Vector2[][]
         {
-            new Vector2(639, 342),
-            new Vector2(664, 300),
-            new Vector2(693, 260),
-            new Vector2(724, 223),
-            new Vector2(757, 187),
-            new Vector2(792, 153),
-            new Vector2(830, 122),
-            new Vector2(869, 93),
-            new Vector2(910, 67),
-            new Vector2(953, 44),
-            new Vector2(997, 24),
-            new Vector2(1043, 8),
-            new Vector2(1043, 8),
-            new Vector2(1090, -6),
-            new Vector2(1138, -16),
-            new Vector2(1187, -23),
-            new Vector2(1236, -26),
-            new Vector2(1285, -27),
-            new Vector2(1333, -25),
-            new Vector2(1381, -19),
-            new Vector2(1429, -11),
-            new Vector2(1476, 1),
-            new Vector2(1523, 17),
-            new Vector2(1568, 35),
-            new Vector2(1612, 57),
-            new Vector2(1654, 82),
-            new Vector2(1694, 110),
-            new Vector2(1732, 141),
-            new Vector2(1768, 174),
-            new Vector2(1802, 209),
-            new Vector2(1834, 246)
+            new Vector2[] // 1Pの座標
+            {
+                new Vector2(639, 342),
+                new Vector2(664, 300),
+                new Vector2(693, 260),
+                new Vector2(724, 223),
+                new Vector2(757, 187),
+                new Vector2(792, 153),
+                new Vector2(830, 122),
+                new Vector2(869, 93),
+                new Vector2(910, 67),
+                new Vector2(953, 44),
+                new Vector2(997, 24),
+                new Vector2(1043, 8),
+                new Vector2(1090, -6),
+                new Vector2(1138, -16),
+                new Vector2(1187, -23),
+                new Vector2(1236, -26),
+                new Vector2(1285, -27),
+                new Vector2(1333, -25),
+                new Vector2(1381, -19),
+                new Vector2(1429, -11),
+                new Vector2(1476, 1),
+                new Vector2(1523, 17),
+                new Vector2(1568, 35),
+                new Vector2(1612, 57),
+                new Vector2(1654, 82),
+                new Vector2(1694, 110),
+                new Vector2(1732, 141),
+                new Vector2(1768, 174),
+                new Vector2(1802, 209),
+                new Vector2(1834, 246)
+            },
+            new Vector2[] // 2Pの座標
+            {
+                new Vector2(637, 695),
+                new Vector2(662, 737),
+                new Vector2(688, 780),
+                new Vector2(718, 819),
+                new Vector2(750, 856),
+                new Vector2(785, 891),
+                new Vector2(821, 924),
+                new Vector2(859, 954),
+                new Vector2(899, 982),
+                new Vector2(941, 1007),
+                new Vector2(985, 1029),
+                new Vector2(1031, 1048),
+                new Vector2(1078, 1063),
+                new Vector2(1126, 1075),
+                new Vector2(1174, 1084),
+                new Vector2(1222, 1089),
+                new Vector2(1273, 1092),
+                new Vector2(1320, 1092),
+                new Vector2(1370, 1087),
+                new Vector2(1418, 1080),
+                new Vector2(1466, 1070),
+                new Vector2(1514, 1055),
+                new Vector2(1561, 1038),
+                new Vector2(1605, 1017),
+                new Vector2(1648, 993),
+                new Vector2(1689, 967),
+                new Vector2(1728, 937),
+                new Vector2(1766, 905),
+                new Vector2(1801, 870),
+                new Vector2(1834, 833)
+            }
         };
 
         public override int Draw()
         {
             if (!base.IsDeActivated && !TJAPlayer3.ConfigIni.SimpleMode)
             {
-
-                var usingCount = Flying.Count(f => f.IsUsing);
-
                 // 最新のチップを16こだけソート
                 var sortedFlying = Flying
                 .Where(f => f.IsUsing)
@@ -259,13 +291,13 @@ namespace TJAPlayer3
 
                         if(TJAPlayer3.Skin.Game_Effect_FlyingNotes_IsNijiiroStyle)
                         {
-                            Flying[i].X = flyingPos[Flying[i].Counter.CurrentValue].X;
-                            Flying[i].Y = flyingPos[Flying[i].Counter.CurrentValue].Y;
+                            Flying[i].X = flyingPos[Flying[i].Player][Flying[i].Counter.CurrentValue].X;
+                            Flying[i].Y = flyingPos[Flying[i].Player][Flying[i].Counter.CurrentValue].Y;
                         }
                         else
                         {
                             double totalLength = ApproximateBezierLength(i);
-                            double currentDistance = (Flying[i].Counter.CurrentValue / 30.0) * totalLength;
+                            double currentDistance = (Flying[i].Counter.CurrentValue / 29.0) * totalLength;
                             double t = GetTForDistance(currentDistance, totalLength, i);
 
                             if (TJAPlayer3.Skin.Game_Effect_FlyingNotes_IsUsingEasing)
@@ -299,8 +331,7 @@ namespace TJAPlayer3
                 foreach (var flyingNote in sortedFlying)
                 {
                     // sortedFlyingの各要素を描画
-                    if (flyingNote.IsUsing)
-                        NotesManager.DisplayNote(flyingNote.Player, (int)flyingNote.X, (int)flyingNote.Y, flyingNote.Lane);
+                    NotesManager.DisplayNote(flyingNote.Player, (int)flyingNote.X, (int)flyingNote.Y, flyingNote.Lane);
                 }
             }
             return base.Draw();
