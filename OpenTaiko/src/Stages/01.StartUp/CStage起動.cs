@@ -109,9 +109,9 @@ namespace TJAPlayer3
 				//-----------------
 				switch( base.ePhaseID )
 				{
-					case CStage.EPhase.Startup_0_CreateSystemSound:
-						this.str現在進行中 = "SYSTEM SOUND...";
-						break;
+					//case CStage.EPhase.Startup_0_CreateSystemSound:
+					//	this.str現在進行中 = "SYSTEM SOUND...";
+					//	break;
 
 					case CStage.EPhase.Startup_1_InitializeSonglist:
 						this.str現在進行中 = "SONG LIST...";

@@ -742,7 +742,7 @@ namespace TJAPlayer3
                                     ((TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.KeyPressed((int)SlimDXKeys.Key.Return)))))
                                     {
 
-                                        if (this.actSongList.rCurrentlySelectedSong != null)
+                                        if (this.actSongList.rCurrentlySelectedSong != null && this.actSongList.ctBarOpen.IsEnded)
                                         {
                                             switch (this.actSongList.rCurrentlySelectedSong.eノード種別)
                                             {

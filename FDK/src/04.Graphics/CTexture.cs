@@ -623,6 +623,10 @@ namespace FDK
         {
             this.t2D描画(x - (rc.Width / 2 * this.vcScaleRatio.X), y, 1f, rc);
         }
+        public void t2D拡大率考慮上中央基準描画(float x, float y, RectangleF rc)
+        {
+            this.t2D拡大率考慮上中央基準描画((int)x, (int)y, rc);
+        }
         public void t2D_DisplayImage_AnchorUpRight(int x, int y, RectangleF rc)
         {
             this.t2D描画(x - (rc.Width * this.vcScaleRatio.X), y, 1f, rc);

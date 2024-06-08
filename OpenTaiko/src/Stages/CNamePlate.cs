@@ -332,7 +332,7 @@ namespace TJAPlayer3
             float resolutionCenterX = TJAPlayer3.Skin.Resolution[0] / 2;
             float resolutionCenterY = TJAPlayer3.Skin.Resolution[1] / 2;
             
-            if (TJAPlayer3.SaveFileInstances[player].data.TitleType != 0 && TJAPlayer3.SaveFileInstances[player].data.TitleType != 3 && !TJAPlayer3.ConfigIni.SimpleMode)
+            if (TJAPlayer3.SaveFileInstances[player].data.TitleType != 0 && TJAPlayer3.SaveFileInstances[player].data.TitleType != 3 && TJAPlayer3.SaveFileInstances[player].data.TitleType != 4 && !TJAPlayer3.ConfigIni.SimpleMode)
             {
                 if (this.ctNamePlateEffect.CurrentValue <= 10)
                 {

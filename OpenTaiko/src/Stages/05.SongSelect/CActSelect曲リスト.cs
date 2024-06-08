@@ -969,11 +969,14 @@ namespace TJAPlayer3
 			this.ctBoxOpen = new CCounter();
 			this.ctDifficultyIn = new CCounter();
 
-			this.ct三角矢印アニメ = new CCounter();
+            this.ctBarOpacityAnime = new CCounter();
+            this.ctSelectFadeAnime = new CCounter();
+
+            this.ct三角矢印アニメ = new CCounter();
 
 			this.ctBarFlash = new CCounter();
 
-			this.ctScoreFrameAnime = new CCounter();
+            this.ctScoreFrameAnime = new CCounter();
 
 			// strboxText here
 			if (this.rCurrentlySelectedSong != null)
@@ -1122,7 +1125,8 @@ namespace TJAPlayer3
 
 				ctBarOpen.Start(0, 260, 2, TJAPlayer3.Timer);
 				this.ct三角矢印アニメ.Start(0, 1000, 1, TJAPlayer3.Timer);
-				base.IsFirstDraw = false;
+                this.ctSelectFadeAnime.Start(0, 1000, 1, TJAPlayer3.Timer);
+                base.IsFirstDraw = false;
 			}
 			//-----------------
 			#endregion
@@ -1131,17 +1135,27 @@ namespace TJAPlayer3
 			ctBoxOpen.Tick();
 			ctBarOpen.Tick();
 			ctDifficultyIn.Tick();
+            ctBarOpacityAnime.Tick();
+            ctSelectFadeAnime.TickLoop();
 
-			float BarAnimeCount = this.ctBarOpen.CurrentValue <= 200 ? 0 : (float)Math.Sin(((this.ctBarOpen.CurrentValue - 200) * 1.5f) * (Math.PI / 180));
-			int centerMove = (int)(BarAnimeCount * TJAPlayer3.Skin.SongSelect_Bar_Center_Move);
+            // 200から235の間で0から1になる
+            float t = this.ctBarOpen.CurrentValue >= 200 ? Math.Min((this.ctBarOpen.CurrentValue - 200) / 35.0f, 1.0f) : 0.0f;
+
+            float BarAnimeCount = this.ctBarOpen.CurrentValue <= 200 ? 0 : (float)Math.Sin(((this.ctBarOpen.CurrentValue - 200) * 1.5f) * (Math.PI / 180));
+            int centerMove = (int)(this.ctBarOpen.CurrentValue <= 200 ? 0 : t * TJAPlayer3.Skin.SongSelect_Bar_Center_Move);
 			int centerMoveX = (int)(BarAnimeCount * TJAPlayer3.Skin.SongSelect_Bar_Center_Move_X);
+            int centerSelectMove = (int)(this.ctBarOpen.CurrentValue <= 200 ? 0 : t * 97);
 
-			if (BarAnimeCount == 1.0)
+            if (BarAnimeCount == 1.0)
 				ctScoreFrameAnime.TickLoop();
 
-			// まだ選択中の曲が決まってなければ、曲ツリールートの最初の曲にセットする。
+			// サブタイトルと難易度表示のフェードイン
+			if (this.ctBarOpen.CurrentValue <= 235)
+                ctBarOpacityAnime.Start(0, 80, 1, TJAPlayer3.Timer);
 
-			if ((this.rCurrentlySelectedSong == null) && (TJAPlayer3.Songs管理.list曲ルート.Count > 0))
+            // まだ選択中の曲が決まってなければ、曲ツリールートの最初の曲にセットする。
+
+            if ((this.rCurrentlySelectedSong == null) && (TJAPlayer3.Songs管理.list曲ルート.Count > 0))
             {
 				nSelectSongIndex = 0;
 				this.rCurrentlySelectedSong = TJAPlayer3.Songs管理.list曲ルート[nSelectSongIndex];
@@ -1593,6 +1607,8 @@ namespace TJAPlayer3
 
                 int barSelect_width = TJAPlayer3.Tx.SongSelect_Bar_Select.sz画像サイズ.Width;
                 int barSelect_height = TJAPlayer3.Tx.SongSelect_Bar_Select.sz画像サイズ.Height / 3;
+                int height = barSelect_height / 4;
+                float centerScale = ((centerSelectMove / (float)height) * 2.0f);
 
                 if (ctBarFlash.IsEnded && !TJAPlayer3.stageSongSelect.actDifficultySelectionScreen.bIsDifficltSelect)
                 {
@@ -1604,7 +1620,38 @@ namespace TJAPlayer3
                 else
                     TJAPlayer3.Tx.SongSelect_Bar_Select.Opacity = (int)(255 - (ctBarFlash.CurrentValue - 700) * 2.55f);
 
-                TJAPlayer3.Tx.SongSelect_Bar_Select.t2D描画(TJAPlayer3.Skin.SongSelect_Bar_Select[0], TJAPlayer3.Skin.SongSelect_Bar_Select[1], new Rectangle(0, 0, barSelect_width, barSelect_height));
+
+                TJAPlayer3.Tx.SongSelect_Bar_Select.vcScaleRatio.Y = 1.0f;
+                TJAPlayer3.Tx.SongSelect_Bar_Select.t2D拡大率考慮下中心基準描画(960, 540 - (height * centerScale / 2.0f), new Rectangle(0, 0, barSelect_width, height));
+
+                TJAPlayer3.Tx.SongSelect_Bar_Select.vcScaleRatio.Y = centerScale;
+                TJAPlayer3.Tx.SongSelect_Bar_Select.t2D拡大率考慮中央基準描画(960, 540, new Rectangle(0, height, barSelect_width, height));
+
+                TJAPlayer3.Tx.SongSelect_Bar_Select.vcScaleRatio.Y = 1.0f;
+                TJAPlayer3.Tx.SongSelect_Bar_Select.t2D拡大率考慮上中央基準描画(960, 540 + (height * centerScale / 2.0f), new Rectangle(0, height * 3, barSelect_width, height));
+
+                //TJAPlayer3.Tx.SongSelect_Bar_Select.t2D描画(TJAPlayer3.Skin.SongSelect_Bar_Select[0], TJAPlayer3.Skin.SongSelect_Bar_Select[1], new Rectangle(0, 0, barSelect_width, barSelect_height));
+
+                #region [Fadeしてるエフェクト]
+                if (ctBarFlash.IsEnded && !TJAPlayer3.stageSongSelect.actDifficultySelectionScreen.bIsDifficltSelect)
+                {
+                    TJAPlayer3.Tx.SongSelect_Bar_Select.Opacity = ctSelectFadeAnime.CurrentValue <= 300
+                    ? (int)(BarAnimeCount * ctSelectFadeAnime.CurrentValue / 300.0 * 255)
+                    : ctSelectFadeAnime.CurrentValue <= 700
+                    ? (int)(BarAnimeCount * 255)
+                    : (int)(BarAnimeCount * (255 - ((ctSelectFadeAnime.CurrentValue - 700) / 300.0) * 255));
+                }
+
+                TJAPlayer3.Tx.SongSelect_Bar_Select.vcScaleRatio.Y = 1.0f;
+                TJAPlayer3.Tx.SongSelect_Bar_Select.t2D拡大率考慮下中心基準描画(960, 540 - (height * centerScale / 2.0f), new Rectangle(0, barSelect_height, barSelect_width, height));
+
+                TJAPlayer3.Tx.SongSelect_Bar_Select.vcScaleRatio.Y = centerScale;
+                TJAPlayer3.Tx.SongSelect_Bar_Select.t2D拡大率考慮中央基準描画(960, 540, new Rectangle(0, barSelect_height + height, barSelect_width, height));
+
+                TJAPlayer3.Tx.SongSelect_Bar_Select.vcScaleRatio.Y = 1.0f;
+                TJAPlayer3.Tx.SongSelect_Bar_Select.t2D拡大率考慮上中央基準描画(960, 540 + (height * centerScale / 2.0f), new Rectangle(0, barSelect_height + height * 3, barSelect_width, height));
+
+                #endregion
 
                 #region [ BarFlash ]
 
@@ -1718,10 +1765,11 @@ namespace TJAPlayer3
 							int x = TJAPlayer3.Skin.SongSelect_Bar_X[barCenterNum] + TJAPlayer3.Skin.SongSelect_RegularCrowns_Offset_X[i];
 							int y = TJAPlayer3.Skin.SongSelect_Bar_Y[barCenterNum] + TJAPlayer3.Skin.SongSelect_RegularCrowns_Offset_Y[i];
 
-							displayRegularCrowns((int)(x - centerMoveX / 1.1f), (int)(y - centerMove / 1.1f), クリア, スコアランク, 0.75f + BarAnimeCount * 0.25f);
-							
-						}
-					}
+							displayRegularCrowns((int)(x - centerMoveX / 1.1f), (int)(y - centerMove / 1.1f), クリア, スコアランク, 0.75f + t * 0.25f);
+                            //TJAPlayer3.act文字コンソール.tPrint(400, 20, C文字コンソール.Eフォント種別.白細, t.ToString());
+
+                        }
+                    }
 
 
 					#endregion
@@ -1842,7 +1890,7 @@ namespace TJAPlayer3
 
 											bool _switchingUra = i == (int)Difficulty.Edit && omoteExists;
 
-                                            int difSelectOpacity = (_switchingUra) ? (BarAnimeCount < 1.0 ? 0 : opacity) : (int)(BarAnimeCount * 255.0f);
+                                            int difSelectOpacity = (_switchingUra) ? (BarAnimeCount < 1.0 ? 0 : opacity) : ctBarOpacityAnime.CurrentValue > 0 ? (int)((ctBarOpacityAnime.CurrentValue / 80.0f) * 170.0f) + 85 : 0; ;
 
                                             if (TJAPlayer3.Skin.SongSelect_Shorten_Frame_Fade && !_switchingUra)
 											{
@@ -1954,9 +2002,9 @@ namespace TJAPlayer3
 
 									#region [Display box parameters]
 
-									int difSelectOpacity = (int)(BarAnimeCount * 255);
+									int difSelectOpacity = ctBarOpacityAnime.CurrentValue > 0 ? (int)((ctBarOpacityAnime.CurrentValue / 80.0f) * 170.0f) + 85 : 0; ;
 
-									if (TJAPlayer3.Skin.SongSelect_Shorten_Frame_Fade)
+                                    if (TJAPlayer3.Skin.SongSelect_Shorten_Frame_Fade)
 										difSelectOpacity = 255;
 
                                     if (!ctBoxOpen.IsEnded)
@@ -2057,7 +2105,7 @@ namespace TJAPlayer3
 								}
 								else
 									if (txBoxText[j] != null)
-									this.txBoxText[j].Opacity = (int)(BarAnimeCount * 255.0f);
+									this.txBoxText[j].Opacity = ctBarOpacityAnime.CurrentValue > 0 ? (int)((ctBarOpacityAnime.CurrentValue / 80.0f) * 170.0f) + 85 : 0; ;
 
 								if (this.txBoxText[j].szTextureSize.Width >= 765)
 									this.txBoxText[j].vcScaleRatio.X = 765f / this.txBoxText[j].szTextureSize.Width;
@@ -2199,15 +2247,16 @@ namespace TJAPlayer3
 							ctBoxOpen.CurrentValue >= 1900 ? (ctBoxOpen.CurrentValue - 1900) * 2.3f : ctBoxOpen.CurrentValue <= 1100 ? 255 : 0);
                         else
 						{
-							if (!TJAPlayer3.stageSongSelect.actDifficultySelectionScreen.bIsDifficltSelect)// 曲移動したときの透明度
-								tx選択している曲のサブタイトル.Opacity = (int)(BarAnimeCount * 255.0f);
+                            if (!TJAPlayer3.stageSongSelect.actDifficultySelectionScreen.bIsDifficltSelect)// 曲移動したときの透明度
+								tx選択している曲のサブタイトル.Opacity = ctBarOpacityAnime.CurrentValue > 0 ? (int)((ctBarOpacityAnime.CurrentValue / 80.0f) * 170.0f) + 85 : 0; // tx選択している曲のサブタイトル.Opacityは85から255の間を遷移する
                             else if (ctDifficultyIn.CurrentValue >= 1000)// 難易度選択移行時の透明度
 									tx選択している曲のサブタイトル.Opacity = (int)255.0f - (ctDifficultyIn.CurrentValue - 1000);
 						} 
 
+						//TJAPlayer3.act文字コンソール.tPrint(200, 20, C文字コンソール.Eフォント種別.白細, this.ctBarOpen.CurrentValue.ToString());
 						tx選択している曲のサブタイトル.t2D拡大率考慮中央基準描画(
 							xAnime + TJAPlayer3.Skin.SongSelect_Bar_SubTitle_Offset[0] + (rCurrentlySelectedSong.eノード種別 == CSongListNode.ENodeType.BOX ? centerMoveX : centerMoveX / 1.1f), 
-							y + TJAPlayer3.Skin.SongSelect_Bar_SubTitle_Offset[1] - (rCurrentlySelectedSong.eノード種別 == CSongListNode.ENodeType.BOX ? centerMove : centerMove / 1.1f));
+							y + TJAPlayer3.Skin.SongSelect_Bar_SubTitle_Offset[1] - (rCurrentlySelectedSong.eノード種別 == CSongListNode.ENodeType.BOX ? TJAPlayer3.Skin.SongSelect_Bar_Center_Move : TJAPlayer3.Skin.SongSelect_Bar_Center_Move / 1.1f));
 						
 						if (this.ttk選択している曲の曲名 != null)
 						{
@@ -2563,8 +2612,10 @@ namespace TJAPlayer3
 		public CCounter ctBoxOpen;
 		public bool bBoxOpen;
 		public bool bBoxClose;
+        public CCounter ctBarOpacityAnime;
+        public CCounter ctSelectFadeAnime;
 
-		public bool b選択曲が変更された = true;
+        public bool b選択曲が変更された = true;
 		private bool b登場アニメ全部完了;
 		private CCounter[] ct登場アニメ用 = new CCounter[ 13 ];
         private CCounter ct三角矢印アニメ;
