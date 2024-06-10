@@ -6,6 +6,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace TJAPlayer3
 {
@@ -31,6 +32,7 @@ namespace TJAPlayer3
         public void tEarnCoins(int amount)
         {
             data.Medals += amount;
+            data.Medals = Math.Min(data.Medals, 999);
             tSaveFile();
         }
 
