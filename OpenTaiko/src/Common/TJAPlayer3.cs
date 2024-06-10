@@ -2393,7 +2393,9 @@ for (int i = 0; i < 3; i++) {
 				Sound管理?.t再生中の処理をする();	// サウンドバッファの更新; 画面描画と同期させることで、スクロールをスムーズにする
 			}
 			*/
-			if(TJAPlayer3.InputManager.Keyboard.KeyPressing((int)SlimDXKeys.Key.LeftAlt) && TJAPlayer3.InputManager.Keyboard.KeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.InputManager.Keyboard.KeyPressed((int)SlimDXKeys.Key.LeftAlt) && TJAPlayer3.InputManager.Keyboard.KeyPressing((int)SlimDXKeys.Key.Return))
+			if(TJAPlayer3.InputManager.Keyboard.KeyPressing((int)SlimDXKeys.Key.LeftAlt) && TJAPlayer3.InputManager.Keyboard.KeyPressed((int)SlimDXKeys.Key.Return) 
+			   || TJAPlayer3.InputManager.Keyboard.KeyPressed((int)SlimDXKeys.Key.LeftAlt) && TJAPlayer3.InputManager.Keyboard.KeyPressing((int)SlimDXKeys.Key.Return)
+               || TJAPlayer3.InputManager.Keyboard.KeyPressed((int)SlimDXKeys.Key.F11))
 			{
 				ConfigIni.b全画面モード = !ConfigIni.b全画面モード;
 
