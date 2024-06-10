@@ -379,7 +379,7 @@ namespace TJAPlayer3
                     NowBgColor = rNowSelectedSong.BgColor;
                 }
 
-                TJAPlayer3.stageSongSelect.NowGenre = this.rNowSelectedSong.strジャンル;
+                //TJAPlayer3.stageSongSelect.NowGenre = this.rNowSelectedSong.strジャンル;
 
 
                 AI_Background = new ScriptBG(CSkin.Path($@"{TextureLoader.BASE}{TextureLoader.SONGSELECT}{Path.DirectorySeparatorChar}AIBattle{Path.DirectorySeparatorChar}Script.lua"));
@@ -1152,7 +1152,7 @@ namespace TJAPlayer3
 
                             if (this.n現在選択中の曲の難易度 <= (int)Difficulty.Edit)
                             {
-                                CTexture __tex = (TJAPlayer3.Tx.SongSelect_Difficulty_Cymbol == null) ? TJAPlayer3.Tx.Dani_Difficulty_Cymbol : TJAPlayer3.Tx.SongSelect_Difficulty_Cymbol;
+                                CTexture __tex = TJAPlayer3.Tx.SongSelect_High_Score_Mark;
                                 int width = __tex.sz画像サイズ.Width / 5;
                                 int height = __tex.sz画像サイズ.Height;
 
@@ -1162,7 +1162,7 @@ namespace TJAPlayer3
                                     new Rectangle(table * width, 0, width, height));
                             }
 
-                            tBoardNumberDraw(TJAPlayer3.Skin.SongSelect_BoardNumber_X[i][11], TJAPlayer3.Skin.SongSelect_BoardNumber_Y[i][11], displayedScore);
+                            tHighScoreNumberDraw(TJAPlayer3.Skin.SongSelect_BoardNumber_X[i][11], TJAPlayer3.Skin.SongSelect_BoardNumber_Y[i][11], displayedScore);
                         }
 
                     }
@@ -1513,6 +1513,29 @@ namespace TJAPlayer3
                 float height = TJAPlayer3.Tx.SongSelect_BoardNumber.sz画像サイズ.Height;
 
                 TJAPlayer3.Tx.SongSelect_BoardNumber.t2D描画(_x, _y, new RectangleF(width * nums[j], 0, width, height));
+            }
+        }
+
+        public void tHighScoreNumberDraw(int x, int y, int num)
+        {
+            int[] nums = CConversion.SeparateDigits(num);
+
+            // 数字全体の幅を計算
+            float totalWidth = TJAPlayer3.Skin.SongSelect_HighScoreNumber_Interval * (nums.Length - 1);
+
+            // 右端から左に向かって描画するように開始位置を設定
+            float startX = x - totalWidth;
+
+            for (int j = nums.Length - 1; j >= 0; j--)
+            {
+                float offset = (nums.Length - 1 - j);
+                float _x = startX + (TJAPlayer3.Skin.SongSelect_HighScoreNumber_Interval * offset);
+                float _y = y;
+
+                float width = TJAPlayer3.Tx.SongSelect_High_Score_Number.sz画像サイズ.Width / 10.0f;
+                float height = TJAPlayer3.Tx.SongSelect_High_Score_Number.sz画像サイズ.Height;
+
+                TJAPlayer3.Tx.SongSelect_High_Score_Number.t2D描画(_x, _y, new RectangleF(width * nums[j], 0, width, height));
             }
         }
 

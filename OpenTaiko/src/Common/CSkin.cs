@@ -2701,6 +2701,11 @@ namespace TJAPlayer3
                                     }
                                     break;
                                 }
+                                case "SongSelect_HighScoreNumber_Interval":
+                                {
+                                    SongSelect_HighScoreNumber_Interval = int.Parse(strParam);
+                                    break;
+                                }
                                 case "SongSelect_BoardNumber_1P_X":
                                 {
                                     string[] strSplit = strParam.Split(',');
@@ -9989,6 +9994,7 @@ namespace TJAPlayer3
 
         public int[] SongSelect_High_Score_X = new int[] { 124, 1158, 304, 978, 484 };
         public int[] SongSelect_High_Score_Y = new int[] { 416, 416, 212, 212, 416 };
+        public int SongSelect_HighScoreNumber_Interval = 14;
 
         public int[] SongSelect_High_Score_Difficulty_Cymbol_X = new int[] { 46, 1080, 226, 900, 406 };
         public int[] SongSelect_High_Score_Difficulty_Cymbol_Y = new int[] { 418, 418, 214, 214, 418 };
