@@ -37,7 +37,7 @@ namespace TJAPlayer3
 					//this.ct再生待ちウェイト = new CCounter( 0, CDTXMania.ConfigIni.n曲が選択されてからプレビュー音が鳴るまでのウェイトms, 1, CDTXMania.Timer );
                     if(TJAPlayer3.SoundManager.GetCurrentSoundDeviceType() != "DirectSound")
                     {
-                        this.ct再生待ちウェイト = new CCounter(0, 1, 270, TJAPlayer3.Timer);
+                        this.ct再生待ちウェイト = new CCounter(0, 2, 260, TJAPlayer3.Timer);
                     } else
                     {
                         this.ct再生待ちウェイト = new CCounter(0, 1, 500, TJAPlayer3.Timer);

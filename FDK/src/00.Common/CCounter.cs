@@ -286,7 +286,7 @@ namespace FDK
 
                     case later:
 
-                        if ((this.NormalTimer.NowTime - this.NowTime) > 30)
+                        if ((this.NormalTimer.NowTime - this.NowTime) > 80)
                         {
                             keyProcess();
                             this.NowTime = this.NormalTimer.NowTime;

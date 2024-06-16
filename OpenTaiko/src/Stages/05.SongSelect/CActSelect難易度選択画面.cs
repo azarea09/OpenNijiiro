@@ -279,7 +279,8 @@ namespace TJAPlayer3
                             if (n現在の選択行[i] == 0)
                             {
                                 TJAPlayer3.Skin.soundDecideSFX.tPlay();
-                                TJAPlayer3.stageSongSelect.actSongList.ctBarOpen.Start(100, 260, 2, TJAPlayer3.Timer);
+                                TJAPlayer3.stageSongSelect.actSongList.ctBarFlash.CurrentValue = (int)TJAPlayer3.stageSongSelect.actSongList.ctBarFlash.EndValue;
+                                TJAPlayer3.stageSongSelect.actSongList.ctBarOpen.Start(200, 330, 2, TJAPlayer3.Timer);
                                 this.bIsDifficltSelect = false;
                             }
                             else if (n現在の選択行[i] == 1)
@@ -356,7 +357,8 @@ namespace TJAPlayer3
                         if (cancel)
                         {
                             TJAPlayer3.Skin.soundDecideSFX.tPlay();
-                            TJAPlayer3.stageSongSelect.actSongList.ctBarOpen.Start(100, 260, 2, TJAPlayer3.Timer);
+                            TJAPlayer3.stageSongSelect.actSongList.ctBarFlash.CurrentValue = (int)TJAPlayer3.stageSongSelect.actSongList.ctBarFlash.EndValue;
+                            TJAPlayer3.stageSongSelect.actSongList.ctBarOpen.Start(200, 330, 2, TJAPlayer3.Timer);
                             this.bIsDifficltSelect = false;
                         }
                     }

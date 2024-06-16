@@ -546,7 +546,7 @@ namespace TJAPlayer3
 
 				{
 					TJAPlayer3.stageSongSelect.tNotifySelectedSongChange();      // スクロール完了＝選択曲変更！
-					ctBarOpen.Start(0, 260, 2, TJAPlayer3.Timer);
+					ctBarOpen.Start(0, 330, 2, TJAPlayer3.Timer);
 
 					TJAPlayer3.stageSongSelect.NowGenre = this.rCurrentlySelectedSong.strジャンル;
 
@@ -684,7 +684,7 @@ namespace TJAPlayer3
 				this.ttk選択している曲のサブタイトル = null;
 
 				TJAPlayer3.stageSongSelect.tNotifySelectedSongChange();      // スクロール完了＝選択曲変更！
-				ctBarOpen.Start(0, 260, 2, TJAPlayer3.Timer);
+				ctBarOpen.Start(0, 330, 2, TJAPlayer3.Timer);
 				TJAPlayer3.stageSongSelect.NowGenre = this.rCurrentlySelectedSong.strジャンル;
 				TJAPlayer3.stageSongSelect.NowBg = this.rCurrentlySelectedSong.BgType;
 				TJAPlayer3.stageSongSelect.NowBgColor = this.rCurrentlySelectedSong.BgColor;
@@ -1123,7 +1123,7 @@ namespace TJAPlayer3
 			{
 				TJAPlayer3.stageSongSelect.tNotifySelectedSongChange();
 
-				ctBarOpen.Start(0, 260, 2, TJAPlayer3.Timer);
+				ctBarOpen.Start(0, 330, 2, TJAPlayer3.Timer);
 				this.ct三角矢印アニメ.Start(0, 1000, 1, TJAPlayer3.Timer);
                 this.ctSelectFadeAnime.Start(0, 1000, 1, TJAPlayer3.Timer);
                 base.IsFirstDraw = false;
@@ -1138,19 +1138,18 @@ namespace TJAPlayer3
             ctBarOpacityAnime.Tick();
             ctSelectFadeAnime.TickLoop();
 
-            // 200から235の間で0から1になる
-            float t = this.ctBarOpen.CurrentValue >= 200 ? Math.Min((this.ctBarOpen.CurrentValue - 200) / 35.0f, 1.0f) : 0.0f;
+            float t = this.ctBarOpen.CurrentValue >= 270 ? Math.Min((this.ctBarOpen.CurrentValue - 270) / 36.0f, 1.0f) : 0.0f;
 
-            float BarAnimeCount = this.ctBarOpen.CurrentValue <= 200 ? 0 : (float)Math.Sin(((this.ctBarOpen.CurrentValue - 200) * 1.5f) * (Math.PI / 180));
-            int centerMove = (int)(this.ctBarOpen.CurrentValue <= 200 ? 0 : t * TJAPlayer3.Skin.SongSelect_Bar_Center_Move);
+            float BarAnimeCount = this.ctBarOpen.CurrentValue <= 270 ? 0 : (float)Math.Sin(((this.ctBarOpen.CurrentValue - 270) * 1.5f) * (Math.PI / 180));
+            int centerMove = (int)(this.ctBarOpen.CurrentValue <= 270 ? 0 : t * TJAPlayer3.Skin.SongSelect_Bar_Center_Move);
 			int centerMoveX = (int)(BarAnimeCount * TJAPlayer3.Skin.SongSelect_Bar_Center_Move_X);
-            int centerSelectMove = (int)(this.ctBarOpen.CurrentValue <= 200 ? 0 : t * 97);
+            int centerSelectMove = (int)(this.ctBarOpen.CurrentValue <= 270 ? 0 : t * 97);
 
             if (BarAnimeCount == 1.0)
 				ctScoreFrameAnime.TickLoop();
 
 			// サブタイトルと難易度表示のフェードイン
-			if (this.ctBarOpen.CurrentValue <= 235)
+			if (this.ctBarOpen.CurrentValue <= 315)
                 ctBarOpacityAnime.Start(0, 80, 1, TJAPlayer3.Timer);
 
             // まだ選択中の曲が決まってなければ、曲ツリールートの最初の曲にセットする。
@@ -1622,13 +1621,13 @@ namespace TJAPlayer3
 
 
                 TJAPlayer3.Tx.SongSelect_Bar_Select.vcScaleRatio.Y = 1.0f;
-                TJAPlayer3.Tx.SongSelect_Bar_Select.t2D拡大率考慮下中心基準描画(960, 540 - (height * centerScale / 2.0f), new Rectangle(0, 0, barSelect_width, height));
+                TJAPlayer3.Tx.SongSelect_Bar_Select.t2D拡大率考慮下中心基準描画(960, 541 - (height * centerScale / 2.0f), new Rectangle(0, 0, barSelect_width, height));
 
                 TJAPlayer3.Tx.SongSelect_Bar_Select.vcScaleRatio.Y = centerScale;
-                TJAPlayer3.Tx.SongSelect_Bar_Select.t2D拡大率考慮中央基準描画(960, 540, new Rectangle(0, height, barSelect_width, height));
+                TJAPlayer3.Tx.SongSelect_Bar_Select.t2D拡大率考慮中央基準描画(960, 541, new Rectangle(0, height, barSelect_width, height));
 
                 TJAPlayer3.Tx.SongSelect_Bar_Select.vcScaleRatio.Y = 1.0f;
-                TJAPlayer3.Tx.SongSelect_Bar_Select.t2D拡大率考慮上中央基準描画(960, 540 + (height * centerScale / 2.0f), new Rectangle(0, height * 3, barSelect_width, height));
+                TJAPlayer3.Tx.SongSelect_Bar_Select.t2D拡大率考慮上中央基準描画(960, 541 + (height * centerScale / 2.0f), new Rectangle(0, height * 3, barSelect_width, height));
 
                 //TJAPlayer3.Tx.SongSelect_Bar_Select.t2D描画(TJAPlayer3.Skin.SongSelect_Bar_Select[0], TJAPlayer3.Skin.SongSelect_Bar_Select[1], new Rectangle(0, 0, barSelect_width, barSelect_height));
 
