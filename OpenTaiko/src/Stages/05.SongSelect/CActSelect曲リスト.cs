@@ -3335,11 +3335,11 @@ namespace TJAPlayer3
 
 		private TitleTextureKey ttk曲名テクスチャを生成する( string str文字, Color forecolor, Color backcolor, CCachedFontRenderer pf)
         {
-            return new TitleTextureKey(str文字, pf, forecolor, backcolor, TJAPlayer3.Skin.SongSelect_Title_MaxSize, 30);
+            return new TitleTextureKey(str文字, pf, forecolor, backcolor, TJAPlayer3.Skin.SongSelect_Title_MaxSize, pf == pfBoxName ? 29 : 32);
         }
         private TitleTextureKey ttkサブタイトルテクスチャを生成する(string str文字, Color forecolor, Color backcolor)
         {
-            return new TitleTextureKey(str文字, pfSubtitle, forecolor, backcolor, TJAPlayer3.Skin.SongSelect_SubTitle_MaxSize, 24);
+            return new TitleTextureKey(str文字, pfSubtitle, forecolor, backcolor, TJAPlayer3.Skin.SongSelect_SubTitle_MaxSize, 46);
         }
 
 		private TitleTextureKey ttkGenerateMakerTexture(string str文字, Color forecolor, Color backcolor)

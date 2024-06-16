@@ -118,8 +118,8 @@ namespace TJAPlayer3
 
 		public void t選択画面初期化()
         {
-            this.txTitle = TJAPlayer3.tテクスチャの生成(pfTitle.DrawText(TJAPlayer3.stageSongSelect.rNowSelectedSong.strタイトル, Color.White, Color.Black, null, 30 ));
-            this.txSubTitle = TJAPlayer3.tテクスチャの生成(pfSubTitle.DrawText(TJAPlayer3.stageSongSelect.rNowSelectedSong.strサブタイトル, Color.White, Color.Black, null, 30));
+            this.txTitle = TJAPlayer3.tテクスチャの生成(pfTitle.DrawText(TJAPlayer3.stageSongSelect.rNowSelectedSong.strタイトル, Color.White, Color.Black, null, 32 ));
+            this.txSubTitle = TJAPlayer3.tテクスチャの生成(pfSubTitle.DrawText(TJAPlayer3.stageSongSelect.rNowSelectedSong.strサブタイトル, Color.White, Color.Black, null, 46));
             
             this.n現在の選択行 = new int[5];
             this.bSelect[0] = false;
@@ -163,7 +163,7 @@ namespace TJAPlayer3
 		public override void CreateManagedResource()
 		{
             this.pfTitle = HPrivateFastFont.tInstantiateMainFont(TJAPlayer3.Skin.SongSelect_Difficulty_Select_Title_Scale);
-            this.pfSubTitle = HPrivateFastFont.tInstantiateMainFont(TJAPlayer3.Skin.SongSelect_Difficulty_Select_Subtitle_Scale);
+            this.pfSubTitle = HPrivateFastFont.tInstantiateSubTitleFont(TJAPlayer3.Skin.SongSelect_Difficulty_Select_Subtitle_Scale);
 
             // this.soundSelectAnnounce = TJAPlayer3.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds{Path.DirectorySeparatorChar}DiffSelect.ogg" ), ESoundGroup.SoundEffect );
 

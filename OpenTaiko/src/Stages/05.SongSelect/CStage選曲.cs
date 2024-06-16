@@ -1070,6 +1070,7 @@ namespace TJAPlayer3
                     defaultTable };
 
                 //int currentPad = (int)Difficulty.Edit + 1;
+                /*
                 if (TJAPlayer3.stageSongSelect.actDifficultySelectionScreen.bIsDifficltSelect)
                 {
                     if (TJAPlayer3.stageSongSelect.actDifficultySelectionScreen.n現在の選択行[0] >= 2)
@@ -1083,7 +1084,7 @@ namespace TJAPlayer3
                     if (TJAPlayer3.ConfigIni.nPlayerCount > 1 && TJAPlayer3.stageSongSelect.actDifficultySelectionScreen.n現在の選択行[4] >= 2)
                         currentPads[4] = TJAPlayer3.stageSongSelect.actDifficultySelectionScreen.n現在の選択行[4] - 2;
                 }
-
+                */
 
 
                 for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
@@ -1134,6 +1135,12 @@ namespace TJAPlayer3
                         var closest = this.actSongList.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(song);
                         var score = song.arスコア[closest];
 
+                        int nDefaultCourse = TJAPlayer3.ConfigIni.nDefaultCourse;
+
+                        // tabelが裏表だった場合裏があるかどうかに応じて選択する
+                        if (nDefaultCourse == 5)
+                            nDefaultCourse = song.arスコア[4] != null ? (int)Difficulty.Edit : (int)Difficulty.Oni;
+
                         if (score != null)
                         {
                             int displayedScore = 0;
@@ -1143,10 +1150,8 @@ namespace TJAPlayer3
 
                             if (this.n現在選択中の曲の難易度 > (int)Difficulty.Edit)
                                 table = 0;
-                            else if (currentPads[i] <= (int)Difficulty.Edit)
-                                table = currentPads[i];
                             else
-                                table = closest;
+                                table = nDefaultCourse;
 
                             displayedScore = score.GPInfo[p].nHighScore[table];
 

@@ -97,7 +97,7 @@ namespace TJAPlayer3
             }
 
             txTitle[player] = TJAPlayer3.stageSongSelect.actSongList.ResolveTitleTexture(new TitleTextureKey(title, pfTitle, Color.Black, Color.Empty, 1000), false, true);
-            txName[player] = TJAPlayer3.stageSongSelect.actSongList.ResolveTitleTexture(new TitleTextureKey(name, pfName[player], Color.White, Color.Black, 1000));
+            txName[player] = TJAPlayer3.stageSongSelect.actSongList.ResolveTitleTexture(new TitleTextureKey(name, pfName[player], Color.White, Color.Black, 1000, 50));
         }
 
 
@@ -227,10 +227,10 @@ namespace TJAPlayer3
             // Title text
             if (TJAPlayer3.SaveFileInstances[player].data.Title != "" && TJAPlayer3.SaveFileInstances[player].data.Title != null)
             {
-                if (txTitle[player].szTextureSize.Height > 50 || txTitle[player].szTextureSize.Width > TJAPlayer3.Skin.NamePlate_Title_Width)
+                if (txTitle[player].szTextureSize.Width > TJAPlayer3.Skin.NamePlate_Title_Width)
                 {
-                    txTitle[player].vcScaleRatio.X = Math.Min(50f / txTitle[player].szTextureSize.Height, (float)TJAPlayer3.Skin.NamePlate_Title_Width / txTitle[player].szTextureSize.Width);
-                    txTitle[player].vcScaleRatio.Y = Math.Min(50f / txTitle[player].szTextureSize.Height, (float)TJAPlayer3.Skin.NamePlate_Title_Width / txTitle[player].szTextureSize.Width);
+                    txTitle[player].vcScaleRatio.X = (float)(TJAPlayer3.Skin.NamePlate_Title_Width - 30) / txTitle[player].szTextureSize.Width;
+                    txTitle[player].vcScaleRatio.Y = (float)(TJAPlayer3.Skin.NamePlate_Title_Width - 30) / txTitle[player].szTextureSize.Width;
                 }
 
                 // ベースラインをはみ出す文字の場合は調整する
@@ -240,10 +240,7 @@ namespace TJAPlayer3
                 }
                 else
                 {
-                    //なぜかy軸方向にずれるためrectangleを高さ30に制限(やりたいことは下中心基準で描画したいだけだがなぜかそのまま下中心基準を使うとうまくいかないので、めんどくさいやり方でやってる)
-                    txTitle[player].t2D拡大率考慮下基準描画(x + TJAPlayer3.Skin.NamePlate_Title_Offset[0] - (txTitle[player].szTextureSize.Width / 2 * txTitle[player].vcScaleRatio.X),
-                        txTitle[player].vcScaleRatio.X < 0.6f ? y + TJAPlayer3.Skin.NamePlate_Title_Offset[1] - 2 
-                        : y + TJAPlayer3.Skin.NamePlate_Title_Offset[1], new Rectangle(0, 0, txTitle[player].szTextureSize.Width, 40));
+                    txTitle[player].t2D拡大率考慮中央基準描画(x + TJAPlayer3.Skin.NamePlate_Title_Offset[0], txTitle[player].szTextureSize.Width > TJAPlayer3.Skin.NamePlate_Title_Width ? y + TJAPlayer3.Skin.NamePlate_Title_Offset[1] - 3 : y + TJAPlayer3.Skin.NamePlate_Title_Offset[1]);
                 }
 
                 // Name text
