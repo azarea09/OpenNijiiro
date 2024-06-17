@@ -252,10 +252,7 @@ namespace TJAPlayer3
             SongSelect_Background = TxC(SONGSELECT + @$"Background.png");
             SongSelect_Header = TxC(SONGSELECT + @$"Header.png");
             SongSelect_Footer = TxC(SONGSELECT + @$"Footer.png");
-            SongSelect_Coin_Slot[0] = TxC(SONGSELECT + @$"Coin_Slot.png");
-            SongSelect_Coin_Slot[1] = TxC(SONGSELECT + @$"Coin_Slot_3P.png");
-            SongSelect_Coin_Slot[2] = TxC(SONGSELECT + @$"Coin_Slot_4P.png");
-            SongSelect_Coin_Slot[3] = TxC(SONGSELECT + @$"Coin_Slot_5P.png");
+            SongSelect_DonMedal = TxC(SONGSELECT + @$"DonMedal.png");
 
             SongSelect_Auto = TxC(SONGSELECT + @$"Auto.png");
             SongSelect_Level = TxC(SONGSELECT + @$"Level.png");
@@ -2687,6 +2684,7 @@ namespace TJAPlayer3
             SongSelect_High_Score,
             SongSelect_High_Score_Mark,
             SongSelect_High_Score_Number,
+            SongSelect_DonMedal,
 
             SongSelect_Level_Icons,
             SongSelect_Search_Arrow,
@@ -2703,7 +2701,6 @@ namespace TJAPlayer3
             SongSelect_Frame_Score = new CTexture[3],
             SongSelect_NamePlate = new CTexture[1],
             SongSelect_Song_Panel = new CTexture[6],
-            SongSelect_Coin_Slot = new CTexture[4],
             SongSelect_Table = new CTexture[6];
 
         #region [ 難易度選択画面 ]

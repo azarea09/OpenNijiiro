@@ -1086,7 +1086,7 @@ namespace TJAPlayer3
                 }
                 */
 
-
+                //王冠スコアボード
                 for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
                 {
                     if (TJAPlayer3.ConfigIni.bAIBattleMode && i == 1) break;
@@ -1107,24 +1107,32 @@ namespace TJAPlayer3
 
                 }
 
-                if (TJAPlayer3.ConfigIni.nPlayerCount <= 2)
-                {
-                    TJAPlayer3.Tx.SongSelect_Coin_Slot[0]?.t2D描画(0, 0,
-                        new Rectangle(0, 0, (TJAPlayer3.Tx.SongSelect_Coin_Slot[0].sz画像サイズ.Width / 2) + ((TJAPlayer3.ConfigIni.nPlayerCount > 1 && !TJAPlayer3.ConfigIni.bAIBattleMode) ? (TJAPlayer3.Tx.SongSelect_Coin_Slot[0].sz画像サイズ.Width / 2) : 0), TJAPlayer3.Tx.SongSelect_Coin_Slot[0].sz画像サイズ.Height));
-                }
-                else
-                {
-                    TJAPlayer3.Tx.SongSelect_Coin_Slot[TJAPlayer3.ConfigIni.nPlayerCount - 2]?.t2D描画(0, 0);
-                }
+                //ドンメダル
+                int donMedalSeason = 1; //ドンメダルの季節（春 0, 夏 1, 秋 2, 冬 3）
+                int donMedalWidth = TJAPlayer3.Tx.SongSelect_DonMedal.szTextureSize.Width;
+                int donMedalHeight = TJAPlayer3.Tx.SongSelect_DonMedal.szTextureSize.Height / 4;
 
                 for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
                 {
+                    //AIドンだった場合描画しない
                     if (TJAPlayer3.ConfigIni.bAIBattleMode && i == 1) break;
 
+                    TJAPlayer3.Tx.SongSelect_DonMedal?.t2D描画(TJAPlayer3.Skin.SongSelect_DonMedal_X[i], TJAPlayer3.Skin.SongSelect_DonMedal_Y[i], new Rectangle(0, donMedalHeight * donMedalSeason, donMedalWidth, donMedalHeight));
+
+                    //数字の描画
                     int p = TJAPlayer3.GetActualPlayer(i);
 
                     if (TJAPlayer3.SaveFileInstances[p].data.Medals >= 0)
-                        tBoardNumberDraw(TJAPlayer3.Skin.SongSelect_BoardNumber_X[i][10], TJAPlayer3.Skin.SongSelect_BoardNumber_Y[i][10], TJAPlayer3.SaveFileInstances[p].data.Medals);
+                        tHighScoreNumberDraw(TJAPlayer3.Skin.SongSelect_BoardNumber_X[i][10], TJAPlayer3.Skin.SongSelect_BoardNumber_Y[i][10], TJAPlayer3.SaveFileInstances[p].data.Medals);
+                }
+
+                //ハイスコア
+                for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+                {
+                    //AIドンだった場合描画しない
+                    if (TJAPlayer3.ConfigIni.bAIBattleMode && i == 1) break;
+
+                    int p = TJAPlayer3.GetActualPlayer(i);
 
                     #region [HiScore plate]
 
@@ -1167,6 +1175,7 @@ namespace TJAPlayer3
                                     new Rectangle(table * width, 0, width, height));
                             }
 
+                            //数字の描画
                             tHighScoreNumberDraw(TJAPlayer3.Skin.SongSelect_BoardNumber_X[i][11], TJAPlayer3.Skin.SongSelect_BoardNumber_Y[i][11], displayedScore);
                         }
 

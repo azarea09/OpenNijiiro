@@ -2805,6 +2805,24 @@ namespace TJAPlayer3
                                     }
                                     break;
                                 }
+                                case "SongSelect_DonMedal_X":
+                                    {
+                                        string[] strSplit = strParam.Split(',');
+                                        for (int i = 0; i < 5; i++)
+                                        {
+                                            SongSelect_DonMedal_X[i] = int.Parse(strSplit[i]);
+                                        }
+                                        break;
+                                    }
+                                case "SongSelect_DonMedal_Y":
+                                    {
+                                        string[] strSplit = strParam.Split(',');
+                                        for (int i = 0; i < 5; i++)
+                                        {
+                                            SongSelect_DonMedal_Y[i] = int.Parse(strSplit[i]);
+                                        }
+                                        break;
+                                    }
                                 case "SongSelect_SongNumber_X":
                                 {
                                     string[] strSplit = strParam.Split(',');
@@ -9995,6 +10013,9 @@ namespace TJAPlayer3
         public int[] SongSelect_High_Score_X = new int[] { 124, 1158, 304, 978, 484 };
         public int[] SongSelect_High_Score_Y = new int[] { 416, 416, 212, 212, 416 };
         public int SongSelect_HighScoreNumber_Interval = 14;
+
+        public int[] SongSelect_DonMedal_X = new int[] { 22, 1158, 304, 978, 484 };
+        public int[] SongSelect_DonMedal_Y = new int[] { 501, 416, 212, 212, 416 };
 
         public int[] SongSelect_High_Score_Difficulty_Cymbol_X = new int[] { 46, 1080, 226, 900, 406 };
         public int[] SongSelect_High_Score_Difficulty_Cymbol_Y = new int[] { 418, 418, 214, 214, 418 };
